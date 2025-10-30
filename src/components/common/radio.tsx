@@ -9,27 +9,25 @@ function App() {
 
       {/* 첫 번째 버튼 */}
       <label className="flex items-center gap-3 cursor-pointer">
-        <input
-          type="radio"
-          name="group"
-          value="option1"
-          className="appearance-none w-6 h-6 rounded-full border-2 border-gray-400 checked:border-green-400 checked:bg-green-400 transition-colors"
-          checked={selected === "option1"}
-          onChange={() => setSelected("option1")}
-        />
+        <div
+          onClick={() => setSelected("option1")}
+          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors
+            ${selected === "option1" ? "border-green-400" : "border-gray-400"}`}
+        >
+          {selected === "option1" && <div className="w-3 h-3 rounded-full bg-green-400"></div>}
+        </div>
         <span className="text-sm font-medium text-gray-800">옵션 1</span>
       </label>
 
       {/* 두 번째 버튼 */}
       <label className="flex items-center gap-3 cursor-pointer">
-        <input
-          type="radio"
-          name="group"
-          value="option2"
-          className="appearance-none w-6 h-6 rounded-full border-2 border-gray-400 checked:border-green-400 checked:bg-green-400 transition-colors"
-          checked={selected === "option2"}
-          onChange={() => setSelected("option2")}
-        />
+        <div
+          onClick={() => setSelected("option2")}
+          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors
+            ${selected === "option2" ? "border-green-400" : "border-gray-400"}`}
+        >
+          {selected === "option2" && <div className="w-3 h-3 rounded-full bg-green-400"></div>}
+        </div>
         <span className="text-sm font-medium text-gray-800">옵션 2</span>
       </label>
     </div>
