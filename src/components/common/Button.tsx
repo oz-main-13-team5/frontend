@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "../../libs/utils";
+import { cn } from "@/libs/utils";
 
 const buttonVariants = cva("rounded-lg transition-colors focus:outline-none disabled:saturate-50", {
   variants: {
