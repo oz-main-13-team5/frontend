@@ -18,7 +18,7 @@ const buttonVariants = cva("rounded-lg transition-colors focus:outline-none disa
     size: {
       sm: "px-4 py-1 text-sm",
       md: "px-6 py-2 text-base",
-      lg: "px-6 py-3 text-xl",
+      lg: "px-6 py-3 text-lg",
     },
   },
   defaultVariants: {
