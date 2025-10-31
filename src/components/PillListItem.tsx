@@ -1,5 +1,6 @@
+import Bookmark from "@/components/common/Bookmark";
 import { cn } from "@/libs/utils";
-import { BookmarkIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import { Link } from "react-router";
 
 //임시 약 인터페이스. (추후 실제 api와 동일하게 설계)
@@ -39,9 +40,7 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
             </span>
             <ChevronRightIcon className="h-6 w-6 text-neutral-400" />
           </Link>
-          <button className="flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14">
-            <BookmarkIcon className="text-green-600" />
-          </button>
+          <Bookmark />
         </div>
         <span className="text-lg text-neutral-600">{description}</span>
       </div>
