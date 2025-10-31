@@ -1,5 +1,5 @@
-import LoggedInHeaderMenu from "@/components/common/header/LoggedInHeaderMenu";
-import UnLoggedInHeaderMenu from "@/components/common/header/UnLoggedInHeaderMenu";
+import LoggedInHeaderMenu from "@/components/header/LoggedInHeaderMenu";
+import UnLoggedInHeaderMenu from "@/components/header/UnLoggedInHeaderMenu";
 import { useState } from "react";
 import { Link } from "react-router";
 
