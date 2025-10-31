@@ -1,15 +1,26 @@
+import { cn } from "@/libs/utils";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router";
 
-export default function SideNavigation() {
+interface SideNavigationProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export default function SideNavigation({ isOpen, onClose }: SideNavigationProps) {
   return (
-    <aside className="block h-dvh sm:hidden">
+    <aside
+      className={cn(
+        "fixed top-0 right-0 z-100 h-dvh w-full bg-neutral-50 transition-transform duration-300 ease-in-out sm:hidden",
+        isOpen ? "translate-x-0" : "translate-x-full"
+      )}
+    >
       <header className="p-3">
         <h2 className="sr-only">사이드 메뉴</h2>
         <button
           className="inline-flex h-10 w-10 items-center justify-center text-green-600"
           aria-label="닫기"
-          // TODO: 닫기 동작 시 onClose 실행 예정
+          onClick={onClose}
         >
           <ChevronLeft />
         </button>
