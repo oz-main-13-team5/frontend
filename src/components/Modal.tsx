@@ -1,4 +1,6 @@
 import Button from "@/components/common/Button";
+import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+
 import { cn } from "@/libs/utils";
 import { XIcon } from "lucide-react";
 
@@ -34,6 +36,8 @@ export default function Modal({
   onCancel,
   onConfirm,
 }: ModalProps) {
+  useBodyScrollLock(isOpen); // 모달 열림 시 body 스크롤 잠금 훅
+
   if (!isOpen) return null;
 
   return (
