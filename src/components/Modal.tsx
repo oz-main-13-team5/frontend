@@ -49,7 +49,7 @@ export default function Modal({
         </div>
         <h1 className="pb-9 text-2xl font-medium text-neutral-900">{title}</h1>
         <p className="text-base text-neutral-900">{description}</p>
-        <div className="flex justify-end gap-2 pt-10 sm:pt-5">{children}</div>
+        {children}
       </div>
     </div>
   );
