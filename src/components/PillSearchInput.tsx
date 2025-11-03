@@ -1,6 +1,8 @@
+import ImageSearchBarModal from "@/components/image-search-bar-modal/ImageSearchBarModal";
+import Modal from "@/components/Modal";
 import { cn } from "@/libs/utils";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 interface PillSearchInputProps {
   className?: string;
@@ -14,6 +16,8 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
   };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <form
@@ -30,9 +34,26 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
       />
 
       {/* //TODO: 이미지 아이콘 클릭 시 이미지 검색 모달 열기 */}
-      <ImageIcon className={ICON_CLASS_NAME} />
+      <button
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+        className="cursor-pointer"
+      >
+        <ImageIcon className={ICON_CLASS_NAME} />
+      </button>
+
       {/* //TODO: 카메라 아이콘 클릭 시 기기 카메라 열기 */}
       <CameraIcon className={ICON_CLASS_NAME} />
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+        }}
+      >
+        <ImageSearchBarModal />
+      </Modal>
     </form>
   );
 }

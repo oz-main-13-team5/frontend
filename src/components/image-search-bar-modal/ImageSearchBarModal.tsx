@@ -5,7 +5,7 @@ interface ImageSearchBarModalProps {}
 
 export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
   return (
-    <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-5 rounded-xl border border-neutral-400 bg-neutral-50 p-6">
+    <div className="flex flex-col items-center justify-center gap-5">
       <span className="text-2xl font-medium text-neutral-900">이미지 검색</span>
 
       <ImageDropzone />
