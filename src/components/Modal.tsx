@@ -38,7 +38,7 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative flex h-dvh flex-col gap-5 bg-neutral-50 p-6 sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:border-neutral-400",
+          "relative flex h-dvh w-full flex-col gap-5 bg-neutral-50 p-6 sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:border-neutral-400",
           className
         )}
       >
