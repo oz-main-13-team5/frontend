@@ -50,7 +50,7 @@ export default function Tab({ items, showAllKey, className }: TabProps) {
             role="tab"
             onClick={() => setActiveTab(item.key)}
             className={cn(
-              "flex-1 px-6 py-1 text-lg text-neutral-600",
+              "flex-1 px-1 py-1 text-lg text-neutral-600",
               activeTab === item.key
                 ? cn("bg-green-600 text-neutral-50", item.activeClassName)
                 : cn("bg-neutral-50 text-neutral-600", item.inactiveClassName)
