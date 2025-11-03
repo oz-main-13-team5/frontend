@@ -1,13 +1,8 @@
-import Button from "@/components/common/Button";
-import Input from "@/components/common/Input";
+import ImageUrlLinkForm from "@/components/image-search-bar-modal/ImageUrlLinkForm";
 
 interface ImageSearchBarModalProps {}
 
 export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-5 rounded-xl border border-neutral-400 bg-neutral-50 p-6">
       <span className="text-2xl font-medium text-neutral-900">이미지 검색</span>
@@ -24,17 +19,7 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
         </span>
       </div>
 
-      {/* image url link */}
-      <form onSubmit={handleSubmit} className="flex h-14 w-full items-center gap-2">
-        <Input
-          className="h-full flex-1 gap-0"
-          inputClassName="h-full"
-          placeholder="이미지 링크 붙여넣기"
-        />
-        <Button className="h-full" type="submit">
-          검색
-        </Button>
-      </form>
+      <ImageUrlLinkForm />
     </div>
   );
 }
