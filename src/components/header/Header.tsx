@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="flex justify-center bg-green-600 text-neutral-50">
+      <header className="absolute top-0 left-0 flex w-full justify-center bg-green-600 text-neutral-50">
         <div className="flex w-full max-w-[1440px] items-center justify-between p-3">
           <h1>
             <Link to="/" className="text-lg text-neutral-50 sm:text-2xl sm:font-medium">
