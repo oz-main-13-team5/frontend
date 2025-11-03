@@ -46,7 +46,7 @@ export default function ImageDropzone({}: ImageDropzoneProps) {
     return (
       <div className="flex flex-col items-center gap-5">
         <img src={previewUrl} alt="preview" className="w-full rounded-xl object-contain" />
-        <div className="jus flex items-center gap-2">
+        <div className="flex items-center justify-center gap-2">
           <Button
             variant={"primaryOutline"}
             onClick={() => {
