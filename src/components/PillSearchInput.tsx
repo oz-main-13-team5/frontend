@@ -20,18 +20,19 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <form
-      onSubmit={handleSubmit}
+    <div
       className={cn("flex items-center gap-2.5 rounded-lg border border-green-600 p-4", className)}
     >
-      <button type="submit">
-        <SearchIcon className="text-neutral-400 transition-colors hover:text-neutral-500" />
-      </button>
+      <form onSubmit={handleSubmit} className="flex flex-1 items-center gap-2.5">
+        <button type="submit">
+          <SearchIcon className="text-neutral-400 transition-colors hover:text-neutral-500" />
+        </button>
 
-      <input
-        className="flex-1 text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
-        placeholder="약 이름을 입력해주세요."
-      />
+        <input
+          className="flex-1 text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+          placeholder="약 이름을 입력해주세요."
+        />
+      </form>
 
       {/* //TODO: 이미지 아이콘 클릭 시 이미지 검색 모달 열기 */}
       <button
@@ -54,6 +55,6 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
       >
         <ImageSearchBarModal />
       </Modal>
-    </form>
+    </div>
   );
 }
