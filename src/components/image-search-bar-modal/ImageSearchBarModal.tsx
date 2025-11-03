@@ -4,6 +4,10 @@ import Input from "@/components/common/Input";
 interface ImageSearchBarModalProps {}
 
 export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="flex w-full max-w-2xl flex-col items-center justify-center gap-5 rounded-xl border border-neutral-400 bg-neutral-50 p-6">
       <span className="text-2xl font-medium text-neutral-900">이미지 검색</span>
@@ -21,14 +25,16 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
       </div>
 
       {/* image url link */}
-      <div className="flex h-14 w-full items-center gap-2">
+      <form onSubmit={handleSubmit} className="flex h-14 w-full items-center gap-2">
         <Input
           className="h-full flex-1 gap-0"
           inputClassName="h-full"
           placeholder="이미지 링크 붙여넣기"
         />
-        <Button className="h-full">검색</Button>
-      </div>
+        <Button className="h-full" type="submit">
+          검색
+        </Button>
+      </form>
     </div>
   );
 }
