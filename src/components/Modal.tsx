@@ -38,7 +38,7 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative h-dvh bg-neutral-50 p-6 sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:border-neutral-400",
+          "relative flex h-dvh flex-col gap-5 bg-neutral-50 p-6 sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:border-neutral-400",
           className
         )}
       >
@@ -47,7 +47,7 @@ export default function Modal({
             <XIcon />
           </button>
         </div>
-        <h1 className="pb-9 text-2xl font-medium text-neutral-900">{title}</h1>
+        <h1 className="pb-4 text-2xl font-medium text-neutral-900">{title}</h1>
         <p className="text-base text-neutral-900">{description}</p>
         {children}
       </div>
