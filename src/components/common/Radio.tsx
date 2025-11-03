@@ -1,8 +1,5 @@
 import type { ComponentProps } from "react";
-
-function cn(...classes: (string | undefined | null | false)[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import { cn } from "@/libs/utils";
 
 interface RadioInputProps extends ComponentProps<"input"> {
   label?: string;
@@ -22,12 +19,11 @@ export function RadioInput({
   ...props
 }: RadioInputProps) {
   return (
-    <div className={cn("flex items-start gap-2", className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <input
         type="radio"
         className={cn(
-          "appearance-none w-5 h-5 border-2 border-gray-400 rounded-full cursor-pointer transition-all duration-150",
-          "checked:border-green-500 checked:bg-green-500 checked:ring-2 checked:ring-green-300",
+          "w-6 h-6 bg-neutral-50 border-2 border-neutral-500 rounded-full accent-green-600 cursor-pointer",
           inputClassName
         )}
         {...props}
