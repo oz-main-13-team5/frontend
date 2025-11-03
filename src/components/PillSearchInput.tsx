@@ -52,6 +52,7 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
         onClose={() => {
           setIsModalOpen(false);
         }}
+        className="gap-0"
       >
         <ImageSearchBarModal />
       </Modal>
