@@ -11,7 +11,7 @@ export default function RootLayout() {
   const isMobile = useMediaQuery("(max-width: 640px)");
 
   return (
-    <div className="relative flex flex-col">
+    <div className="flex flex-col">
       <Header />
       <main
         className="min-h-screen"
