@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { BrowserRouter } from "react-router";
 import Providers from "@/components/Providers.tsx";
 
 async function enableMocking() {
@@ -21,9 +20,7 @@ enableMocking().then(() => {
   root.render(
     <StrictMode>
       <Providers>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <App />
       </Providers>
     </StrictMode>
   );
