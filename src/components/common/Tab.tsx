@@ -1,5 +1,5 @@
 import { cn } from "@/libs/utils";
-import { useState, type ReactNode } from "react";
+import React, { useState, type ReactNode } from "react";
 
 interface TabItem {
   key: string;
@@ -32,7 +32,7 @@ export default function Tab({ items, showAllKey, className }: TabProps) {
   const tabContent = isShowAll
     ? items
         .filter((item) => item.key !== showAllKey)
-        .map((item) => <div key={item.key}>{item.content}</div>)
+        .map((item) => <React.Fragment key={item.key}>{item.content}</React.Fragment>)
     : items.find((item) => item.key === activeTab)?.content;
 
   return (
