@@ -12,9 +12,12 @@ export default function PillList() {
   return (
     <div className="flex w-full justify-center p-5">
       <div className="flex w-full max-w-7xl flex-col items-center gap-5">
-        <Link to="/" className="flex w-full justify-start">
-          <ChevronLeftIcon className="text-green-600" />
-        </Link>
+        <div className="flex w-full justify-start">
+          <Link to="/">
+            <ChevronLeftIcon className="text-green-600" />
+          </Link>
+        </div>
+
         <PillSearchInput className="w-full max-w-2xl" />
         <div className="flex w-full items-center justify-between">
           <span className="text-base text-neutral-900 sm:text-lg">{`검색 결과 리스트 ${data ? data.pills.length : 0}개`}</span>
