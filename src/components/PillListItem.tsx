@@ -1,15 +1,8 @@
 import Bookmark from "@/components/common/Bookmark";
 import { cn } from "@/libs/utils";
+import type { Pill } from "@/types/api-response-types/pill-response-types";
 import { ChevronRightIcon } from "lucide-react";
 import { Link } from "react-router";
-
-//임시 약 인터페이스. (추후 실제 api와 동일하게 설계)
-interface Pill {
-  id: number;
-  name: string;
-  description: string;
-  imageUrl: string;
-}
 
 interface PillListItemProps {
   pill: Pill;
@@ -17,7 +10,12 @@ interface PillListItemProps {
 }
 
 export default function PillListItem({ className, pill }: PillListItemProps) {
-  const { name, description, imageUrl } = pill;
+  const {
+    item_name: name,
+    efcy_qesitm: description,
+    item_image_url: imageUrl,
+    item_seq: id,
+  } = pill;
 
   return (
     <div
@@ -34,7 +32,11 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
       <div className="flex flex-1 flex-col items-start justify-center gap-2 sm:gap-3">
         <div className="flex w-full items-center justify-between">
           {/* TODO: 실제 링크 연결 */}
-          <Link to="#" aria-label={`${name} 상세페이지`} className="flex items-center gap-0.5">
+          <Link
+            to={`/pill/${id}`}
+            aria-label={`${name} 상세페이지`}
+            className="flex items-center gap-0.5"
+          >
             <span className="text-lg font-normal text-neutral-900 sm:text-2xl sm:font-medium">
               {name}
             </span>
