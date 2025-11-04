@@ -23,13 +23,13 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
     <div
       className={cn("flex items-center gap-2.5 rounded-lg border border-green-600 p-4", className)}
     >
-      <form onSubmit={handleSubmit} className="flex flex-1 items-center gap-2.5">
+      <form onSubmit={handleSubmit} className="flex min-w-0 flex-1 items-center gap-2.5">
         <button type="submit">
           <SearchIcon className="text-neutral-400 transition-colors hover:text-neutral-500" />
         </button>
 
         <input
-          className="flex-1 text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
+          className="min-w-0 flex-1 overflow-hidden text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
           placeholder="약 이름을 입력해주세요."
         />
       </form>
