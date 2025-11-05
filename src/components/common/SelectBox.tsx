@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { cn } from "@/libs/utils";
 import type { ComponentProps } from "react";
