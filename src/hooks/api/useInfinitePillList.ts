@@ -1,3 +1,4 @@
+import { PILL_LIST_PAGE_LIMIT } from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import type { PillList } from "@/types/api-response-types/pill-response-types";
 import {
@@ -11,8 +12,6 @@ type useInfinitePillListOption = Omit<
   UseInfiniteQueryOptions<PillList, Error, InfiniteData<PillList>, readonly unknown[], number>,
   "queryFn" | "queryKey" | "initialPageParam" | "getNextPageParam"
 >;
-
-const LIMIT = 20;
 
 export default function useInfinitePillList(options?: useInfinitePillListOption) {
   return useInfiniteQuery({
@@ -28,7 +27,7 @@ export default function useInfinitePillList(options?: useInfinitePillListOption)
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      if (lastPage.page * LIMIT < lastPage.total) {
+      if (lastPage.page * PILL_LIST_PAGE_LIMIT < lastPage.total) {
         return null;
       }
 
