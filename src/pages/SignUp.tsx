@@ -1,15 +1,20 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm, useWatch } from "react-hook-form";
-import { signupSchema, type SignupSchema } from "@/libs/auth-schema";
+import { signupSchema, type SignupSchema } from "@/schema/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { MSW_BASE_URL } from "@/constants/url-constants";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors, isSubmitting },
     control,
     getValues,
@@ -24,10 +29,14 @@ export default function SignUp() {
 
   // 인증코드 전송 여부
   const [codeSent, setCodeSent] = useState(false);
+  const [codeVerified, setCodeVerified] = useState(false);
 
   // 이메일 지워지면 인증 단계 리셋
   useEffect(() => {
-    if (!email) setCodeSent(false);
+    if (!email) {
+      setCodeSent(false);
+      setCodeVerified(false);
+    }
   }, [email]);
 
   // 입력 유효성 검사
@@ -35,22 +44,24 @@ export default function SignUp() {
   const isCodeValid = /^\d{6}$/.test(verificationCode || "");
 
   // 인증하기 버튼 라벨 / 색상 상태 스위칭
-  const btnVerifyLabel = codeSent ? "인증하기" : "코드전송";
+  const btnVerifyLabel = codeVerified ? "인증완료" : codeSent ? "인증하기" : "코드전송";
   const btnVerifyColor = codeSent ? isCodeValid : isEmailReady;
-
-  // 회원가입 요청
-  const onSubmit = async (data: SignupSchema) => {
-    console.log("회원가입 데이터:", data);
-    // TODO: TanStack Query mutation 호출
-  };
 
   // 인증코드 전송
   const handleSendVerifyCode = async () => {
     if (!isEmailReady) return;
     const currentEmail = getValues("email");
-    // TODO: 인증 코드 전송 API
-    console.log("인증코드 전송:", currentEmail);
-    setCodeSent(true);
+
+    try {
+      await axios.post(`${MSW_BASE_URL}/users/signup/send/`, {
+        email: currentEmail,
+      });
+      setCodeSent(true);
+      console.log("인증코드가 전송되었습니다.");
+    } catch (error: any) {
+      const msg = error?.response?.data?.message || "인증번호 전송 실패";
+      setError("email", { message: msg });
+    }
   };
 
   // 인증코드 확인
@@ -58,8 +69,57 @@ export default function SignUp() {
     if (!isEmailReady || !isCodeValid) return;
     const email = getValues("email");
     const code = getValues("verificationCode");
-    // TODO: 인증 코드 확인 API
-    console.log("인증 확인:", email, code);
+
+    try {
+      const res = await axios.post(`${MSW_BASE_URL}/users/signup/verify/`, {
+        email,
+        auth_code: code,
+      });
+
+      if (res.data.verified) {
+        setCodeVerified(true);
+        console.log("인증 성공");
+      }
+    } catch (error: any) {
+      const msg = error?.response?.data?.message || "인증코드가 일치하지 않습니다.";
+      setError("verificationCode", { message: msg });
+    }
+  };
+
+  // 회원가입 요청
+  const onSubmit = async (data: SignupSchema) => {
+    if (!codeVerified) {
+      setError("verificationCode", {
+        message: "이메일 인증을 먼저 진행해주세요.",
+      });
+      return;
+    }
+
+    try {
+      await axios.post(
+        `${MSW_BASE_URL}/users/signup`,
+        {
+          email: data.email,
+          password: data.password,
+          nickname: data.nickname,
+        },
+        { withCredentials: true }
+      );
+      console.log("회원가입 성공");
+      navigate("/login", { replace: true });
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const msg = error?.response?.data?.error || "회원가입 중 오류가 발생했습니다.";
+
+      if (status === 400) {
+        // 닉네임 중복은 고려하지 않음, 이메일에만 매핑
+        setError("email", { message: msg });
+      } else if (status === 500) {
+        setError("email", { message: "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요." });
+      } else {
+        setError("email", { message: msg });
+      }
+    }
   };
 
   return (
@@ -110,7 +170,6 @@ export default function SignUp() {
           label="닉네임"
           type="text"
           placeholder="닉네임을 입력하세요."
-          autoComplete="nickname"
           {...register("nickname")}
           errorMessage={errors.nickname?.message}
           inputClassName="h-14 p-4"
