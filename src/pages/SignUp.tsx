@@ -5,8 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { signupSchema, type SignupSchema } from "@/schema/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/useAuth";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -31,6 +30,11 @@ export default function SignUp() {
   const [codeSent, setCodeSent] = useState(false);
   const [codeVerified, setCodeVerified] = useState(false);
 
+  // TanStack Query mutations
+  const sendCode = useSendCodeMutation();
+  const verifyCode = useVerifyCodeMutation();
+  const signup = useSignupMutation();
+
   // 이메일 지워지면 인증 단계 리셋
   useEffect(() => {
     if (!email) {
@@ -53,9 +57,7 @@ export default function SignUp() {
     const currentEmail = getValues("email");
 
     try {
-      await axios.post(`${MSW_BASE_URL}/users/signup/send/`, {
-        email: currentEmail,
-      });
+      await sendCode.mutateAsync(currentEmail);
       setCodeSent(true);
       console.log("인증코드가 전송되었습니다.");
     } catch (error: any) {
@@ -71,12 +73,8 @@ export default function SignUp() {
     const code = getValues("verificationCode");
 
     try {
-      const res = await axios.post(`${MSW_BASE_URL}/users/signup/verify/`, {
-        email,
-        auth_code: code,
-      });
-
-      if (res.data.verified) {
+      const res = await verifyCode.mutateAsync({ email, auth_code: code });
+      if (res?.verified) {
         setCodeVerified(true);
         console.log("인증 성공");
       }
@@ -96,15 +94,11 @@ export default function SignUp() {
     }
 
     try {
-      await axios.post(
-        `${MSW_BASE_URL}/users/signup`,
-        {
-          email: data.email,
-          password: data.password,
-          nickname: data.nickname,
-        },
-        { withCredentials: true }
-      );
+      await signup.mutateAsync({
+        email: data.email,
+        password: data.password,
+        nickname: data.nickname,
+      });
       console.log("회원가입 성공");
       navigate("/login", { replace: true });
     } catch (error: any) {
