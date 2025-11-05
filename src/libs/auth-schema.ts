@@ -19,9 +19,8 @@ export const passwordSchema = z
 export const nicknameSchema = z
   .string()
   .trim()
-  .min(2, "닉네임은 2자 이상이어야 합니다.")
   .max(20, "닉네임은 20자 이하로 입력해주세요.")
-  .regex(/^[가-힣a-zA-Z0-9]+$/, "닉네임은 한글, 영문, 숫자만 사용할 수 있습니다.");
+  .regex(/^[가-힣a-zA-Z0-9_-]{1,20}$/u, "닉네임은 한글/영문/숫자 및 _, - 만 사용할 수 있습니다.");
 
 // 인증코드
 export const verificationCodeSchema = z

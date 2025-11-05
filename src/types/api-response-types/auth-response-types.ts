@@ -2,7 +2,7 @@ export interface SignUpResponse {
   user: {
     id: string;
     email: string;
-    username: string;
+    nickname: string;
     is_active: boolean;
     joined_at: string;
     last_login: string | null;
