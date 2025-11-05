@@ -8,6 +8,22 @@ import PillListItem from "@/components/PillListItem";
 import useInfinitePillList from "@/hooks/api/useInfinitePillList";
 import React from "react";
 import useObserver from "@/hooks/useObserver";
+import SelectBox, { type Option } from "@/components/common/SelectBox";
+
+const SELECT_OPTIONS: Option[] = [
+  {
+    value: "itemName",
+    text: "의약품명",
+  },
+  {
+    value: "enterpriseName",
+    text: "제조사",
+  },
+  {
+    value: "efficacy",
+    text: "효능",
+  },
+];
 
 export default function PillList() {
   const { data, isPending, isError, isFetchingNextPage, hasNextPage, fetchNextPage } =
@@ -30,7 +46,12 @@ export default function PillList() {
           </Link>
         </div>
 
-        <PillSearchInput className="w-full max-w-2xl" />
+        <div className="flex w-full flex-col-reverse items-center gap-2 sm:flex-row">
+          <SelectBox options={SELECT_OPTIONS} className="w-full sm:w-42" />
+          <PillSearchInput className="w-full max-w-2xl sm:max-w-full sm:flex-1" />
+          <div className="sm:w-42" />
+        </div>
+
         <div className="flex w-full items-center justify-between">
           <span className="text-base text-neutral-900 sm:text-lg">{`검색 결과 리스트 ${data ? data.pages[0].total : 0}개`}</span>
           <Button className="h-14">북마크 필터</Button>
