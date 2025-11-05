@@ -216,24 +216,20 @@ export default function SignUp() {
         </div>
 
         <div className="flex gap-3">
-          <Button
+          <button
             type="button"
-            variant={"neutralOutline"}
-            size={"lg"}
-            className="h-14 flex-1"
-            // onClick={}
+            className="flex h-14 flex-1 cursor-pointer items-center justify-center gap-4 rounded border border-[#DADCE0] bg-white transition hover:bg-neutral-50 active:bg-neutral-100"
           >
-            구글 회원가입
-          </Button>
-          <Button
+            <img src="/google.svg" alt="google login" className="h-5 w-5" />
+            <span className="text-sm text-neutral-700">Google로 로그인</span>
+          </button>
+          <button
             type="button"
-            variant={"neutralOutline"}
-            size={"lg"}
-            className="h-14 flex-1"
-            // onClick={}
+            className="flex h-14 flex-1 cursor-pointer items-center justify-center gap-4 rounded bg-[#FEE500] transition hover:bg-[#F7D700] active:bg-[#E6C600]"
           >
-            카카오 회원가입
-          </Button>
+            <img src="/kakao.svg" alt="kakao login" className="h-5 w-5" />
+            <span className="text-sm font-medium text-neutral-900">카카오로 로그인</span>
+          </button>
         </div>
       </form>
     </div>
