@@ -3,11 +3,23 @@ import PillSearchInput from "@/components/PillSearchInput";
 import { ChevronLeftIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { PillList } from "@/types/api-response-types/pill-response-types";
-import usePillList from "@/hooks/api/usePillList";
+
 import PillListItem from "@/components/PillListItem";
+import useInfinitePillList from "@/hooks/api/useInfinitePillList";
+import React from "react";
+import useObserver from "@/hooks/useObserver";
 
 export default function PillList() {
-  const { data, isPending, isError } = usePillList();
+  const { data, isPending, isError, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useInfinitePillList();
+
+  const handleObserverIntersect = () => {
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const observerRef = useObserver(handleObserverIntersect);
 
   return (
     <div className="flex w-full justify-center p-5">
@@ -20,7 +32,7 @@ export default function PillList() {
 
         <PillSearchInput className="w-full max-w-2xl" />
         <div className="flex w-full items-center justify-between">
-          <span className="text-base text-neutral-900 sm:text-lg">{`검색 결과 리스트 ${data ? data.pills.length : 0}개`}</span>
+          <span className="text-base text-neutral-900 sm:text-lg">{`검색 결과 리스트 ${data ? data.pages[0].total : 0}개`}</span>
           <Button className="h-14">북마크 필터</Button>
         </div>
 
@@ -40,9 +52,18 @@ export default function PillList() {
               );
             }
 
-            return data.pills.map((pill) => <PillListItem pill={pill} key={pill.item_seq} />);
+            return data.pages.map((group, i) => (
+              <React.Fragment key={i}>
+                {group.pills.map((pill) => (
+                  <PillListItem pill={pill} key={pill.item_seq} />
+                ))}
+              </React.Fragment>
+            ));
           })()}
         </section>
+        <div ref={observerRef} />
+        {isFetchingNextPage && <span>로딩 중</span>}
+        {hasNextPage || <span>모든 약 정보를 가져왔습니다.</span>}
       </div>
     </div>
   );
