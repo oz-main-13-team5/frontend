@@ -65,7 +65,7 @@ export default function SelectBox({
       {isOpen && (
         <ul
           className={cn(
-            "absolute right-0 left-0 z-10 mt-1 overflow-hidden rounded-lg border border-neutral-400"
+            "absolute right-0 left-0 z-10 mt-1 overflow-hidden rounded-lg border border-neutral-400 bg-neutral-50 p-2"
           )}
         >
           {options.map((option) => (
@@ -73,7 +73,7 @@ export default function SelectBox({
               key={option.value}
               onClick={() => handleSelect(option)}
               className={cn(
-                "cursor-pointer bg-neutral-50 px-2 py-2.5 text-lg text-neutral-900 hover:bg-neutral-100"
+                "cursor-pointer rounded-lg bg-neutral-50 p-2 text-lg text-neutral-900 hover:bg-neutral-200"
               )}
             >
               {option.text}
