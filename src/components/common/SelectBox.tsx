@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/libs/utils";
 import type { ComponentProps } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 
 export interface Option {
   value: string;
@@ -53,11 +53,13 @@ export default function SelectBox({
         <span className={cn(selected ? "text-neutral-900" : "text-neutral-400")}>
           {selected ? selected.text : placeholder}
         </span>
-        {isOpen ? (
-          <ChevronUp className="size-6 text-green-600 transition-transform" />
-        ) : (
-          <ChevronDown className="size-6 text-green-600 transition-transform" />
-        )}
+
+        <ChevronUp
+          className={cn(
+            "size-6 text-green-600 transition-transform duration-200 ease-in-out",
+            isOpen ? "rotate-180" : "rotate-0"
+          )}
+        />
       </button>
 
       {isOpen && (
