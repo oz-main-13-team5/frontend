@@ -27,7 +27,7 @@ export default function useInfinitePillList(options?: useInfinitePillListOption)
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
-      if (lastPage.page * PILL_LIST_PAGE_LIMIT < lastPage.total) {
+      if (lastPage.page * PILL_LIST_PAGE_LIMIT > lastPage.total) {
         return null;
       }
 
