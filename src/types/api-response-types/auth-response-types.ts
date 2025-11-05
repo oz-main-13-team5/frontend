@@ -15,3 +15,11 @@ export interface SignUpResponse {
     refresh_expires_at: string;
   };
 }
+
+export interface SignUpSendResponse {
+  message: string;
+}
+
+export interface SignUpVerifyResponse {
+  verified: boolean;
+}
