@@ -3,6 +3,7 @@ import type { PillList } from "@/types/api-response-types/pill-response-types";
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 
+/** depreciate useInfinitePillList로 기능 이관 */
 export default function usePillList(
   options?: Omit<UseQueryOptions<PillList>, "queryFn" | "queryKey">
 ) {
