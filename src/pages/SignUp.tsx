@@ -6,6 +6,14 @@ import { signupSchema, type SignupSchema } from "@/schema/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/useAuth";
+import type { SignUpApiErrorResponse } from "@/types/api-response-types/auth-response-types";
+import type { AxiosError } from "axios";
+
+const getApiError = (error: unknown) => {
+  const axiosError = error as AxiosError<SignUpApiErrorResponse>;
+  const msg = axiosError?.response?.data?.error;
+  return msg ? msg : null;
+};
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -57,11 +65,11 @@ export default function SignUp() {
     const currentEmail = getValues("email");
 
     try {
-      await sendCode.mutateAsync(currentEmail);
+      await sendCode.mutateAsync({ email: currentEmail });
       setCodeSent(true);
       console.log("인증코드가 전송되었습니다.");
-    } catch (error: any) {
-      const msg = error?.response?.data?.message || "인증번호 전송 실패";
+    } catch (error) {
+      const msg = getApiError(error) || "인증번호 전송 실패";
       setError("email", { message: msg });
     }
   };
@@ -78,8 +86,8 @@ export default function SignUp() {
         setCodeVerified(true);
         console.log("인증 성공");
       }
-    } catch (error: any) {
-      const msg = error?.response?.data?.message || "인증코드가 일치하지 않습니다.";
+    } catch (error) {
+      const msg = getApiError(error) ?? "인증코드가 일치하지 않습니다.";
       setError("verificationCode", { message: msg });
     }
   };
@@ -101,9 +109,10 @@ export default function SignUp() {
       });
       console.log("회원가입 성공");
       navigate("/login", { replace: true });
-    } catch (error: any) {
-      const status = error?.response?.status;
-      const msg = error?.response?.data?.error || "회원가입 중 오류가 발생했습니다.";
+    } catch (error) {
+      const axiosError = error as AxiosError<SignUpApiErrorResponse>;
+      const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
+      const msg = getApiError(error) ?? "회원가입 중 오류가 발생했습니다.";
 
       if (status === 400) {
         // 닉네임 중복은 고려하지 않음, 이메일에만 매핑
