@@ -1,5 +1,6 @@
 import ImageSearchBarModal from "@/components/image-search-bar-modal/ImageSearchBarModal";
 import Modal from "@/components/Modal";
+import { usePillSearchStore } from "@/hooks/stores/usePillSearchStore";
 import { cn } from "@/libs/utils";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
@@ -11,10 +12,13 @@ interface PillSearchInputProps {
 const ICON_CLASS_NAME = "text-green-600 transition-colors hover:text-green-700";
 
 export default function PillSearchInput({ className }: PillSearchInputProps) {
-  //TODO: 전역상태 연결 혹은 데이터 fetching 연결, react-hook-form 연결
-  //어차피 나중에 react-hook-form 연결할 예정이라 세부적인 코드는 생략했습니다.
+  const { setQueryParamValue } = usePillSearchStore();
+  const [inputValue, setInputValue] = useState("");
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+
+    setQueryParamValue(inputValue.trim());
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +35,8 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
         <input
           className="min-w-0 flex-1 overflow-hidden text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
           placeholder="약 이름을 입력해주세요."
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
       </form>
 

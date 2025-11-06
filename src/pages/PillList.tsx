@@ -6,9 +6,11 @@ import type { PillList } from "@/types/api-response-types/pill-response-types";
 
 import PillListItem from "@/components/PillListItem";
 import useInfinitePillList from "@/hooks/api/useInfinitePillList";
-import React from "react";
+import React, { useMemo } from "react";
 import useObserver from "@/hooks/useObserver";
 import SelectBox, { type Option } from "@/components/common/SelectBox";
+import { usePillSearchStore } from "@/hooks/stores/usePillSearchStore";
+import type { pillSearchOptionFrontend } from "@/types/types";
 
 const SELECT_OPTIONS: Option[] = [
   {
@@ -26,12 +28,27 @@ const SELECT_OPTIONS: Option[] = [
 ];
 
 export default function PillList() {
+  const { queryParamKey, queryParamValue, setQueryParamKey } = usePillSearchStore();
+
+  const pillSearchParam = useMemo(() => {
+    return { queryParamKey, queryParamValue };
+  }, [queryParamKey, queryParamValue]);
+
   const { data, isPending, isError, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useInfinitePillList();
+    useInfinitePillList(pillSearchParam);
 
   const handleObserverIntersect = () => {
     if (hasNextPage) {
       fetchNextPage();
+    }
+  };
+
+  const handleSearchOptionChange = (option: Option) => {
+    const validValues: pillSearchOptionFrontend[] = ["itemName", "enterpriseName", "efficacy"];
+
+    if (validValues.includes(option.value as pillSearchOptionFrontend)) {
+      const searchOption: pillSearchOptionFrontend = option.value as pillSearchOptionFrontend;
+      setQueryParamKey(searchOption);
     }
   };
 
@@ -47,7 +64,11 @@ export default function PillList() {
         </div>
 
         <div className="flex w-full flex-col-reverse items-center gap-2 sm:flex-row">
-          <SelectBox options={SELECT_OPTIONS} className="w-full sm:w-42" />
+          <SelectBox
+            options={SELECT_OPTIONS}
+            className="w-full sm:w-42"
+            onChange={handleSearchOptionChange}
+          />
           <PillSearchInput className="w-full max-w-2xl sm:max-w-full sm:flex-1" />
           <div className="sm:w-42" />
         </div>
