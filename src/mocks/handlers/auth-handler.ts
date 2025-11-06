@@ -1,4 +1,8 @@
-import { MS_PER_DAY, REFRESH_TOKEN_EXPIRE_DAYS } from "@/constants/api-constants";
+import {
+  ACCESS_TOKEN_EXPIRE_SECONDS,
+  MS_PER_DAY,
+  REFRESH_TOKEN_EXPIRE_DAYS,
+} from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import { mockSignUpResponse } from "@/mocks/data/signup-data";
 import type {
@@ -84,18 +88,19 @@ const postSignUp = http.post<never, SignUpRequest>(
     // 정상 응답
     return HttpResponse.json<SignUpResponse>(
       {
-        ...mockSignUpResponse,
         user: {
-          ...mockSignUpResponse.user,
           id: crypto.randomUUID(),
           email,
           nickname,
+          is_active: true,
           joined_at: new Date().toISOString(),
+          last_login: null,
           provider: null,
         },
         tokens: {
-          ...mockSignUpResponse.tokens,
+          token_type: "Bearer",
           access_token: "mock-access-" + crypto.randomUUID(),
+          access_expires_in: ACCESS_TOKEN_EXPIRE_SECONDS,
           refresh_expires_at: new Date(
             Date.now() + REFRESH_TOKEN_EXPIRE_DAYS * MS_PER_DAY
           ).toISOString(),

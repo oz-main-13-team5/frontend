@@ -14,3 +14,6 @@ export const REFRESH_TOKEN_EXPIRE_DAYS = 14;
 
 // 시간 계산용: 1일(24시간)을 밀리초로 환산한 값
 export const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+// Access Token 만료 시간(초) / 기본값: 900초 = 15분
+export const ACCESS_TOKEN_EXPIRE_SECONDS = 900;
