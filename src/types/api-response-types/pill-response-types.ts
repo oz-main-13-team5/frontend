@@ -11,4 +11,5 @@ export interface Pill {
   efcy_qesitm: string;
   entp_name: string;
   item_image_url: string;
+  is_marked: boolean;
 }
