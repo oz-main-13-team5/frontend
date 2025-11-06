@@ -212,17 +212,23 @@ export default function SignUp() {
         <div className="flex gap-3">
           <button
             type="button"
-            className="flex h-14 flex-1 cursor-pointer items-center justify-center gap-4 rounded border border-[#DADCE0] bg-white transition hover:bg-neutral-50 active:bg-neutral-100"
+            className="relative flex h-14 flex-1 cursor-pointer items-center justify-center gap-6 rounded-xl border border-[#DADCE0] bg-white p-2 transition hover:bg-neutral-50 active:bg-neutral-100"
           >
-            <img src="/google.svg" alt="google login" className="h-5 w-5" />
-            <span className="text-sm text-neutral-700">Google로 로그인</span>
+            <img src="/social-icons/google.svg" alt="google login" className="absolute left-4" />
+            <span className="font-roboto ml-7 text-sm font-medium text-neutral-700">
+              Google 계정으로 로그인
+            </span>
           </button>
           <button
             type="button"
-            className="flex h-14 flex-1 cursor-pointer items-center justify-center gap-4 rounded bg-[#FEE500] transition hover:bg-[#F7D700] active:bg-[#E6C600]"
+            className="relative flex h-14 flex-1 cursor-pointer items-center justify-center gap-6 rounded-xl bg-[#FEE500] p-2 transition hover:bg-[#F7D700] active:bg-[#E6C600]"
           >
-            <img src="/kakao.svg" alt="kakao login" className="h-5 w-5" />
-            <span className="text-sm font-medium text-neutral-900">카카오로 로그인</span>
+            <img
+              src="/social-icons/kakao.svg"
+              alt="kakao login"
+              className="absolute left-4 h-5 w-5"
+            />
+            <span className="ml-6 text-sm font-medium text-neutral-900">카카오 로그인</span>
           </button>
         </div>
       </form>
