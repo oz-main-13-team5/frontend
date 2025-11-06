@@ -24,14 +24,16 @@ export default function useInfinitePillList(
   options?: useInfinitePillListOption
 ) {
   return useInfiniteQuery({
-    queryKey: pillSearchParam
-      ? ["pill", `${pillSearchParam.queryParamKey}=${pillSearchParam.queryParamValue.trim()}`]
-      : ["pill"],
+    queryKey:
+      pillSearchParam && pillSearchParam.queryParamValue.trim().length > 0
+        ? ["pill", `${pillSearchParam.queryParamKey}=${pillSearchParam.queryParamValue.trim()}`]
+        : ["pill"],
     queryFn: async ({ pageParam }) => {
-      if (pillSearchParam) {
+      if (pillSearchParam && pillSearchParam.queryParamValue.trim().length > 0) {
+        //검색어가 있을 때
         const { queryParamKey, queryParamValue } = pillSearchParam;
 
-        const trimmedValue = queryParamValue?.trim() ?? "";
+        const trimmedValue = queryParamValue.trim();
 
         const res = await axios.get(`${MSW_BASE_URL}/pills/search`, {
           params: {
@@ -42,6 +44,7 @@ export default function useInfinitePillList(
 
         return res.data;
       } else {
+        //검색어가 없을 때
         const res = await axios.get(`${MSW_BASE_URL}/pills`, {
           params: {
             page: pageParam,
