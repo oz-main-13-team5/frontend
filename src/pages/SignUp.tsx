@@ -108,7 +108,8 @@ export default function SignUp() {
         nickname: data.nickname,
       });
       console.log("회원가입 성공");
-      navigate("/login", { replace: true });
+      // 회원가입 시 access/refresh 토큰이 발급되므로 로그인 페이지 대신 홈으로 리다이렉트
+      navigate("/", { replace: true });
     } catch (error) {
       const axiosError = error as AxiosError<SignUpApiErrorResponse>;
       const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
