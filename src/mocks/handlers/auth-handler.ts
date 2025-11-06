@@ -1,3 +1,4 @@
+import { MS_PER_DAY, REFRESH_TOKEN_EXPIRE_DAYS } from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import { mockSignUpResponse } from "@/mocks/data/signup-data";
 import type {
@@ -95,7 +96,9 @@ const postSignUp = http.post<never, SignUpRequest>(
         tokens: {
           ...mockSignUpResponse.tokens,
           access_token: "mock-access-" + crypto.randomUUID(),
-          refresh_expires_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+          refresh_expires_at: new Date(
+            Date.now() + REFRESH_TOKEN_EXPIRE_DAYS * MS_PER_DAY
+          ).toISOString(),
         },
       },
       { status: 201 }
