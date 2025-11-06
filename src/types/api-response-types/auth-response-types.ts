@@ -23,3 +23,8 @@ export interface SignUpSendResponse {
 export interface SignUpVerifyResponse {
   verified: boolean;
 }
+
+export interface SignUpApiErrorResponse {
+  error: string;
+  code: number;
+}
