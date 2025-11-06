@@ -5,9 +5,9 @@ import { useForm, useWatch } from "react-hook-form";
 import { signupSchema, type SignupSchema } from "@/schema/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/useAuth";
 import type { SignUpApiErrorResponse } from "@/types/api-response-types/auth-response-types";
 import type { AxiosError } from "axios";
+import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/auth";
 
 const getApiError = (error: unknown) => {
   const axiosError = error as AxiosError<SignUpApiErrorResponse>;
