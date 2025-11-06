@@ -6,6 +6,7 @@ import type {
   SignUpVerifyRequest,
 } from "@/types/api-request-types/auth-request-types";
 import type {
+  SignUpApiErrorResponse,
   SignUpResponse,
   SignUpSendResponse,
   SignUpVerifyResponse,
@@ -47,7 +48,10 @@ const postSignUpVerify = http.post<never, SignUpVerifyRequest>(
 
     if (savedCode !== auth_code) {
       console.log(`인증번호가 일치하지 않습니다.`);
-      return HttpResponse.json({ message: "인증번호가 일치하지 않습니다." }, { status: 400 });
+      return HttpResponse.json<SignUpApiErrorResponse>(
+        { error: "인증번호가 일치하지 않습니다.", code: 400 },
+        { status: 400 }
+      );
     }
 
     console.log(`인증 성공`);
@@ -58,16 +62,22 @@ const postSignUpVerify = http.post<never, SignUpVerifyRequest>(
 );
 
 // 회원가입 API
-const postSignUp = http.post<never, SignUpResponse>(
+const postSignUp = http.post<never, SignUpRequest>(
   `${MSW_BASE_URL}/users/signup`,
   async ({ request }) => {
-    const body = (await request.json()) as unknown as SignUpRequest;
+    const body = (await request.json()) as SignUpRequest;
     const { email, nickname } = body;
 
     // 중복 이메일 테스트 (mock signup-data 기반)
     if (email === mockSignUpResponse.user.email) {
       console.log(`이미 가입된 이메일입니다.`);
-      return HttpResponse.json({ message: "이미 가입된 이메일입니다." }, { status: 400 });
+      return HttpResponse.json<SignUpApiErrorResponse>(
+        {
+          error: "이미 가입된 이메일입니다.",
+          code: 400,
+        },
+        { status: 400 }
+      );
     }
 
     // 정상 응답
