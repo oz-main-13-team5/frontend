@@ -213,11 +213,10 @@ export default function SignUp() {
 
         <div className="grid gap-1">
           <p className="text-base text-neutral-900">아이디가 있다면?</p>
-          <Link
-            to="/login"
-            className="inline-flex h-14 w-full items-center justify-center rounded-lg border border-green-600 bg-neutral-50 px-6 py-3 text-lg text-neutral-900 transition-colors hover:bg-neutral-200 focus:outline-none disabled:saturate-50"
-          >
-            로그인
+          <Link to="/login">
+            <Button variant={"primaryOutline"} size={"lg"} className="h-14 w-full">
+              로그인
+            </Button>
           </Link>
         </div>
 
