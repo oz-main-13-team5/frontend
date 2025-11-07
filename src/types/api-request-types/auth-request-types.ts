@@ -1,3 +1,4 @@
+// 회원가입 요청
 export interface SignUpRequest {
   email: string;
   password: string;
@@ -11,4 +12,10 @@ export interface SignUpSendRequest {
 export interface SignUpVerifyRequest {
   email: string;
   auth_code: string;
+}
+
+// 로그인 요청
+export interface LoginRequest {
+  email: string;
+  password: string;
 }
