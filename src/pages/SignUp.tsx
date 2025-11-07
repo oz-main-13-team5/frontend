@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import type { SignUpApiErrorResponse } from "@/types/api-response-types/auth-response-types";
 import type { AxiosError } from "axios";
 import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/auth";
+import KakaoButton from "@/components/social-login-button/KakaoButton";
+import GoogleButton from "@/components/social-login-button/GoogleButton";
 
 const getApiError = (error: unknown) => {
   const axiosError = error as AxiosError<SignUpApiErrorResponse>;
@@ -220,26 +222,8 @@ export default function SignUp() {
         </div>
 
         <div className="flex gap-3">
-          <button
-            type="button"
-            className="relative flex h-14 flex-1 cursor-pointer items-center justify-center gap-6 rounded-xl border border-[#DADCE0] bg-white p-2 transition hover:bg-neutral-50 active:bg-neutral-100"
-          >
-            <img src="/social-icons/google.svg" alt="google login" className="absolute left-4" />
-            <span className="font-roboto ml-7 text-sm font-medium text-neutral-700">
-              Google 계정으로 로그인
-            </span>
-          </button>
-          <button
-            type="button"
-            className="relative flex h-14 flex-1 cursor-pointer items-center justify-center gap-6 rounded-xl bg-[#FEE500] p-2 transition hover:bg-[#F7D700] active:bg-[#E6C600]"
-          >
-            <img
-              src="/social-icons/kakao.svg"
-              alt="kakao login"
-              className="absolute left-4 h-5 w-5"
-            />
-            <span className="ml-6 text-sm font-medium text-neutral-900">카카오 로그인</span>
-          </button>
+          <GoogleButton />
+          <KakaoButton />
         </div>
       </form>
     </div>
