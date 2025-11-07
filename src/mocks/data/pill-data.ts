@@ -7,6 +7,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "해열, 진통, 감기 등의 증상 완화에 사용됩니다.",
     entp_name: "한국존슨앤드존슨",
     item_image_url: "https://picsum.photos/seed/100001/200",
+    is_marked: false,
   },
   {
     item_seq: "100002",
@@ -14,6 +15,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 치통, 생리통 완화에 도움을 줍니다.",
     entp_name: "삼진제약",
     item_image_url: "https://picsum.photos/seed/100002/200",
+    is_marked: false,
   },
   {
     item_seq: "100003",
@@ -21,6 +23,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "감기의 발열, 인후통, 근육통 완화에 사용됩니다.",
     entp_name: "동아제약",
     item_image_url: "https://picsum.photos/seed/100003/200",
+    is_marked: false,
   },
   {
     item_seq: "100004",
@@ -28,6 +31,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소화불량, 위부 팽만감 완화에 도움을 줍니다.",
     entp_name: "일동제약",
     item_image_url: "https://picsum.photos/seed/100004/200",
+    is_marked: false,
   },
   {
     item_seq: "100005",
@@ -35,6 +39,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "근육통, 요통, 타박상 등의 통증 완화에 사용됩니다.",
     entp_name: "신신제약",
     item_image_url: "https://picsum.photos/seed/100005/200",
+    is_marked: false,
   },
   {
     item_seq: "100006",
@@ -42,6 +47,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 생리통, 치통 등의 통증 완화 및 해열에 사용됩니다.",
     entp_name: "일양약품",
     item_image_url: "https://picsum.photos/seed/100006/200",
+    is_marked: false,
   },
   {
     item_seq: "100007",
@@ -49,6 +55,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "위염, 속쓰림, 위통 증상 완화에 도움을 줍니다.",
     entp_name: "한미약품",
     item_image_url: "https://picsum.photos/seed/100007/200",
+    is_marked: false,
   },
   {
     item_seq: "100008",
@@ -56,6 +63,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소화불량, 트림, 복부 팽만감 완화에 사용됩니다.",
     entp_name: "동화약품",
     item_image_url: "https://picsum.photos/seed/100008/200",
+    is_marked: false,
   },
   {
     item_seq: "100009",
@@ -63,6 +71,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "감기, 치통, 두통 등의 해열 진통 효과가 있습니다.",
     entp_name: "삼일제약",
     item_image_url: "https://picsum.photos/seed/100009/200",
+    is_marked: false,
   },
   {
     item_seq: "100010",
@@ -70,6 +79,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "속쓰림, 더부룩함, 소화불량에 사용됩니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100010/200",
+    is_marked: false,
   },
   {
     item_seq: "100011",
@@ -77,6 +87,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "식후 소화불량, 포만감, 트림 완화에 도움을 줍니다.",
     entp_name: "동아제약",
     item_image_url: "https://picsum.photos/seed/100011/200",
+    is_marked: false,
   },
   {
     item_seq: "100012",
@@ -84,6 +95,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "구내염, 잇몸염 등 입 안 염증 완화에 사용됩니다.",
     entp_name: "동국제약",
     item_image_url: "https://picsum.photos/seed/100012/200",
+    is_marked: false,
   },
   {
     item_seq: "100013",
@@ -91,6 +103,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "위산 과다, 위통, 속쓰림 완화에 사용됩니다.",
     entp_name: "유한양행",
     item_image_url: "https://picsum.photos/seed/100013/200",
+    is_marked: false,
   },
   {
     item_seq: "100014",
@@ -98,6 +111,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소화불량 및 위부 팽만감 완화에 도움을 줍니다.",
     entp_name: "JW중외제약",
     item_image_url: "https://picsum.photos/seed/100014/200",
+    is_marked: false,
   },
   {
     item_seq: "100015",
@@ -105,6 +119,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "위부 팽만, 소화불량 완화에 사용됩니다.",
     entp_name: "일동제약",
     item_image_url: "https://picsum.photos/seed/100015/200",
+    is_marked: false,
   },
   {
     item_seq: "100016",
@@ -112,6 +127,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소화불량, 위통 및 트림 완화에 사용됩니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100016/200",
+    is_marked: false,
   },
   {
     item_seq: "100017",
@@ -119,6 +135,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "해열과 통증 완화에 효과가 있는 서방형 제제입니다.",
     entp_name: "한국존슨앤드존슨",
     item_image_url: "https://picsum.photos/seed/100017/200",
+    is_marked: false,
   },
   {
     item_seq: "100018",
@@ -126,6 +143,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 치통, 생리통 등의 통증 완화에 사용됩니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100018/200",
+    is_marked: false,
   },
   {
     item_seq: "100019",
@@ -133,6 +151,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "해열, 진통, 감기 증상 완화에 도움을 줍니다.",
     entp_name: "유한양행",
     item_image_url: "https://picsum.photos/seed/100019/200",
+    is_marked: false,
   },
   {
     item_seq: "100020",
@@ -140,6 +159,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 생리통, 근육통 완화에 사용됩니다.",
     entp_name: "광동제약",
     item_image_url: "https://picsum.photos/seed/100020/200",
+    is_marked: false,
   },
   {
     item_seq: "100021",
@@ -147,6 +167,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 치통, 발열 시 해열진통제로 사용됩니다.",
     entp_name: "한독",
     item_image_url: "https://picsum.photos/seed/100021/200",
+    is_marked: false,
   },
   {
     item_seq: "100022",
@@ -154,6 +175,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "관절염, 류머티즘성 통증 완화에 사용됩니다.",
     entp_name: "화이자",
     item_image_url: "https://picsum.photos/seed/100022/200",
+    is_marked: false,
   },
   {
     item_seq: "100023",
@@ -161,6 +183,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "생리통, 두통, 치통 완화에 사용됩니다.",
     entp_name: "종근당",
     item_image_url: "https://picsum.photos/seed/100023/200",
+    is_marked: false,
   },
   {
     item_seq: "100024",
@@ -168,6 +191,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "진통, 해열 작용으로 두통과 생리통 완화에 도움을 줍니다.",
     entp_name: "삼진제약",
     item_image_url: "https://picsum.photos/seed/100024/200",
+    is_marked: false,
   },
   {
     item_seq: "100025",
@@ -175,6 +199,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소아의 발열 및 통증 완화에 사용됩니다.",
     entp_name: "삼일제약",
     item_image_url: "https://picsum.photos/seed/100025/200",
+    is_marked: false,
   },
   {
     item_seq: "100026",
@@ -182,6 +207,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "혈액 응고 억제 및 해열 진통 작용을 합니다.",
     entp_name: "바이엘",
     item_image_url: "https://picsum.photos/seed/100026/200",
+    is_marked: false,
   },
   {
     item_seq: "100027",
@@ -189,6 +215,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "염증 및 통증 완화에 사용됩니다.",
     entp_name: "신일제약",
     item_image_url: "https://picsum.photos/seed/100027/200",
+    is_marked: false,
   },
   {
     item_seq: "100028",
@@ -196,6 +223,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "탈모 증상 완화에 도움을 줍니다.",
     entp_name: "화이자",
     item_image_url: "https://picsum.photos/seed/100028/200",
+    is_marked: false,
   },
   {
     item_seq: "100029",
@@ -203,6 +231,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "간 기능 개선 및 피로 회복에 도움을 줍니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100029/200",
+    is_marked: false,
   },
   {
     item_seq: "100030",
@@ -210,6 +239,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "면역력 강화 및 피로 회복에 도움을 줍니다.",
     entp_name: "유한양행",
     item_image_url: "https://picsum.photos/seed/100030/200",
+    is_marked: false,
   },
   {
     item_seq: "100031",
@@ -217,6 +247,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비타민 및 미네랄 보충용 종합영양제입니다.",
     entp_name: "화이자",
     item_image_url: "https://picsum.photos/seed/100031/200",
+    is_marked: false,
   },
   {
     item_seq: "100032",
@@ -224,6 +255,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "관절통 및 근육통 완화에 사용됩니다.",
     entp_name: "삼천당제약",
     item_image_url: "https://picsum.photos/seed/100032/200",
+    is_marked: false,
   },
   {
     item_seq: "100033",
@@ -231,6 +263,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소화불량, 속쓰림에 사용됩니다.",
     entp_name: "일동제약",
     item_image_url: "https://picsum.photos/seed/100033/200",
+    is_marked: false,
   },
   {
     item_seq: "100034",
@@ -238,6 +271,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "근육통, 관절염의 통증 완화에 사용됩니다.",
     entp_name: "한독",
     item_image_url: "https://picsum.photos/seed/100034/200",
+    is_marked: false,
   },
   {
     item_seq: "100035",
@@ -245,6 +279,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "혈액순환 개선과 피로 완화에 사용됩니다.",
     entp_name: "종근당",
     item_image_url: "https://picsum.photos/seed/100035/200",
+    is_marked: false,
   },
   {
     item_seq: "100036",
@@ -252,6 +287,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "알레르기 비염, 피부 가려움증 완화에 사용됩니다.",
     entp_name: "한국유씨비제약",
     item_image_url: "https://picsum.photos/seed/100036/200",
+    is_marked: false,
   },
   {
     item_seq: "100037",
@@ -259,6 +295,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "알레르기 증상 완화에 사용됩니다.",
     entp_name: "한국MSD",
     item_image_url: "https://picsum.photos/seed/100037/200",
+    is_marked: false,
   },
   {
     item_seq: "100038",
@@ -266,6 +303,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "소아용 알레르기 완화제입니다.",
     entp_name: "한국유씨비제약",
     item_image_url: "https://picsum.photos/seed/100038/200",
+    is_marked: false,
   },
   {
     item_seq: "100039",
@@ -273,6 +311,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비염, 피부염, 두드러기 증상 완화에 사용됩니다.",
     entp_name: "한미약품",
     item_image_url: "https://picsum.photos/seed/100039/200",
+    is_marked: false,
   },
   {
     item_seq: "100040",
@@ -280,6 +319,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "감기 및 두통, 근육통 완화에 사용됩니다.",
     entp_name: "동아제약",
     item_image_url: "https://picsum.photos/seed/100040/200",
+    is_marked: false,
   },
   {
     item_seq: "100041",
@@ -287,6 +327,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비타민B 복합체로 피로 회복에 도움을 줍니다.",
     entp_name: "일동제약",
     item_image_url: "https://picsum.photos/seed/100041/200",
+    is_marked: false,
   },
   {
     item_seq: "100042",
@@ -294,6 +335,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "알레르기 비염 및 피부염 완화에 사용됩니다.",
     entp_name: "종근당",
     item_image_url: "https://picsum.photos/seed/100042/200",
+    is_marked: false,
   },
   {
     item_seq: "100043",
@@ -301,6 +343,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "상처, 화상 부위의 감염 예방에 사용됩니다.",
     entp_name: "유한양행",
     item_image_url: "https://picsum.photos/seed/100043/200",
+    is_marked: false,
   },
   {
     item_seq: "100044",
@@ -308,6 +351,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "상처 부위 세균 감염 예방용 항생제 연고입니다.",
     entp_name: "동화약품",
     item_image_url: "https://picsum.photos/seed/100044/200",
+    is_marked: false,
   },
   {
     item_seq: "100045",
@@ -315,6 +359,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "상처 치유 및 흉터 예방에 사용됩니다.",
     entp_name: "동국제약",
     item_image_url: "https://picsum.photos/seed/100045/200",
+    is_marked: false,
   },
   {
     item_seq: "100046",
@@ -322,6 +367,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "근육통, 요통, 관절통 완화에 사용됩니다.",
     entp_name: "한독",
     item_image_url: "https://picsum.photos/seed/100046/200",
+    is_marked: false,
   },
   {
     item_seq: "100047",
@@ -329,6 +375,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "근육통, 어깨결림 완화용 파스입니다.",
     entp_name: "제일약품",
     item_image_url: "https://picsum.photos/seed/100047/200",
+    is_marked: false,
   },
   {
     item_seq: "100048",
@@ -336,6 +383,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "통증 완화 및 피로 회복용 파스입니다.",
     entp_name: "신신제약",
     item_image_url: "https://picsum.photos/seed/100048/200",
+    is_marked: false,
   },
   {
     item_seq: "100049",
@@ -343,6 +391,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "흉터 개선 및 상처 회복에 도움을 줍니다.",
     entp_name: "한국먼디파마",
     item_image_url: "https://picsum.photos/seed/100049/200",
+    is_marked: false,
   },
   {
     item_seq: "100050",
@@ -350,6 +399,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "기침, 가래 완화에 사용됩니다.",
     entp_name: "일양약품",
     item_image_url: "https://picsum.photos/seed/100050/200",
+    is_marked: false,
   },
   {
     item_seq: "100051",
@@ -357,6 +407,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "기침 억제제 및 진해거담제입니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100051/200",
+    is_marked: false,
   },
   {
     item_seq: "100052",
@@ -364,6 +415,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "감기의 발열, 인후통 완화에 도움을 줍니다.",
     entp_name: "동아제약",
     item_image_url: "https://picsum.photos/seed/100052/200",
+    is_marked: false,
   },
   {
     item_seq: "100053",
@@ -371,6 +423,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "피로 및 체력 저하 개선용 영양제입니다.",
     entp_name: "JW중외제약",
     item_image_url: "https://picsum.photos/seed/100053/200",
+    is_marked: false,
   },
   {
     item_seq: "100054",
@@ -378,6 +431,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "피로 회복과 면역력 강화에 사용됩니다.",
     entp_name: "한미약품",
     item_image_url: "https://picsum.photos/seed/100054/200",
+    is_marked: false,
   },
   {
     item_seq: "100055",
@@ -385,6 +439,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "철분 결핍성 빈혈에 사용됩니다.",
     entp_name: "유한양행",
     item_image_url: "https://picsum.photos/seed/100055/200",
+    is_marked: false,
   },
   {
     item_seq: "100056",
@@ -392,6 +447,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비타민B, C 복합제입니다.",
     entp_name: "종근당",
     item_image_url: "https://picsum.photos/seed/100056/200",
+    is_marked: false,
   },
   {
     item_seq: "100057",
@@ -399,6 +455,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비타민B2 결핍 보충용입니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100057/200",
+    is_marked: false,
   },
   {
     item_seq: "100058",
@@ -406,6 +463,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "피부 트러블 완화 및 피로 회복용 비타민제입니다.",
     entp_name: "JW중외제약",
     item_image_url: "https://picsum.photos/seed/100058/200",
+    is_marked: false,
   },
   {
     item_seq: "100059",
@@ -413,6 +471,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "통증 완화용 여성 전용 패치입니다.",
     entp_name: "동국제약",
     item_image_url: "https://picsum.photos/seed/100059/200",
+    is_marked: false,
   },
   {
     item_seq: "100060",
@@ -420,6 +479,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "비타민B군 고함량으로 피로 회복에 도움을 줍니다.",
     entp_name: "종근당",
     item_image_url: "https://picsum.photos/seed/100060/200",
+    is_marked: false,
   },
   {
     item_seq: "100061",
@@ -427,6 +487,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "통증 완화 및 마취에 사용됩니다.",
     entp_name: "한올바이오파마",
     item_image_url: "https://picsum.photos/seed/100061/200",
+    is_marked: false,
   },
   {
     item_seq: "100062",
@@ -434,6 +495,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "세균 감염 치료용 항생제입니다.",
     entp_name: "일양약품",
     item_image_url: "https://picsum.photos/seed/100062/200",
+    is_marked: false,
   },
   {
     item_seq: "100063",
@@ -441,6 +503,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "세균성 감염 질환 치료제입니다.",
     entp_name: "한미약품",
     item_image_url: "https://picsum.photos/seed/100063/200",
+    is_marked: false,
   },
   {
     item_seq: "100064",
@@ -448,6 +511,7 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "호흡기 및 피부 감염 치료에 사용됩니다.",
     entp_name: "한국애보트",
     item_image_url: "https://picsum.photos/seed/100064/200",
+    is_marked: false,
   },
   {
     item_seq: "100065",
@@ -455,5 +519,6 @@ export const mockPills: Pill[] = [
     efcy_qesitm: "두통, 생리통, 근육통 완화에 효과적입니다.",
     entp_name: "대웅제약",
     item_image_url: "https://picsum.photos/seed/100065/200",
+    is_marked: false,
   },
 ];
