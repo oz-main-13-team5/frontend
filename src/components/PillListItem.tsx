@@ -15,6 +15,7 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
     efcy_qesitm: description,
     item_image_url: imageUrl,
     item_seq: id,
+    is_marked: isMarked,
   } = pill;
 
   return (
@@ -42,7 +43,7 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
             </span>
             <ChevronRightIcon className="h-6 w-6 text-neutral-400" />
           </Link>
-          <Bookmark />
+          <Bookmark pillId={id} initialState={isMarked} />
         </div>
         <span className="text-lg text-neutral-600">{description}</span>
       </div>

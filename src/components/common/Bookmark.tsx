@@ -1,17 +1,27 @@
+import useToggleBookmark from "@/hooks/api/useToggleBookmark";
 import { cn } from "@/libs/utils";
 import { BookmarkIcon } from "lucide-react";
 import { useState, type ComponentProps } from "react";
 
 interface BookmarkProps extends Omit<ComponentProps<"button">, "onClick"> {
   initialState?: boolean;
+  pillId: string;
 }
 
-export default function Bookmark({ initialState = false, className, ...props }: BookmarkProps) {
+export default function Bookmark({
+  initialState = false,
+  className,
+  pillId,
+  ...props
+}: BookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(initialState);
 
-  //TODO: 실제 북마크 api 연결
+  const { mutate } = useToggleBookmark({ isDelete: isBookmarked, id: pillId });
+
   const handleButtonClick = () => {
+    //optimistic UI (뮤테이션 결과를 기다리지 않고 바로 UI 업데이트)
     setIsBookmarked((prev) => !prev);
+    mutate();
   };
 
   return (
