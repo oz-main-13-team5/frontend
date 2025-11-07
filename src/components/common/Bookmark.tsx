@@ -16,7 +16,19 @@ export default function Bookmark({
 }: BookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(initialState);
 
-  const { mutate } = useToggleBookmark({ isDelete: isBookmarked, id: pillId });
+  const { mutate } = useToggleBookmark(
+    { isDelete: isBookmarked, id: pillId },
+    {
+      onSettled: (data) => {
+        //실패하면 낙천적 UI 정정
+        if (data && !data?.success) {
+          setIsBookmarked((prev) => !prev);
+          //TODO: 이 메세지를 보여주는 모달로 변경
+          alert("북마크는 최대 20개까지만 가능합니다!");
+        }
+      },
+    }
+  );
 
   const handleButtonClick = () => {
     //optimistic UI (뮤테이션 결과를 기다리지 않고 바로 UI 업데이트)
