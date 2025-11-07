@@ -12,7 +12,7 @@ type useToggleBookmarkOption = Omit<MutateOptions<BoomarkResponse>, "mutationFn"
 
 export default function useToggleBookmark(
   toggleParams: UseToggleBookmarkParams,
-  options: useToggleBookmarkOption
+  options?: useToggleBookmarkOption
 ) {
   return useMutation<BoomarkResponse>({
     mutationKey: ["bookmark", toggleParams.id, toggleParams.isDelete ? "delete" : "add"],
