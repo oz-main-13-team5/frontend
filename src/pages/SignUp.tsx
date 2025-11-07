@@ -13,8 +13,7 @@ import GoogleButton from "@/components/social-login-button/GoogleButton";
 
 const getApiError = (error: unknown) => {
   const axiosError = error as AxiosError<SignUpApiErrorResponse>;
-  const msg = axiosError?.response?.data?.error;
-  return msg ? msg : null;
+  return axiosError?.response?.data?.error ?? null;
 };
 
 export default function SignUp() {
@@ -40,11 +39,6 @@ export default function SignUp() {
   const [codeSent, setCodeSent] = useState(false);
   const [codeVerified, setCodeVerified] = useState(false);
 
-  // TanStack Query mutations
-  const sendCode = useSendCodeMutation();
-  const verifyCode = useVerifyCodeMutation();
-  const signup = useSignupMutation();
-
   // 이메일 지워지면 인증 단계 리셋
   useEffect(() => {
     if (!email) {
@@ -61,58 +55,42 @@ export default function SignUp() {
   const btnVerifyLabel = codeVerified ? "인증완료" : codeSent ? "인증하기" : "코드전송";
   const btnVerifyColor = codeSent ? isCodeValid : isEmailReady;
 
+  // TanStack Query mutations
   // 인증코드 전송
-  const handleSendVerifyCode = async () => {
-    if (!isEmailReady) return;
-    const currentEmail = getValues("email");
-
-    try {
-      await sendCode.mutateAsync({ email: currentEmail });
+  const sendCode = useSendCodeMutation({
+    onSuccess: () => {
       setCodeSent(true);
-      console.log("인증코드가 전송되었습니다.");
-    } catch (error) {
+      console.log("인증코드 전송", getValues("email"));
+    },
+    onError: (error) => {
       const msg = getApiError(error) || "인증번호 전송 실패";
       setError("email", { message: msg });
-    }
-  };
+    },
+  });
 
   // 인증코드 확인
-  const handleVerifyCode = async () => {
-    if (!isEmailReady || !isCodeValid) return;
-    const email = getValues("email");
-    const code = getValues("verificationCode");
-
-    try {
-      const res = await verifyCode.mutateAsync({ email, auth_code: code });
-      if (res?.verified) {
+  const verifyCode = useVerifyCodeMutation({
+    onSuccess: (res) => {
+      if (res.verified) {
         setCodeVerified(true);
-        console.log("인증 성공");
+        console.log("인증 성공", getValues("email"));
       }
-    } catch (error) {
+    },
+    onError: (error) => {
       const msg = getApiError(error) ?? "인증코드가 일치하지 않습니다.";
+      console.log("인증코드 오류", error);
       setError("verificationCode", { message: msg });
-    }
-  };
+    },
+  });
 
-  // 회원가입 요청
-  const onSubmit = async (data: SignupSchema) => {
-    if (!codeVerified) {
-      setError("verificationCode", {
-        message: "이메일 인증을 먼저 진행해주세요.",
-      });
-      return;
-    }
-
-    try {
-      await signup.mutateAsync({
-        email: data.email,
-        password: data.password,
-        nickname: data.nickname,
-      });
+  // 회원가입
+  const signup = useSignupMutation({
+    onSuccess: () => {
       console.log("회원가입 성공");
       // 회원가입 시 access/refresh 토큰이 발급되므로 로그인 페이지 대신 홈으로 리다이렉트
       navigate("/", { replace: true });
-    } catch (error) {
+    },
+    onError: (error) => {
       const axiosError = error as AxiosError<SignUpApiErrorResponse>;
       const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
       const msg = getApiError(error) ?? "회원가입 중 오류가 발생했습니다.";
@@ -125,7 +103,37 @@ export default function SignUp() {
       } else {
         setError("email", { message: msg });
       }
+    },
+  });
+
+  // 인증코드 전송
+  const handleSendVerifyCode = () => {
+    if (!isEmailReady) return;
+    sendCode.mutate({ email: getValues("email") });
+  };
+
+  // 인증코드 확인
+  const handleVerifyCode = async () => {
+    if (!isEmailReady || !isCodeValid) return;
+    verifyCode.mutate({
+      email: getValues("email"),
+      auth_code: getValues("verificationCode"),
+    });
+  };
+
+  // 회원가입 요청
+  const onSubmit = async (data: SignupSchema) => {
+    if (!codeVerified) {
+      setError("verificationCode", {
+        message: "이메일 인증을 먼저 진행해주세요.",
+      });
+      return;
     }
+    signup.mutate({
+      email: data.email,
+      password: data.password,
+      nickname: data.nickname,
+    });
   };
 
   return (
