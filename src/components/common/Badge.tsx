@@ -14,6 +14,9 @@ const badgeVariants = cva("px-2 py-0.5 rounded-sm text-sm text-center", {
       neutral: "bg-neutral-400 text-neutral-50",
       neutralLight: "bg-neutral-300 text-neutral-900",
       neutralOutline: "bg-neutral-50 text-neutral-900 border border-neutral-400",
+      danger: "bg-red-500 text-neutral-50",
+      dangerLight: "bg-red-400 text-neutral-900",
+      dangerOutline: "bg-neutral-50 text-neutral-900 border border-red-500",
     },
   },
   defaultVariants: {
