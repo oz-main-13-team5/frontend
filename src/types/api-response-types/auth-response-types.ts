@@ -43,3 +43,8 @@ export interface LoginResponse {
 }
 
 export type LoginApiErrorResponse = ApiError;
+
+// 로그아웃 응답
+export interface LogoutResponse {
+  message: string;
+}
