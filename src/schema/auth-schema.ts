@@ -43,3 +43,11 @@ export const signupSchema = z
   });
 
 export type SignupSchema = z.infer<typeof signupSchema>;
+
+// 로그인 스키마
+export const loginSchema = z.object({
+  email: emailSchema,
+  password: passwordSchema,
+});
+
+export type LoginSchema = z.infer<typeof loginSchema>;

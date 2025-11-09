@@ -1,11 +1,56 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
-import { Link } from "react-router";
+import GoogleButton from "@/components/social-login-button/GoogleButton";
+import KakaoButton from "@/components/social-login-button/KakaoButton";
+import { useLoginMutation } from "@/hooks/api/auth";
+import { loginSchema, type LoginSchema } from "@/schema/auth-schema";
+import type { LoginApiErrorResponse } from "@/types/api-response-types/auth-response-types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { AxiosError } from "axios";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
+
+const getApiError = (error: unknown) => {
+  const axiosError = error as AxiosError<LoginApiErrorResponse>;
+  return axiosError?.response?.data?.error ?? null;
+};
 
 export default function Login() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // TODO: 로그인 요청 로직
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+    mode: "onChange",
+  });
+
+  // TanStack Query mutations 로그인
+  const login = useLoginMutation({
+    onSuccess: () => {
+      navigate("/", { replace: true });
+    },
+    onError: (error) => {
+      const axiosError = error as AxiosError<LoginApiErrorResponse>;
+      const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
+      const msg = getApiError(error) ?? "로그인 중 오류가 발생했습니다.";
+
+      if (status === 400 || status === 401) {
+        setError("email", { message: "이메일 또는 비밀번호를 확인해주세요." });
+      } else if (status === 500) {
+        setError("email", { message: "서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요." });
+      } else {
+        setError("email", { message: msg });
+      }
+    },
+  });
+
+  // 로그인 요청
+  const onSubmit = (data: LoginSchema) => {
+    login.mutate(data);
   };
 
   const handleGoogleLogin = () => {
@@ -23,55 +68,49 @@ export default function Login() {
         <h2 className="text-5xl text-neutral-900">로그인</h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="grid gap-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5" noValidate>
         <Input
           label="이메일"
           type="email"
           placeholder="example@example.com"
           autoComplete="email"
-          required
-          errorMessage="이메일 형식을 지켜주세요."
+          {...register("email")}
+          errorMessage={errors.email?.message}
+          inputClassName="h-14 p-4"
         />
+
         <Input
           type="password"
           label="비밀번호"
-          placeholder="비밀번호를 입력하세요."
-          minLength={10}
-          required
-          errorMessage="비밀번호를 10자리 이상 입력해주세요."
+          placeholder="비밀번호를 입력하세요. (8자 이상)"
+          autoComplete="current-password"
+          {...register("password")}
+          errorMessage={errors.password?.message}
+          inputClassName="h-14 p-4"
         />
-        <Button type="submit" variant={"primary"} size={"lg"} className="w-full">
-          로그인
+
+        <Button
+          type="submit"
+          variant={"primary"}
+          size={"lg"}
+          className="h-14 w-full"
+          disabled={isSubmitting || login.isPending}
+        >
+          {isSubmitting || login.isPending ? "로그인 중" : "로그인"}
         </Button>
-        <div>
-          <p>아이디가 없다면?</p>
-          <Link
-            to="/sign-up"
-            className="inline-flex w-full items-center justify-center rounded-lg border border-green-600 bg-neutral-50 px-6 py-3 text-lg text-neutral-900 transition-colors hover:bg-neutral-200 focus:outline-none disabled:saturate-50"
-          >
-            회원가입
+
+        <div className="grid gap-1">
+          <p className="text-base text-neutral-900">아이디가 없다면?</p>
+          <Link to="/sign-up">
+            <Button variant={"primaryOutline"} size={"lg"} className="h-14 w-full">
+              회원가입
+            </Button>
           </Link>
         </div>
 
         <div className="flex gap-3">
-          <Button
-            type="button"
-            variant={"neutralOutline"}
-            size={"lg"}
-            className="flex-1"
-            onClick={handleGoogleLogin}
-          >
-            구글 로그인
-          </Button>
-          <Button
-            type="button"
-            variant={"neutralOutline"}
-            size={"lg"}
-            className="flex-1"
-            onClick={handleKakaoLogin}
-          >
-            카카오 로그인
-          </Button>
+          <GoogleButton onClick={handleGoogleLogin} />
+          <KakaoButton onClick={handleKakaoLogin} />
         </div>
       </form>
     </div>
