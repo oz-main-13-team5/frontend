@@ -65,7 +65,7 @@ export default function Login() {
     <div className="mx-auto flex w-full max-w-md flex-col justify-center gap-6 pt-20">
       <div className="grid gap-2">
         <p className="text-lg text-neutral-900">이게뭐약 사용자 로그인</p>
-        <h2 className="text-5xl text-neutral-900">로그인</h2>
+        <h2 className="text-5xl font-semibold text-neutral-900">로그인</h2>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-5" noValidate>
