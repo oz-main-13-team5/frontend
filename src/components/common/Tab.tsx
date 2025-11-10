@@ -36,7 +36,7 @@ export default function Tab({ items, showAllKey, className }: TabProps) {
     : items.find((item) => item.key === activeTab)?.content;
 
   return (
-    <div>
+    <>
       <div
         role="tablist"
         className={cn(
@@ -61,6 +61,6 @@ export default function Tab({ items, showAllKey, className }: TabProps) {
         ))}
       </div>
       {tabContent}
-    </div>
+    </>
   );
 }
