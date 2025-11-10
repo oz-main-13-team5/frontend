@@ -1,5 +1,5 @@
 import Tab from "@/components/common/Tab";
-import NicknameEditForm from "@/components/my-page/edit/NickNameEditForm";
+import NicknameEditForm from "@/components/my-page/edit/NicknameEditForm";
 import PasswordEditForm from "@/components/my-page/edit/PasswordEditForm";
 
 export default function MyPageEdit() {
