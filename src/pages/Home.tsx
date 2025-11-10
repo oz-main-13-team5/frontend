@@ -1,33 +1,27 @@
+import axios from "axios";
+import { MSW_BASE_URL } from "@/constants/url-constants";
+import type { Pill } from "@/types/api-response-types/pill-response-types";
 import PillSearchInput from "@/components/PillSearchInput";
 import PillListItem from "@/components/PillListItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [pillList, setPillList] = useState<Pill[]>([]);
 
-  const [_, search] = useState("");
-  const dummyPills = [
-    {
-      item_seq: "1",
-      item_name: "약",
-      efcy_qesitm: "약 설명이 들어갑니다. 약 입니다요. 약 입니다요.",
-      entp_name: "약",
-      item_image_url: "_ ,",
-    },
-    {
-      item_seq: "2",
-      item_name: "약",
-      efcy_qesitm: "약 설명이 들어갑니다. 약 입니다요. 약 입니다요.",
-      entp_name: "약",
-      item_image_url: "_ ,",
-    },
-    {
-      item_seq: "3",
-      item_name: "약",
-      efcy_qesitm: "약 설명이 들어갑니다. 약 입니다요. 약 입니다요.",
-      entp_name: "약",
-      item_image_url: "_ ,",
-    },
-  ];
+  useEffect(() => {
+    const fetchPills = async () => {
+      try {
+        const res = await axios.get(`${MSW_BASE_URL}/pills/`, {
+          params: { page: 1 },
+        });
+        setPillList(res.data.pills);
+      } catch (error) {
+        console.error("❌ 약 목록 로딩 실패:", error);
+      }
+    };
+    fetchPills();
+  }, []);
+
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -44,7 +38,7 @@ export default function Home() {
 
           {/* 약 리스트 */}
           <div className="flex flex-col gap-3">
-            {dummyPills.map((pill) => (
+            {pillList.map((pill) => (
               <PillListItem key={pill.item_seq} pill={pill} />
             ))}
           </div>
