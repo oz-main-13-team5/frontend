@@ -10,7 +10,7 @@ type AuthState = {
   clearAuth: () => void;
 };
 
-const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
+const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,

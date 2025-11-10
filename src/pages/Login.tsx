@@ -3,6 +3,7 @@ import Input from "@/components/common/Input";
 import GoogleButton from "@/components/social-login-button/GoogleButton";
 import KakaoButton from "@/components/social-login-button/KakaoButton";
 import { useLoginMutation } from "@/hooks/api/auth";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import { loginSchema, type LoginSchema } from "@/schema/auth-schema";
 import type { LoginApiErrorResponse } from "@/types/api-response-types/auth-response-types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +18,7 @@ const getApiError = (error: unknown) => {
 
 export default function Login() {
   const navigate = useNavigate();
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const {
     register,
@@ -30,7 +32,12 @@ export default function Login() {
 
   // TanStack Query mutations 로그인
   const login = useLoginMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // 로그인 성공 시, 유저 정보와 엑세스 토근을 전역 상태에 저장
+      setAuth({
+        user: data.user,
+        accessToken: data.tokens.access_token,
+      });
       navigate("/", { replace: true });
     },
     onError: (error) => {
