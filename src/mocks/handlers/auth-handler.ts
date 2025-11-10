@@ -169,6 +169,11 @@ const postLogout = http.post(`${MSW_BASE_URL}/user/logout`, async () => {
   return HttpResponse.json({ message: "로그아웃하셨습니다" });
 });
 
+// 회원 탈퇴 API
+const deleteAccount = http.delete(`${MSW_BASE_URL}/users/signout`, async () => {
+  return new HttpResponse(null, { status: 204 });
+});
+
 export const authHandlers = [
   postSignUpSend,
   postSignUpVerify,
@@ -176,4 +181,5 @@ export const authHandlers = [
   postLogin,
   postRefresh,
   postLogout,
+  deleteAccount,
 ];
