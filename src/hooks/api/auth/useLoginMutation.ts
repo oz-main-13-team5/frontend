@@ -13,7 +13,10 @@ import { MSW_BASE_URL } from "@/constants/url-constants";
 // - 성공 시 서버에서 받은 user / accessToken을 Zustand 스토어에 저장
 
 export default function useLoginMutation(
-  options?: UseMutationOptions<LoginResponse, AxiosError<LoginApiErrorResponse>, LoginRequest>
+  options?: Omit<
+    UseMutationOptions<LoginResponse, AxiosError<LoginApiErrorResponse>, LoginRequest>,
+    "mutationFn" | "mutationKey"
+  >
 ) {
   return useMutation<LoginResponse, AxiosError<LoginApiErrorResponse>, LoginRequest>({
     mutationKey: ["auth", "login"],
