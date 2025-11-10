@@ -1,14 +1,34 @@
 import Button from "@/components/common/Button";
+import Input from "@/components/common/Input";
 import Tab from "@/components/common/Tab";
+import Modal from "@/components/Modal";
 import PillListItem from "@/components/PillListItem";
+import { DELETE_ACCOUNT_CONFIRM_TEXT } from "@/constants/api-constants";
+import { useDeleteAccount } from "@/hooks/api/auth";
 import useBookmarkList from "@/hooks/api/my-page/useBookmarkList";
 import useAuthStore from "@/hooks/stores/useAuthStore";
-import { Link } from "react-router";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router";
 
 export default function Mypage() {
   const { data } = useBookmarkList();
   const bookmarkedPills = data?.pills ?? [];
-  const { user } = useAuthStore();
+  const { user, clearAuth } = useAuthStore();
+  const navigate = useNavigate();
+
+  // 회원 탈퇴 모달 여부 및 입력값 상태
+  const [open, setOpen] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
+
+  // TanStack Query mutations 회원탈퇴
+  const { mutate: deleteAccount, isPending } = useDeleteAccount({
+    onSuccess: () => {
+      clearAuth();
+      navigate("/", { replace: true });
+    },
+  });
+
+  const canDelete = confirmText === DELETE_ACCOUNT_CONFIRM_TEXT;
 
   return (
     <div className="flex w-full justify-center gap-5 pt-10 sm:pt-20">
@@ -25,7 +45,15 @@ export default function Mypage() {
               </Button>
             </Link>
             <div className="flex-1 sm:flex-none">
-              <Button variant={"primaryOutline"} size={"lg"} className="h-14 w-full sm:w-auto">
+              <Button
+                variant={"primaryOutline"}
+                size={"lg"}
+                className="h-14 w-full sm:w-auto"
+                onClick={() => {
+                  setConfirmText("");
+                  setOpen(true);
+                }}
+              >
                 회원 탈퇴
               </Button>
             </div>
@@ -72,6 +100,48 @@ export default function Mypage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        title="회원 탈퇴"
+        description="탈퇴 시, 계정과 모든 데이터가 삭제되며 복구할 수 없습니다."
+        className="text-left sm:w-[60%]"
+      >
+        <p className="text-md -mt-4 text-neutral-900">그래도 계속 진행하시겠습니까?</p>
+        <p className="text-md text-neutral-900">
+          <span className="font-semibold">"{DELETE_ACCOUNT_CONFIRM_TEXT}"</span>라고 입력해주세요.
+        </p>
+
+        <Input
+          type="text"
+          placeholder={DELETE_ACCOUNT_CONFIRM_TEXT}
+          inputClassName="h-14 p-4"
+          value={confirmText}
+          onChange={(e) => setConfirmText(e.target.value)}
+        />
+        <div className="flex justify-end gap-2 pt-10">
+          <Button
+            variant="neutral"
+            size="lg"
+            onClick={() => setOpen(false)}
+            className="h-14 flex-1"
+          >
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            size="lg"
+            className="h-14 flex-1"
+            disabled={!canDelete || isPending}
+            onClick={() => deleteAccount()}
+          >
+            {isPending ? "탈퇴 중" : "탈퇴하기"}
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
