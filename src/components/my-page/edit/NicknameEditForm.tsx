@@ -14,7 +14,11 @@ interface NicknameEditFormProps {
 }
 
 export default function NicknameEditForm({ className }: NicknameEditFormProps) {
-  const { handleSubmit, register } = useForm<NicknameEditSchema>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<NicknameEditSchema>({
     resolver: zodResolver(nicknameEditSchema),
   });
 
@@ -51,6 +55,7 @@ export default function NicknameEditForm({ className }: NicknameEditFormProps) {
         inputClassName="p-4"
         placeholder="닉네임을 입력하세요."
         label="닉네임 변경"
+        errorMessage={errors.nickname?.message}
         {...register("nickname")}
       />
       <Button type="submit" className="p-4" disabled={isPending}>
