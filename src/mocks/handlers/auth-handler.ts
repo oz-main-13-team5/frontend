@@ -6,15 +6,18 @@ import {
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import { mockSignUpResponse } from "@/mocks/data/signup-data";
 import type {
+  LoginRequest,
   SignUpRequest,
   SignUpSendRequest,
   SignUpVerifyRequest,
 } from "@/types/api-request-types/auth-request-types";
-import type {
-  SignUpApiErrorResponse,
-  SignUpResponse,
-  SignUpSendResponse,
-  SignUpVerifyResponse,
+import {
+  type LoginApiErrorResponse,
+  type LoginResponse,
+  type SignUpApiErrorResponse,
+  type SignUpResponse,
+  type SignUpSendResponse,
+  type SignUpVerifyResponse,
 } from "@/types/api-response-types/auth-response-types";
 import { http, HttpResponse } from "msw";
 
@@ -111,4 +114,66 @@ const postSignUp = http.post<never, SignUpRequest>(
   }
 );
 
-export const authHandlers = [postSignUpSend, postSignUpVerify, postSignUp];
+// 로그인 API
+const postLogin = http.post<never, LoginRequest>(
+  `${MSW_BASE_URL}/users/login`,
+  async ({ request }) => {
+    const body = (await request.json()) as LoginRequest;
+    const { email, password } = body;
+
+    if (email !== "jane.doe@example.com" || password !== "Password123!") {
+      return HttpResponse.json<LoginApiErrorResponse>(
+        { error: "이메일 또는 비밀번호를 확인해주세요", code: 401 },
+        { status: 401 }
+      );
+    }
+
+    return HttpResponse.json<LoginResponse>({
+      user: {
+        id: "user1",
+        email,
+        nickname: "jane_doe",
+        is_active: true,
+        joined_at: new Date().toISOString(),
+        last_login: null,
+        provider: null,
+      },
+      tokens: {
+        token_type: "Bearer",
+        access_token: "mock-access-" + crypto.randomUUID(),
+        access_expires_in: ACCESS_TOKEN_EXPIRE_SECONDS,
+        refresh_expires_at: new Date(
+          Date.now() + REFRESH_TOKEN_EXPIRE_DAYS * MS_PER_DAY
+        ).toISOString(),
+      },
+    });
+  }
+);
+
+// 토큰 갱신 API
+const postRefresh = http.post(`${MSW_BASE_URL}/user/token/refresh`, async () => {
+  return HttpResponse.json({
+    tokens: {
+      token_type: "Bearer",
+      access_token: "mock-access-" + crypto.randomUUID(),
+      access_expires_in: ACCESS_TOKEN_EXPIRE_SECONDS,
+      refresh_expires_at: new Date(
+        Date.now() + REFRESH_TOKEN_EXPIRE_DAYS * MS_PER_DAY
+      ).toISOString(),
+    },
+  });
+});
+
+// 로그아웃 API
+const postLogout = http.post(`${MSW_BASE_URL}/user/logout`, async () => {
+  return HttpResponse.json({ message: "로그아웃하셨습니다" });
+});
+
+export const authHandlers = [
+  postSignUpSend,
+  postSignUpVerify,
+  postSignUp,
+  postLogin,
+  postRefresh,
+  postLogout,
+];
