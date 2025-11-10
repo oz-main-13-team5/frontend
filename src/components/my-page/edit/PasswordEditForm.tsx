@@ -14,7 +14,11 @@ interface PasswordEditFormProps {
 }
 
 export default function PasswordEditForm({ className }: PasswordEditFormProps) {
-  const { handleSubmit, register } = useForm<PasswordEditSchema>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<PasswordEditSchema>({
     resolver: zodResolver(passwordEditSchema),
   });
 
@@ -52,6 +56,7 @@ export default function PasswordEditForm({ className }: PasswordEditFormProps) {
         label="현재 비밀번호"
         inputClassName="p-4"
         type="password"
+        errorMessage={errors.currentPassword?.message}
         {...register("currentPassword")}
       />
       <Input
@@ -59,6 +64,7 @@ export default function PasswordEditForm({ className }: PasswordEditFormProps) {
         label="새 비밀번호"
         inputClassName="p-4"
         type="password"
+        errorMessage={errors.newPassword?.message}
         {...register("newPassword")}
       />
       <Input
@@ -66,7 +72,8 @@ export default function PasswordEditForm({ className }: PasswordEditFormProps) {
         label="새 비밀번호 확인"
         inputClassName="p-4"
         type="password"
-        {...register("newPassword")}
+        errorMessage={errors.confirmPassword?.message}
+        {...register("confirmPassword")}
       />
       <Button type="submit" className="p-4" disabled={isPending}>
         {isPending ? "비밀번호를 수정 중입니다." : "비밀번호 수정하기"}
