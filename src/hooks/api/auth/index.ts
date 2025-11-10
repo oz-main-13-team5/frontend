@@ -1,5 +1,13 @@
-export { default as useSendCodeMutation } from "./useSendCodeMutation";
-export { default as useVerifyCodeMutation } from "./useVerifyCodeMutation";
-export { default as useSignupMutation } from "./useSignupMutation";
-export { default as useLoginMutation } from "./useLoginMutation";
-export { default as useLogoutMutation } from "./useLogoutMutation";
+import useSendCodeMutation from "@/hooks/api/auth/useSendCodeMutation";
+import useVerifyCodeMutation from "@/hooks/api/auth/useVerifyCodeMutation";
+import useSignupMutation from "@/hooks/api/auth/useSignupMutation";
+import useLoginMutation from "@/hooks/api/auth/useLoginMutation";
+import useLogoutMutation from "@/hooks/api/auth/useLogoutMutation";
+
+export {
+  useSendCodeMutation,
+  useVerifyCodeMutation,
+  useSignupMutation,
+  useLoginMutation,
+  useLogoutMutation,
+};
