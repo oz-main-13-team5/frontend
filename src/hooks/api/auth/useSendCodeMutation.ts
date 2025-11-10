@@ -8,7 +8,7 @@ import type {
   SignUpSendResponse,
 } from "@/types/api-response-types/auth-response-types";
 
-export function useSendCodeMutation(
+export default function useSendCodeMutation(
   options?: UseMutationOptions<
     SignUpSendResponse,
     AxiosError<SignUpApiErrorResponse>,

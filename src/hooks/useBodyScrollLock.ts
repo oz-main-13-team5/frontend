@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useBodyScrollLock(isOpen: boolean) {
+export default function useBodyScrollLock(isOpen: boolean) {
   useEffect(() => {
     if (!isOpen) return;
 

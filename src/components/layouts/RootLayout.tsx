@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/header/Header";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { Outlet } from "react-router";
 
 const DESKTOP_HEADER_HEIGHT_PX = 80;

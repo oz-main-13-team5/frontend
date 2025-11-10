@@ -8,7 +8,7 @@ import type {
   SignUpVerifyResponse,
 } from "@/types/api-response-types/auth-response-types";
 
-export function useVerifyCodeMutation(
+export default function useVerifyCodeMutation(
   options?: UseMutationOptions<
     SignUpVerifyResponse,
     AxiosError<SignUpApiErrorResponse>,

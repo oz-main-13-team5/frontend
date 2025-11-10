@@ -9,7 +9,7 @@ import useInfinitePillList from "@/hooks/api/useInfinitePillList";
 import React, { useMemo } from "react";
 import useObserver from "@/hooks/useObserver";
 import SelectBox, { type Option } from "@/components/common/SelectBox";
-import { usePillSearchStore } from "@/hooks/stores/usePillSearchStore";
+import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import type { pillSearchOptionFrontend } from "@/types/types";
 
 const SELECT_OPTIONS: Option[] = [

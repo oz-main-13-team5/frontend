@@ -1,6 +1,6 @@
 import ImageSearchBarModal from "@/components/image-search-bar-modal/ImageSearchBarModal";
 import Modal from "@/components/Modal";
-import { usePillSearchStore } from "@/hooks/stores/usePillSearchStore";
+import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import { cn } from "@/libs/utils";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
