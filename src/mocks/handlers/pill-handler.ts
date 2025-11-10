@@ -1,7 +1,7 @@
 import { PILL_LIST_PAGE_LIMIT } from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
-import { mockPills } from "@/mocks/data/pill-data";
-import type { Pill, PillList } from "@/types/api-response-types/pill-response-types";
+import { mockPillDetail, mockPills } from "@/mocks/data/pill-data";
+import type { Pill, PillDetail, PillList } from "@/types/api-response-types/pill-response-types";
 import { http, HttpResponse } from "msw";
 
 const getPillList = http.get(`${MSW_BASE_URL}/pills`, ({ request }) => {
@@ -64,4 +64,19 @@ const getPillSearchList = http.get(`${MSW_BASE_URL}/pills/search`, ({ request })
   return HttpResponse.json(pillListResponse);
 });
 
-export const pillHandlers = [getPillList, getPillSearchList];
+const getPillDetail = http.get<{ item_seq: string }>(
+  `${MSW_BASE_URL}/pills/:item_seq`,
+  ({ params }) => {
+    const { item_seq } = params;
+
+    //아이템 번호만 맞게 바꿔서 전달, 그 외 정보는 항상 타이레놀 정보
+    const data: PillDetail = {
+      ...mockPillDetail,
+      item_seq,
+    };
+
+    return HttpResponse.json(data);
+  }
+);
+
+export const pillHandlers = [getPillList, getPillSearchList, getPillDetail];
