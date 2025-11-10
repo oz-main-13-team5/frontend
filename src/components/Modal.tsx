@@ -1,4 +1,4 @@
-import { useBodyScrollLock } from "@/hooks/useBodyScrollLock";
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 import { cn } from "@/libs/utils";
 import { XIcon } from "lucide-react";
 import type { ReactNode } from "react";

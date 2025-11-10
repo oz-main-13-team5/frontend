@@ -1,7 +1,7 @@
 import LoggedInHeaderMenu from "@/components/header/LoggedInHeaderMenu";
 import SideNavigation from "@/components/header/SideNavigation";
 import UnLoggedInHeaderMenu from "@/components/header/UnLoggedInHeaderMenu";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 

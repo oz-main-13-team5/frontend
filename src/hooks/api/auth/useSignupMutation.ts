@@ -8,7 +8,7 @@ import type {
 } from "@/types/api-response-types/auth-response-types";
 import type { SignUpRequest } from "@/types/api-request-types/auth-request-types";
 
-export function useSignupMutation(
+export default function useSignupMutation(
   options?: UseMutationOptions<SignUpResponse, AxiosError<SignUpApiErrorResponse>, SignUpRequest>
 ) {
   return useMutation<SignUpResponse, AxiosError<SignUpApiErrorResponse>, SignUpRequest>({

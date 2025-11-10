@@ -8,9 +8,11 @@ interface PillSearchState {
   setQueryParamValue: (value: string) => void;
 }
 
-export const usePillSearchStore = create<PillSearchState>()((set) => ({
+const usePillSearchStore = create<PillSearchState>()((set) => ({
   queryParamKey: "itemName",
   queryParamValue: "",
   setQueryParamKey: (key) => set(() => ({ queryParamKey: key })),
   setQueryParamValue: (value) => set(() => ({ queryParamValue: value })),
 }));
+
+export default usePillSearchStore;

@@ -1,12 +1,14 @@
 import { api } from "@/libs/axios";
-import { useAuthStore } from "@/hooks/stores/useAuthStore";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import type { LogoutResponse } from "@/types/api-response-types/auth-response-types";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useNavigate } from "react-router";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 
-export function useLogoutMutation(options?: UseMutationOptions<LogoutResponse, AxiosError>) {
+export default function useLogoutMutation(
+  options?: UseMutationOptions<LogoutResponse, AxiosError>
+) {
   const navigate = useNavigate();
   const clearAuth = useAuthStore((state) => state.clearAuth);
 

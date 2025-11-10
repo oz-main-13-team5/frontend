@@ -10,7 +10,7 @@ type AuthState = {
   clearAuth: () => void;
 };
 
-export const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
+const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
   persist(
     (set) => ({
       user: null,
@@ -22,3 +22,5 @@ export const useAuthStore = create<AuthState, [["zustand/persist", AuthState]]>(
     { name: "auth-storage" } // 로컬스토리지 저장 키 이름
   )
 );
+
+export default useAuthStore;

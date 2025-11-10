@@ -1,5 +1,5 @@
 import { MSW_BASE_URL } from "@/constants/url-constants";
-import { useAuthStore } from "@/hooks/stores/useAuthStore";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import axios, { AxiosError } from "axios";
 
 export const api = axios.create({
