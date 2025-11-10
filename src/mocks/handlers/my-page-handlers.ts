@@ -1,5 +1,8 @@
 import { MSW_BASE_URL } from "@/constants/url-constants";
+import { mockPills } from "@/mocks/data/pill-data";
 import { http, HttpResponse } from "msw";
+
+const BOOKMARK_LIMIT = 20;
 
 const patchNickname = http.patch(`${MSW_BASE_URL}/me/nickname`, async ({ request }) => {
   const body = (await request.clone().json()) as { nickname: string };
@@ -21,4 +24,17 @@ const patchPassword = http.patch(`${MSW_BASE_URL}/me/password`, async ({ request
   return new HttpResponse(null, { status: 200 });
 });
 
-export const myPageHandlers = [patchNickname, patchPassword];
+// 북마크 조회
+const getBookmarks = http.get(`${MSW_BASE_URL}/bookmark`, () => {
+  const bookmarked = mockPills.filter((pill) => pill.is_marked);
+
+  const response = {
+    pills: bookmarked,
+    total: bookmarked.length,
+    limit: BOOKMARK_LIMIT, // 최대 북마크 수
+  };
+
+  return HttpResponse.json(response, { status: 200 });
+});
+
+export const myPageHandlers = [patchNickname, patchPassword, getBookmarks];

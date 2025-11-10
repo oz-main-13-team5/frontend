@@ -5,7 +5,7 @@ import PillList from "@/pages/PillList";
 import SignUp from "@/pages/SignUp";
 import Login from "@/pages/Login";
 import { Route, Routes } from "react-router";
-import Mypage from "@/pages/Mypage";
+import Mypage from "@/pages/MyPage";
 
 function App() {
   return (
