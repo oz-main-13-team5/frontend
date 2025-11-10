@@ -7,16 +7,22 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [pillList, setPillList] = useState<Pill[]>([]);
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPills = async () => {
       try {
+        setLoading(true);
         const res = await axios.get(`${MSW_BASE_URL}/pills/`, {
           params: { page: 1 },
         });
         setPillList(res.data.pills);
-      } catch (error) {
-        console.error("❌ 약 목록 로딩 실패:", error);
+      } catch (err) {
+        console.error("❌ 약 목록 로딩 실패:", err);
+        setError("약 목록을 불러오는데 실패했습니다해");
+      } finally {
+        setLoading(false);
       }
     };
     fetchPills();
@@ -36,12 +42,32 @@ export default function Home() {
             배너 이미지 영역
           </div>
 
-          {/* 약 리스트 */}
-          <div className="flex flex-col gap-3">
-            {pillList.map((pill) => (
-              <PillListItem key={pill.item_seq} pill={pill} />
-            ))}
-          </div>
+          {/* 로딩 상태 */}
+          {loading && (
+            <div className="text-center text-neutral-500 py-8">
+              약 목록을 불러오는 중입니다...
+            </div>
+          )}
+
+          {/* 에러 상태 */}
+          {error && (
+            <div className="text-center text-red-500 py-8">{error}</div>
+          )}
+
+          {/* 정상 데이터 */}
+          {!loading && !error && (
+            <div className="flex flex-col gap-3">
+              {pillList.length > 0 ? (
+                pillList.map((pill) => (
+                  <PillListItem key={pill.item_seq} pill={pill} />
+                ))
+              ) : (
+                <div className="text-center text-neutral-500 py-8">
+                  표시할 약이 없습니다
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </main>
     </div>
