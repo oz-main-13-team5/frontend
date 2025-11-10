@@ -1,4 +1,22 @@
-import type { Pill } from "@/types/api-response-types/pill-response-types";
+import type { Pill, PillDetail } from "@/types/api-response-types/pill-response-types";
+
+export const mockPillDetail: PillDetail = {
+  item_seq: "100001",
+  item_name: "타이레놀정 500mg",
+  efcy_qesitm: "해열, 진통, 감기 등의 증상 완화에 사용됩니다.",
+  entp_name: "한국존슨앤드존슨",
+  item_image_url: "https://picsum.photos/seed/100001/200",
+  is_marked: false,
+  use_method_qesitm:
+    "성인은 1회 1~2정, 1일 3~4회(4~6시간 간격) 복용합니다. 1일 최대 8정을 초과하지 마십시오.",
+  atpn_warn_qesitm:
+    "과량 복용 시 간 손상을 일으킬 수 있으므로, 음주 후 복용을 피하고 권장 용량을 초과하지 마십시오.",
+  intrc_qesitm:
+    "다른 아세트아미노펜(acetaminophen) 함유 의약품과 병용하지 마십시오. 와파린 등 항응고제와 병용 시 출혈 위험이 증가할 수 있습니다.",
+  se_qesitm:
+    "드물게 구역, 구토, 피부 발진, 가려움 등의 부작용이 나타날 수 있습니다. 이러한 증상이 지속되면 복용을 중단하고 의사와 상담하십시오.",
+  deposit_method_qesitm: "습기와 직사광선을 피하여 서늘한 실온(1~30℃)에 보관하십시오.",
+};
 
 export const mockPills: Pill[] = [
   {
