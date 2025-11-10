@@ -2,20 +2,22 @@ import Button from "@/components/common/Button";
 import Tab from "@/components/common/Tab";
 import PillListItem from "@/components/PillListItem";
 import useBookmarkList from "@/hooks/api/my-page/useBookmarkList";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import { Link } from "react-router";
 
 export default function Mypage() {
   const { data } = useBookmarkList();
   const bookmarkedPills = data?.pills ?? [];
+  const { user } = useAuthStore();
 
   return (
     <div className="flex w-full justify-center gap-5 pt-10 sm:pt-20">
       <div className="flex w-full max-w-[1440px] flex-col items-start sm:flex-row">
         {/* 유저 프로필 */}
         <div className="grid w-full gap-2 px-10 text-center sm:w-auto">
-          <p className="text-2xl font-medium text-neutral-900">이건뭐약</p>
-          <p className="text-sm text-neutral-500">회원님 환영합니다.</p>
-          <p className="text-md text-neutral-500">유저 이메일</p>
+          <p className="text-2xl font-medium text-neutral-900">{user?.nickname ?? "이건뭐약"}</p>
+          <p className="text-sm text-neutral-500"> {`${user?.nickname ?? "회원"}님 환영합니다.`}</p>
+          <p className="text-md text-neutral-500">{user?.email ?? "이메일"}</p>
           <div className="flex gap-2 pt-5">
             <Link to="/my-page/edit" className="flex-1 sm:flex-none">
               <Button variant={"primary"} size={"lg"} className="h-14 w-full sm:w-auto">
