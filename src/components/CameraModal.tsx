@@ -51,13 +51,15 @@ export default function CameraModal({}: CameraModalProps) {
     if (!videoRef.current) return;
 
     const video = videoRef.current;
-    const width = video.videoWidth;
-    const height = video.videoHeight;
+    let width = video.videoWidth;
+    let height = video.videoHeight;
 
-    // 캔버스 생성
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+    const MIN_QUALITY = 0.1;
+    const QUALITY_STEP = 0.05;
+    const RESIZE_STEP = 0.9; // 90%씩 줄이기
+
     const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
     const ctx = canvas.getContext("2d");
 
     if (!ctx) {
@@ -65,30 +67,43 @@ export default function CameraModal({}: CameraModalProps) {
       return;
     }
 
-    // 비디오 프레임을 캔버스에 그리기
-    ctx.drawImage(video, 0, 0, width, height);
+    let quality = 0.9;
+    let blob: Blob | null = null;
 
-    // 캔버스 데이터를 Blob으로 변환 (jpeg 또는 png)
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) {
-          setError("이미지 변환 중 오류가 발생했습니다.");
-          return;
+    const createBlob = (): Promise<Blob | null> => {
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(video, 0, 0, width, height);
+      return new Promise((resolve) => {
+        canvas.toBlob((b) => resolve(b), "image/jpeg", quality);
+      });
+    };
+
+    // 반복: 파일이 5MB 이상이면 품질 먼저 줄이고, 그래도 안되면 크기 줄이기
+    do {
+      blob = await createBlob();
+
+      if (!blob) {
+        setError("이미지 변환 중 오류가 발생했습니다.");
+        return;
+      }
+
+      if (blob.size > MAX_SIZE) {
+        if (quality > MIN_QUALITY + QUALITY_STEP) {
+          quality -= QUALITY_STEP; // 품질 낮추기
+        } else {
+          width = Math.floor(width * RESIZE_STEP);
+          height = Math.floor(height * RESIZE_STEP); // 캔버스 크기 줄이기
         }
+      }
+    } while (blob.size > MAX_SIZE);
 
-        // Blob을 File로 변환
-        const mimeType = "image/jpeg";
-        const file = new File([blob], `capture_${Date.now()}.jpeg`, { type: mimeType });
-        setImageFile(file);
+    const file = new File([blob], `capture_${Date.now()}.jpeg`, { type: "image/jpeg" });
+    setImageFile(file);
 
-        // FileReader로 프리뷰 URL 생성
-        const reader = new FileReader();
-        reader.onloadend = () => setPreviewImage(reader.result as string);
-        reader.readAsDataURL(file);
-      },
-      "image/jpeg",
-      0.9 // 이미지 품질
-    );
+    const reader = new FileReader();
+    reader.onloadend = () => setPreviewImage(reader.result as string);
+    reader.readAsDataURL(file);
   };
 
   const handleRetake = () => {
@@ -108,7 +123,7 @@ export default function CameraModal({}: CameraModalProps) {
           {error ? (
             <span className="text-neutral-900">{error}</span>
           ) : previewImage ? (
-            // 📸 촬영 후 프리뷰
+            // 촬영 후 프리뷰
             <div className="flex flex-col items-center gap-3">
               <img
                 src={previewImage}
@@ -126,7 +141,7 @@ export default function CameraModal({}: CameraModalProps) {
               </div>
             </div>
           ) : (
-            // 🎥 촬영 전 카메라 화면
+            // 촬영 전 카메라 화면
             <>
               <video
                 ref={videoRef}
