@@ -20,7 +20,7 @@ export default function Home() {
         setPillList(res.data.pills);
       } catch (err) {
         console.error("❌ 약 목록 로딩 실패:", err);
-        setError("약 목록을 불러오는데 실패했습니다해");
+        setError("약 목록을 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
       }
