@@ -4,6 +4,7 @@ import { authHandlers } from "@/mocks/handlers/auth-handler";
 import { pillHandlers } from "@/mocks/handlers/pill-handler";
 import { myPageHandlers } from "@/mocks/handlers/my-page-handlers";
 import { http, HttpResponse } from "msw";
+import { pillImageHandlers } from "@/mocks/handlers/pill-image-handlers";
 
 const getTestMSW = http.get(`${MSW_BASE_URL}/get-test`, () => {
   return HttpResponse.text("msw is working!");
@@ -15,4 +16,5 @@ export const handlers = [
   ...bookmarkHandlers,
   ...authHandlers,
   ...myPageHandlers,
+  ...pillImageHandlers,
 ];
