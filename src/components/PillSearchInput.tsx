@@ -1,8 +1,9 @@
+import CameraModal from "@/components/CameraModal";
 import ImageSearchBarModal from "@/components/image-search-bar-modal/ImageSearchBarModal";
 import Modal from "@/components/Modal";
 import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import { cn } from "@/libs/utils";
-import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react";
+import { ImageIcon, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
@@ -60,8 +61,7 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
         <ImageIcon className={ICON_CLASS_NAME} />
       </button>
 
-      {/* //TODO: 카메라 아이콘 클릭 시 기기 카메라 열기 */}
-      <CameraIcon className={ICON_CLASS_NAME} />
+      <CameraModal />
 
       <Modal
         isOpen={isModalOpen}
