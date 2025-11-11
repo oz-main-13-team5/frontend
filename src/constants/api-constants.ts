@@ -17,3 +17,6 @@ export const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
 // Access Token 만료 시간(초) / 기본값: 900초 = 15분
 export const ACCESS_TOKEN_EXPIRE_SECONDS = 900;
+
+// 회원탈퇴 시 입력 텍스트
+export const DELETE_ACCOUNT_CONFIRM_TEXT = "회원탈퇴";
