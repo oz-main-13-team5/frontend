@@ -1,7 +1,7 @@
 import { MSW_BASE_URL } from "@/constants/url-constants";
+import { api } from "@/libs/axios";
 import type { BoomarkResponse } from "@/types/api-response-types/bookmark-response-types";
 import { useMutation, type MutateOptions } from "@tanstack/react-query";
-import axios from "axios";
 
 interface UseToggleBookmarkParams {
   isDelete: boolean;
@@ -20,7 +20,7 @@ export default function useToggleBookmark(
       const { id, isDelete } = toggleParams;
 
       if (isDelete) {
-        const res = await axios.delete(`${MSW_BASE_URL}/bookmark`, {
+        const res = await api.delete(`${MSW_BASE_URL}/bookmark`, {
           data: {
             item_seq: id,
           },
@@ -28,7 +28,7 @@ export default function useToggleBookmark(
 
         return res.data;
       } else {
-        const res = await axios.post(`${MSW_BASE_URL}/bookmark`, {
+        const res = await api.post(`${MSW_BASE_URL}/bookmark`, {
           item_seq: id,
         });
 
