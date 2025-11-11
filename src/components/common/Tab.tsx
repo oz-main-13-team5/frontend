@@ -14,6 +14,7 @@ interface TabProps {
   items: TabItem[];
   showAllKey?: string;
   className?: string;
+  onChange?: (key: string) => void;
 }
 
 /**
@@ -23,7 +24,7 @@ interface TabProps {
  * - showAllKey가 설정된 경우, '전체 보기' 탭처럼 모든 탭 콘텐츠를 순차적으로 표시할 수 있습니다.
  */
 
-export default function Tab({ items, showAllKey, className }: TabProps) {
+export default function Tab({ items, showAllKey, className, onChange }: TabProps) {
   const [activeTab, setActiveTab] = useState(showAllKey || items[0]?.key);
 
   // showAllKey가 설정되어 있고 현재 활성 탭이 해당 key라면, 모든 탭의 콘텐츠를 순차적으로 렌더링
@@ -48,7 +49,10 @@ export default function Tab({ items, showAllKey, className }: TabProps) {
           <button
             key={item.key}
             role="tab"
-            onClick={() => setActiveTab(item.key)}
+            onClick={() => {
+              setActiveTab(item.key);
+              onChange?.(item.key);
+            }}
             className={cn(
               "flex-1 px-1 py-1 text-lg text-neutral-600",
               activeTab === item.key
