@@ -1,9 +1,9 @@
-import axios from "axios";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import type { Pill } from "@/types/api-response-types/pill-response-types";
 import PillSearchInput from "@/components/PillSearchInput";
 import PillListItem from "@/components/PillListItem";
 import { useEffect, useState } from "react";
+import { api } from "@/libs/axios";
 
 export default function Home() {
   const [pillList, setPillList] = useState<Pill[]>([]);
@@ -14,7 +14,7 @@ export default function Home() {
     const fetchPills = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${MSW_BASE_URL}/pills/`, {
+        const res = await api.get(`${MSW_BASE_URL}/pills/`, {
           params: { page: 1 },
         });
         setPillList(res.data.pills);
