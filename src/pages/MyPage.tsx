@@ -38,24 +38,24 @@ export default function Mypage() {
   const canDelete = confirmText === DELETE_ACCOUNT_CONFIRM_TEXT;
 
   return (
-    <div className="flex w-full justify-center gap-5 pt-10 sm:pt-20">
-      <div className="flex w-full max-w-[1440px] flex-col items-start sm:flex-row">
+    <div className="flex w-full justify-center gap-5 pt-10 lg:pt-20">
+      <div className="flex w-full max-w-[1440px] flex-col items-start lg:flex-row">
         {/* 유저 프로필 */}
-        <div className="grid w-full gap-2 px-10 text-center sm:w-auto">
+        <div className="grid w-full gap-2 px-10 text-center lg:w-auto">
           <p className="text-2xl font-medium text-neutral-900">{user?.nickname ?? "이건뭐약"}</p>
           <p className="text-sm text-neutral-500"> {`${user?.nickname ?? "회원"}님 환영합니다.`}</p>
           <p className="text-md text-neutral-500">{user?.email ?? "이메일"}</p>
           <div className="flex gap-2 pt-5">
-            <Link to="/my-page/edit" className="flex-1 sm:flex-none">
-              <Button variant={"primary"} size={"lg"} className="h-14 w-full sm:w-auto">
+            <Link to="/my-page/edit" className="flex-1 lg:flex-none">
+              <Button variant={"primary"} size={"lg"} className="h-14 w-full lg:w-auto">
                 내 정보 수정
               </Button>
             </Link>
-            <div className="flex-1 sm:flex-none">
+            <div className="flex-1 lg:flex-none">
               <Button
                 variant={"primaryOutline"}
                 size={"lg"}
-                className="h-14 w-full sm:w-auto"
+                className="h-14 w-full lg:w-auto"
                 onClick={() => {
                   setConfirmText("");
                   setOpen(true);
@@ -68,11 +68,11 @@ export default function Mypage() {
         </div>
 
         {/* 리스트 렌더링 */}
-        <div className="w-full flex-1 px-3 sm:px-5">
-          <h2 className="pt-10 pb-5 text-2xl font-medium text-neutral-900 sm:pt-0 sm:text-5xl sm:font-semibold">
+        <div className="w-full flex-1 px-3 lg:px-5">
+          <h2 className="pt-10 pb-5 text-2xl font-medium text-neutral-900 lg:text-5xl lg:font-semibold">
             {activeTitleTab[activeTab]}
           </h2>
-          <div className="flex flex-col items-center justify-center gap-3 sm:gap-10">
+          <div className="flex flex-col items-center justify-center gap-3 lg:gap-10">
             <Tab
               className="w-full max-w-[640px] rounded-4xl p-1"
               onChange={(key) => setActiveTab(key as "bookmark" | "image-search")}
@@ -116,7 +116,7 @@ export default function Mypage() {
         }}
         title="회원 탈퇴"
         description="탈퇴 시, 계정과 모든 데이터가 삭제되며 복구할 수 없습니다."
-        className="text-left sm:w-[60%]"
+        className="text-left sm:w-[30%] sm:min-w-[428px]"
       >
         <p className="text-md -mt-4 text-neutral-900">그래도 계속 진행하시겠습니까?</p>
         <p className="text-md text-neutral-900">
