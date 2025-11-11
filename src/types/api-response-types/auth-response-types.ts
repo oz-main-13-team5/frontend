@@ -23,7 +23,6 @@ export interface ApiError {
 // 회원가입 응답
 export interface SignUpResponse {
   user: User;
-  tokens: Token;
 }
 
 export interface SignUpSendResponse {

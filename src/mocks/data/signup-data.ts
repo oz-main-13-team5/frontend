@@ -10,10 +10,4 @@ export const mockSignUpResponse: SignUpResponse = {
     last_login: null,
     provider: null,
   },
-  tokens: {
-    token_type: "Bearer",
-    access_token: "mock-access-token",
-    access_expires_in: 900,
-    refresh_expires_at: "2025-11-18T02:13:45Z",
-  },
 };

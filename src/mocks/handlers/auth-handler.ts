@@ -100,14 +100,6 @@ const postSignUp = http.post<never, SignUpRequest>(
           last_login: null,
           provider: null,
         },
-        tokens: {
-          token_type: "Bearer",
-          access_token: "mock-access-" + crypto.randomUUID(),
-          access_expires_in: ACCESS_TOKEN_EXPIRE_SECONDS,
-          refresh_expires_at: new Date(
-            Date.now() + REFRESH_TOKEN_EXPIRE_DAYS * MS_PER_DAY
-          ).toISOString(),
-        },
       },
       { status: 201 }
     );

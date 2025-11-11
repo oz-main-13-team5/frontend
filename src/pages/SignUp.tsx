@@ -87,8 +87,7 @@ export default function SignUp() {
   const signup = useSignupMutation({
     onSuccess: () => {
       console.log("회원가입 성공");
-      // 회원가입 시 access/refresh 토큰이 발급되므로 로그인 페이지 대신 홈으로 리다이렉트
-      navigate("/", { replace: true });
+      navigate("/login", { replace: true });
     },
     onError: (error) => {
       const axiosError = error as AxiosError<SignUpApiErrorResponse>;
