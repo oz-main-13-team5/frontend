@@ -4,6 +4,9 @@ import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import { cn } from "@/libs/utils";
 import { CameraIcon, ImageIcon, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+
+const PILL_PATH = "/pill";
 
 interface PillSearchInputProps {
   className?: string;
@@ -15,8 +18,15 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
   const { setQueryParamValue } = usePillSearchStore();
   const [inputValue, setInputValue] = useState("");
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+
+    if (location.pathname !== PILL_PATH) {
+      navigate(PILL_PATH);
+    }
 
     setQueryParamValue(inputValue.trim());
   };
