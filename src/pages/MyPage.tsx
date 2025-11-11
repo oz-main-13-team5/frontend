@@ -16,6 +16,13 @@ export default function Mypage() {
   const { user, clearAuth } = useAuthStore();
   const navigate = useNavigate();
 
+  const [activeTab, setActiveTab] = useState<"bookmark" | "image-search">("bookmark");
+
+  const activeTitleTab = {
+    bookmark: "북마크 목록",
+    "image-search": "이미지 검색 목록",
+  } as const;
+
   // 회원 탈퇴 모달 여부 및 입력값 상태
   const [open, setOpen] = useState(false);
   const [confirmText, setConfirmText] = useState("");
@@ -63,11 +70,12 @@ export default function Mypage() {
         {/* 리스트 렌더링 */}
         <div className="w-full flex-1 px-3 sm:px-5">
           <h2 className="pt-10 pb-5 text-2xl font-medium text-neutral-900 sm:pt-0 sm:text-5xl sm:font-semibold">
-            북마크 목록
+            {activeTitleTab[activeTab]}
           </h2>
           <div className="flex flex-col items-center justify-center gap-3 sm:gap-10">
             <Tab
               className="w-full max-w-[640px] rounded-4xl p-1"
+              onChange={(key) => setActiveTab(key as "bookmark" | "image-search")}
               items={[
                 {
                   key: "bookmark",
@@ -88,7 +96,7 @@ export default function Mypage() {
                   key: "image-search",
                   label: "이미지 검색",
                   content: (
-                    <div>
+                    <div className="grid w-full gap-5">
                       <p>이미지 검색</p>
                       {/* 이미지 검색 리스트 */}
                     </div>
