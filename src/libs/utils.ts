@@ -55,13 +55,9 @@ export async function urlToFile(imageUrl: string, fileName = "image.jpg"): Promi
  * 이미지 파일 이름을 만드는 유틸 함수
  * 유저 닉네임 - 생성 날짜(연-월-일-시간-분) - image.jpg(png) 반환
  */
-export const createImageName = (imageType: "jpg" | "png") => {
-  const user = useAuthStore((state) => state.user);
-
-  const nickname = user ? user.nickname : "anonymous";
-
+export const createImageName = (imageType: "jpg" | "png", userName: string) => {
   const date = new Date();
   const dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
 
-  return `${nickname}-${dateString}-image.${imageType}`;
+  return `${userName}-${dateString}-image.${imageType}`;
 };
