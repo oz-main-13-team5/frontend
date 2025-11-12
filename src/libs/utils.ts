@@ -1,3 +1,4 @@
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -49,3 +50,18 @@ export async function urlToFile(imageUrl: string, fileName = "image.jpg"): Promi
     throw new Error("이미지를 불러올 수 없습니다.");
   }
 }
+
+/**
+ * 이미지 파일 이름을 만드는 유틸 함수
+ * 유저 닉네임 - 생성 날짜(연-월-일-시간-분) - image.jpg(png) 반환
+ */
+export const createImageName = (imageType: "jpg" | "png") => {
+  const user = useAuthStore((state) => state.user);
+
+  const nickname = user ? user.nickname : "anonymous";
+
+  const date = new Date();
+  const dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
+
+  return `${nickname}-${dateString}-image.${imageType}`;
+};
