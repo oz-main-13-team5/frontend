@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import Modal from "@/components/Modal";
+import { fileToDataUrl } from "@/libs/utils";
 import { CameraIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -101,9 +102,8 @@ export default function CameraModal({}: CameraModalProps) {
     const file = new File([blob], `capture_${Date.now()}.jpeg`, { type: "image/jpeg" });
     setImageFile(file);
 
-    const reader = new FileReader();
-    reader.onloadend = () => setPreviewImage(reader.result as string);
-    reader.readAsDataURL(file);
+    const dataUrl = await fileToDataUrl(file);
+    setPreviewImage(dataUrl);
   };
 
   const handleRetake = () => {

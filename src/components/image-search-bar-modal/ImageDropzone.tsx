@@ -1,5 +1,5 @@
 import Button from "@/components/common/Button";
-import { cn } from "@/libs/utils";
+import { cn, fileToDataUrl } from "@/libs/utils";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -11,7 +11,7 @@ export default function ImageDropzone({}: ImageDropzoneProps) {
   const [previewUrl, setPreviewUrl] = useState("");
   const [error, setError] = useState("");
 
-  const handleFile = useCallback((file: File | null) => {
+  const handleFile = useCallback(async (file: File | null) => {
     if (!file) return;
 
     //jpeg 혹은 png만 허용
@@ -25,9 +25,8 @@ export default function ImageDropzone({}: ImageDropzoneProps) {
     }
 
     setError("");
-    const reader = new FileReader();
-    reader.onloadend = () => setPreviewUrl(reader.result as string);
-    reader.readAsDataURL(file);
+    const dataUrl = await fileToDataUrl(file);
+    setPreviewUrl(dataUrl);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
