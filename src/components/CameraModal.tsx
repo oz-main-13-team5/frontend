@@ -1,5 +1,8 @@
 import Button from "@/components/common/Button";
 import Modal from "@/components/Modal";
+import usePillImageSearch from "@/hooks/api/usePillImageSearch";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import { createImageName, fileToDataUrl } from "@/libs/utils";
 import { CameraIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,12 +11,15 @@ interface CameraModalProps {}
 export default function CameraModal({}: CameraModalProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  //TODO: 비로그인 시 접근 제한
+  const { user } = useAuthStore((state) => state);
+
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   //TODO: 이미지 파일 서버로 전송
-  const [, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleCameraClick = async () => {
     try {
@@ -101,15 +107,34 @@ export default function CameraModal({}: CameraModalProps) {
     const file = new File([blob], `capture_${Date.now()}.jpeg`, { type: "image/jpeg" });
     setImageFile(file);
 
-    const reader = new FileReader();
-    reader.onloadend = () => setPreviewImage(reader.result as string);
-    reader.readAsDataURL(file);
+    const dataUrl = await fileToDataUrl(file);
+    setPreviewImage(dataUrl);
   };
 
   const handleRetake = () => {
     setPreviewImage(null);
     setImageFile(null);
     handleCameraClick();
+  };
+
+  const { mutate } = usePillImageSearch({
+    onSuccess: () => {
+      //TODO: 성공 시 유저에게 피드백 UI 생성
+      handleClose();
+    },
+    onError: () => {
+      setError("이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+    },
+  });
+
+  const handleSubmit = () => {
+    if (!imageFile) return;
+
+    const nickname = user ? user.nickname : "anonymous";
+
+    const filename = createImageName("jpg", nickname);
+
+    mutate({ image: imageFile, filename });
   };
 
   return (
@@ -135,7 +160,7 @@ export default function CameraModal({}: CameraModalProps) {
                   다시 촬영
                 </Button>
                 {/* TODO:  */}
-                <Button onClick={handleClose} variant="primary">
+                <Button onClick={handleSubmit} variant="primary">
                   이미지 검색
                 </Button>
               </div>

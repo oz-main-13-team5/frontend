@@ -1,17 +1,20 @@
 import Button from "@/components/common/Button";
-import { cn } from "@/libs/utils";
+import { cn, fileToDataUrl } from "@/libs/utils";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 
-interface ImageDropzoneProps {}
+interface ImageDropzoneProps {
+  onSubmit: () => void;
+  setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
+}
 
-export default function ImageDropzone({}: ImageDropzoneProps) {
+export default function ImageDropzone({ onSubmit, setImageFile }: ImageDropzoneProps) {
   const [previewUrl, setPreviewUrl] = useState("");
   const [error, setError] = useState("");
 
-  const handleFile = useCallback((file: File | null) => {
+  const handleFile = useCallback(async (file: File | null) => {
     if (!file) return;
 
     //jpeg 혹은 png만 허용
@@ -24,10 +27,11 @@ export default function ImageDropzone({}: ImageDropzoneProps) {
       return;
     }
 
+    setImageFile(file);
+
     setError("");
-    const reader = new FileReader();
-    reader.onloadend = () => setPreviewUrl(reader.result as string);
-    reader.readAsDataURL(file);
+    const dataUrl = await fileToDataUrl(file);
+    setPreviewUrl(dataUrl);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -55,8 +59,14 @@ export default function ImageDropzone({}: ImageDropzoneProps) {
           >
             다른 사진 고르기
           </Button>
-          {/*TODO: 실제 폼 및 api에 연결 */}
-          <Button>검색</Button>
+          <Button
+            onClick={() => {
+              if (!previewUrl) return;
+              onSubmit();
+            }}
+          >
+            검색
+          </Button>
         </div>
       </div>
     );
