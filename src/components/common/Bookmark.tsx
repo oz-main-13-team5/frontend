@@ -19,7 +19,7 @@ export default function Bookmark({
 }: BookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(initialState);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { isAuth } = useAuthStore();
+  const { isAuthed } = useAuthStore((state) => state);
   const { triggerToast } = useToast();
 
   const { mutate } = useToggleBookmark(
@@ -36,7 +36,7 @@ export default function Bookmark({
   );
 
   const handleButtonClick = () => {
-    if (isAuth) {
+    if (isAuthed) {
       //optimistic UI (뮤테이션 결과를 기다리지 않고 바로 UI 업데이트)
       setIsBookmarked((prev) => !prev);
       mutate();
