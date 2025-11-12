@@ -1,9 +1,8 @@
 import CameraModal from "@/components/CameraModal";
 import ImageSearchBarModal from "@/components/image-search-bar-modal/ImageSearchBarModal";
-import Modal from "@/components/Modal";
 import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import { cn } from "@/libs/utils";
-import { ImageIcon, SearchIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
@@ -12,8 +11,6 @@ const PILL_PATH = "/pill";
 interface PillSearchInputProps {
   className?: string;
 }
-
-const ICON_CLASS_NAME = "text-green-600 transition-colors hover:text-green-700";
 
 export default function PillSearchInput({ className }: PillSearchInputProps) {
   const { setQueryParamValue } = usePillSearchStore();
@@ -32,8 +29,6 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
     setQueryParamValue(inputValue.trim());
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <div
       className={cn("flex items-center gap-2.5 rounded-lg border border-green-600 p-4", className)}
@@ -51,27 +46,8 @@ export default function PillSearchInput({ className }: PillSearchInputProps) {
         />
       </form>
 
-      {/* //TODO: 이미지 아이콘 클릭 시 이미지 검색 모달 열기 */}
-      <button
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
-        className="cursor-pointer"
-      >
-        <ImageIcon className={ICON_CLASS_NAME} />
-      </button>
-
+      <ImageSearchBarModal />
       <CameraModal />
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-        className="gap-0 sm:w-[90%] sm:max-w-2xl"
-      >
-        <ImageSearchBarModal />
-      </Modal>
     </div>
   );
 }
