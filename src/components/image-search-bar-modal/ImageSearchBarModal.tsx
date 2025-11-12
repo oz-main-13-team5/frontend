@@ -3,6 +3,7 @@ import ImageUrlLinkForm from "@/components/image-search-bar-modal/ImageUrlLinkFo
 import Modal from "@/components/Modal";
 import usePillImageSearch from "@/hooks/api/usePillImageSearch";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 import { createImageName } from "@/libs/utils";
 import { ImageIcon } from "lucide-react";
 import { useState } from "react";
@@ -14,15 +15,15 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
   //TODO: 비로그인 시 접근 제한
   const { user } = useAuthStore((state) => state);
+  const { triggerToast } = useToast();
 
   const { mutate } = usePillImageSearch({
     onSuccess: () => {
-      //TODO: 성공 시 유저에게 피드백 UI 생성
       setIsModalOpen(false);
+      triggerToast("success", "업로드 성공!", "업로드 내역은 마이페이지에서 확인해주세요.");
     },
     onError: () => {
-      //TODO: 실패 시 유저에게 피드백 UI 생성
-      alert("이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+      triggerToast("error", "업로드 실패", "이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
     },
   });
 

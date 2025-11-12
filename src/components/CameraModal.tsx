@@ -2,6 +2,7 @@ import Button from "@/components/common/Button";
 import Modal from "@/components/Modal";
 import usePillImageSearch from "@/hooks/api/usePillImageSearch";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 import { createImageName, fileToDataUrl } from "@/libs/utils";
 import { CameraIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -117,12 +118,15 @@ export default function CameraModal({}: CameraModalProps) {
     handleCameraClick();
   };
 
+  const { triggerToast } = useToast();
+
   const { mutate } = usePillImageSearch({
     onSuccess: () => {
-      //TODO: 성공 시 유저에게 피드백 UI 생성
+      triggerToast("success", "업로드 성공!", "업로드 내역은 마이페이지에서 확인해주세요.");
       handleClose();
     },
     onError: () => {
+      triggerToast("error", "업로드 실패", "이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
       setError("이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
     },
   });
