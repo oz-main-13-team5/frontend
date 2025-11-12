@@ -33,7 +33,7 @@ export async function fileToDataUrl(file: File): Promise<string> {
  * @param fileName 생성할 파일 이름 (기본값: "image.jpg")
  * @returns Promise<File>
  */
-export async function urlToFile(imageUrl: string, fileName = "image.jpg"): Promise<File> {
+export async function urlToFile(imageUrl: string, fileName = "image"): Promise<File> {
   try {
     // URL에서 이미지 데이터 가져오기
     const response = await fetch(imageUrl);
@@ -42,8 +42,10 @@ export async function urlToFile(imageUrl: string, fileName = "image.jpg"): Promi
     // MIME 타입 추출 (ex. "image/png")
     const mimeType = blob.type || "image/jpeg";
 
+    const type = mimeType === "image/jpeg" ? ".jpg" : ".png";
+
     // File 객체로 변환
-    return new File([blob], fileName, { type: mimeType });
+    return new File([blob], fileName + type, { type: mimeType });
   } catch (error) {
     console.error("이미지 URL을 File로 변환하는 중 오류:", error);
     throw new Error("이미지를 불러올 수 없습니다.");
