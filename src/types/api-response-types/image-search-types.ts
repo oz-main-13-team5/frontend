@@ -13,6 +13,7 @@ export interface ImageSearchApiRecord {
 }
 
 // 이미지 검색 목록 API 응답
+// - records: 최근 업로드된 이미지 검색 내역 최대 10개 (명세 참고)
 export interface ImageSearchApiResponse {
   records: ImageSearchApiRecord[];
 }
