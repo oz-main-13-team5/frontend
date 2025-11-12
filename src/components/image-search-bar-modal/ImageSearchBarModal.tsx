@@ -1,6 +1,9 @@
 import ImageDropzone from "@/components/image-search-bar-modal/ImageDropzone";
 import ImageUrlLinkForm from "@/components/image-search-bar-modal/ImageUrlLinkForm";
 import Modal from "@/components/Modal";
+import usePillImageSearch from "@/hooks/api/usePillImageSearch";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import { createImageName } from "@/libs/utils";
 import { ImageIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -8,6 +11,32 @@ interface ImageSearchBarModalProps {}
 
 export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  //TODO: 비로그인 시 접근 제한
+  const { user } = useAuthStore((state) => state);
+
+  const { mutate } = usePillImageSearch({
+    onSuccess: () => {
+      //TODO: 성공 시 유저에게 피드백 UI 생성
+      setIsModalOpen(false);
+    },
+    onError: () => {
+      //TODO: 실패 시 유저에게 피드백 UI 생성
+      alert("이미지 전송에 실패했습니다. 잠시후 다시 시도해주세요.");
+    },
+  });
+
+  const onSubmit = () => {
+    if (!imageFile) return;
+
+    const nickname = user ? user.nickname : "anonymous";
+
+    const imageType = imageFile.type === "image/png" ? "png" : "jpg";
+
+    const filename = createImageName(imageType, nickname);
+
+    mutate({ image: imageFile, filename });
+  };
 
   return (
     <>
@@ -27,11 +56,10 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
         }}
         className="gap-0 sm:w-[90%] sm:max-w-2xl"
       >
-        {" "}
         <div className="flex flex-col items-center justify-center gap-5">
           <span className="text-2xl font-medium text-neutral-900">이미지 검색</span>
 
-          <ImageDropzone />
+          <ImageDropzone onSubmit={onSubmit} setImageFile={setImageFile} />
 
           {/* divder */}
           <div className="relative w-full border border-green-600">
@@ -40,7 +68,7 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
             </span>
           </div>
 
-          <ImageUrlLinkForm />
+          <ImageUrlLinkForm onSubmit={onSubmit} setImageFile={setImageFile} />
         </div>
       </Modal>
     </>
