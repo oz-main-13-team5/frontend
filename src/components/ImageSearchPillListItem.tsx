@@ -1,45 +1,65 @@
 import Badge from "@/components/common/Badge";
 import Bookmark from "@/components/common/Bookmark";
+import { MSW_BASE_URL } from "@/constants/url-constants";
+import { api } from "@/libs/axios";
 import { cn } from "@/libs/utils";
+import type {
+  ImageSearchApiRecord,
+  ImageSearchStatus,
+} from "@/types/api-response-types/image-search-types";
 import type { Pill } from "@/types/api-response-types/pill-response-types";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronRightIcon } from "lucide-react";
 import { Link } from "react-router";
-
-// 처리중 | 처리 완료 | 처리 실패
-type ImageSearchStatus = "pending" | "completed" | "failed";
 
 // 각 상태에 대응하는 텍스트
 const statusLabel: Record<ImageSearchStatus, string> = {
   pending: "처리중",
   completed: "처리 완료",
-  failed: "처리 실패",
+  completed_failed: "처리 실패",
 };
 
 // 각 상태에 대응하는 Badge 색상
 const statusVariant: Record<ImageSearchStatus, "secondary" | "primary" | "danger"> = {
   pending: "secondary",
   completed: "primary",
-  failed: "danger",
+  completed_failed: "danger",
 };
 
+// /my_requests 응답의 item_seq를 이용해 의약품 상세 정보 요청
+// - 검색 결과 completed 상태일 때만 호출
+async function fetchPill(itemSeq: string) {
+  const { data } = await api.get<Pill>(`${MSW_BASE_URL}/pills/${itemSeq}`);
+  return data;
+}
+
 type ImageSearchPillListItemProps = {
-  pill: Pill;
-  status?: ImageSearchStatus;
+  record: ImageSearchApiRecord;
   className?: string;
 };
 
 export default function ImageSearchPillListItem({
-  pill,
-  status = "completed", // 임시 기본값
+  record,
   className,
 }: ImageSearchPillListItemProps) {
-  const {
-    item_name: name,
-    efcy_qesitm: description,
-    item_image_url: imageUrl,
-    item_seq: id,
-    is_marked: isMarked,
-  } = pill;
+  const isPending = record.status === "pending";
+  const isCompleted = record.status === "completed" && record.item_seq !== "";
+  const isFailed = record.status === "completed_failed";
+
+  // completed + item_seq 있을 때만 약 조회
+  const itemSeq = isCompleted ? record.item_seq : undefined;
+
+  const { data: pill } = useQuery<Pill>({
+    queryKey: ["pill", itemSeq],
+    queryFn: () => fetchPill(itemSeq as string),
+    enabled: !!itemSeq,
+  });
+
+  function getStatusText() {
+    if (isPending) return "이미지 분석 중입니다.";
+    if (isFailed) return "이미지에서 의약품을 인식할 수 없습니다.";
+    return "";
+  }
 
   return (
     <div
@@ -48,29 +68,41 @@ export default function ImageSearchPillListItem({
         className
       )}
     >
+      {/* 유저가 업로드한 이미지 썸네일 */}
       <img
-        alt={`${name}-image`}
-        src={imageUrl}
-        className="h-20 w-20 object-contain object-center sm:h-24 sm:w-36"
+        src={record.url}
+        alt={record.filename}
+        className="h-20 w-20 object-cover object-center sm:h-24 sm:w-36"
       />
       <div className="flex flex-1 flex-col items-start justify-center gap-2 sm:gap-3">
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Badge variant={statusVariant[status]}>{statusLabel[status]}</Badge>
-            <Link
-              to={`/pill/${id}`}
-              aria-label={`${name} 상세페이지`}
-              className="flex items-center gap-0.5"
-            >
-              <span className="text-lg font-normal text-neutral-900 sm:text-2xl sm:font-medium">
-                {name}
+          <div className="flex flex-col gap-3">
+            <Badge variant={statusVariant[record.status]} className="w-fit">
+              {statusLabel[record.status]}
+            </Badge>
+
+            {isCompleted ? (
+              <Link
+                to={`/pill/${record.item_seq}`}
+                aria-label={`${record.item_seq} 상세페이지`}
+                className="flex items-center gap-0.5"
+              >
+                <span className="text-base font-normal text-neutral-900 hover:text-green-600 sm:text-2xl sm:font-medium">
+                  {pill?.item_name}
+                </span>
+                <ChevronRightIcon className="h-6 w-6 text-neutral-400" />
+              </Link>
+            ) : (
+              <span className="text-sm font-normal text-neutral-600 sm:text-base">
+                {getStatusText()}
               </span>
-              <ChevronRightIcon className="h-6 w-6 text-neutral-400" />
-            </Link>
+            )}
           </div>
-          <Bookmark pillId={id} initialState={isMarked} />
+
+          {isCompleted && pill ? (
+            <Bookmark pillId={pill.item_seq} initialState={pill.is_marked} />
+          ) : null}
         </div>
-        <span className="text-lg text-neutral-600">{description}</span>
       </div>
     </div>
   );
