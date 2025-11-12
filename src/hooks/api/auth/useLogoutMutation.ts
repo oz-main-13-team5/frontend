@@ -18,7 +18,7 @@ export default function useLogoutMutation(
       api.post<LogoutResponse>(`${MSW_BASE_URL}/user/logout`).then((res) => res.data),
     onSettled: () => {
       clearAuth();
-      navigate("/login", { replace: true });
+      navigate("/", { replace: true });
     },
     ...options,
   });
