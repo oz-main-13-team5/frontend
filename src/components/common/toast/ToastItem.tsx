@@ -8,16 +8,16 @@ const TOAST_COLORS = {
     border: "border-green-300",
     bg: "bg-green-50",
     icon: "text-green-500",
-    title: "text-green-800",
-    content: "text-green-500",
+    title: "text-neutral-900 font-medium text-lg",
+    content: "text-neutral-500",
   },
 
   error: {
     border: "border-red-300",
     bg: "bg-red-50",
     icon: "text-red-500",
-    title: "text-red-800",
-    content: "text-red-500",
+    title: "text-neutral-900 font-medium text-lg",
+    content: "text-nuetral-500",
   },
 };
 
@@ -38,20 +38,17 @@ function ToastItem({ id, type, title, content }: Toast) {
   return (
     <div
       className={cn(
-        "animate-fade-in-out-toast flex justify-between gap-3 rounded-lg border border-solid p-4 opacity-0",
+        "animate-fade-in-out-toast flex items-start justify-between gap-3 rounded-lg border border-solid p-4 opacity-0",
         styles.border,
         styles.bg
       )}
     >
-      <Icon className={cn("relative bottom-0.5 w-4.5", styles.icon)} />
+      <Icon className={styles.icon} />
       <div className="flex-1 text-sm">
         <h4 className={styles.title}>{title}</h4>
         <p className={styles.content}>{content}</p>
       </div>
-      <XIcon
-        className={cn("relative bottom-0.5 w-4.5 cursor-pointer", styles.icon)}
-        onClick={handleClickDelete}
-      />
+      <XIcon className={styles.icon} onClick={handleClickDelete} />
     </div>
   );
 }
