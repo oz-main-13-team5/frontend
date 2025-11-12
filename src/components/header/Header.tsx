@@ -1,13 +1,13 @@
 import LoggedInHeaderMenu from "@/components/header/LoggedInHeaderMenu";
 import SideNavigation from "@/components/header/SideNavigation";
 import UnLoggedInHeaderMenu from "@/components/header/UnLoggedInHeaderMenu";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 export default function Header() {
-  // 임시 로그인 상태 (추후 변경 예정)
-  const [isLoggedIn] = useState(false);
+  const { isAuthed } = useAuthStore();
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
 
   // Tailwind의 sm size
@@ -28,7 +28,7 @@ export default function Header() {
             </Link>
           </h1>
 
-          {isLoggedIn ? (
+          {isAuthed ? (
             <LoggedInHeaderMenu />
           ) : (
             <UnLoggedInHeaderMenu isMobile={isMobile} onMenuClick={() => setIsSideNavOpen(true)} />
