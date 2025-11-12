@@ -1,3 +1,4 @@
+import useBodyScrollLock from "@/hooks/useBodyScrollLock";
 import { cn } from "@/libs/utils";
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router";
@@ -8,6 +9,8 @@ interface SideNavigationProps {
 }
 
 export default function SideNavigation({ isOpen, onClose }: SideNavigationProps) {
+  useBodyScrollLock(isOpen); // 스크롤 락
+
   return (
     <aside
       className={cn(
@@ -29,6 +32,7 @@ export default function SideNavigation({ isOpen, onClose }: SideNavigationProps)
         <li>
           <Link
             to="/login"
+            onClick={onClose}
             className="inline-flex h-12 w-full items-center px-4 text-lg text-neutral-900 hover:text-green-600"
           >
             로그인
@@ -37,6 +41,7 @@ export default function SideNavigation({ isOpen, onClose }: SideNavigationProps)
         <li>
           <Link
             to="/sign-up"
+            onClick={onClose}
             className="inline-flex h-12 w-full items-center px-4 text-lg text-neutral-900 hover:text-green-600"
           >
             회원가입
