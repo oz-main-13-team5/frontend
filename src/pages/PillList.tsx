@@ -3,14 +3,15 @@ import PillSearchInput from "@/components/PillSearchInput";
 import { ChevronLeftIcon } from "lucide-react";
 import { Link } from "react-router";
 import type { PillList } from "@/types/api-response-types/pill-response-types";
-
 import PillListItem from "@/components/PillListItem";
 import useInfinitePillList from "@/hooks/api/useInfinitePillList";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import useObserver from "@/hooks/useObserver";
 import SelectBox, { type Option } from "@/components/common/SelectBox";
 import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import type { pillSearchOptionFrontend } from "@/types/types";
+import useAuthStore from "@/hooks/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 
 const SELECT_OPTIONS: Option[] = [
   {
@@ -29,6 +30,26 @@ const SELECT_OPTIONS: Option[] = [
 
 export default function PillList() {
   const { queryParamKey, queryParamValue, setQueryParamKey } = usePillSearchStore();
+
+  const { isAuthed } = useAuthStore();
+
+  const [isOnlyBookmared, setIsOnlyBookmarked] = useState(false);
+
+  const { triggerToast } = useToast();
+
+  const handleBookmarkFilterClick = () => {
+    if (!isAuthed) {
+      triggerToast(
+        "error",
+        "로그인 후 이용해주세요.",
+        "북마크 필터는 로그인 후 사용할 수 있습니다."
+      );
+
+      return;
+    }
+
+    setIsOnlyBookmarked((prev) => !prev);
+  };
 
   const pillSearchParam = useMemo(() => {
     return { queryParamKey, queryParamValue };
@@ -75,7 +96,9 @@ export default function PillList() {
 
         <div className="flex w-full items-center justify-between">
           <span className="text-base text-neutral-900 sm:text-lg">{`검색 결과 리스트 ${data ? data.pages[0].total : 0}개`}</span>
-          <Button className="h-14">북마크 필터</Button>
+          <Button className="h-14" onClick={handleBookmarkFilterClick}>
+            북마크 필터
+          </Button>
         </div>
 
         {/* 의약품 리스트 */}
@@ -92,6 +115,18 @@ export default function PillList() {
               return (
                 <span>데이터를 가져오는데 문제가 발생했습니다. 잠시 후 다시 시도해주세요.</span>
               );
+            }
+
+            if (isOnlyBookmared) {
+              return data.pages.map((group, i) => (
+                <React.Fragment key={i}>
+                  {group.pills
+                    .filter((pill) => pill.is_marked)
+                    .map((pill) => (
+                      <PillListItem pill={pill} key={pill.item_seq} />
+                    ))}
+                </React.Fragment>
+              ));
             }
 
             return data.pages.map((group, i) => (
