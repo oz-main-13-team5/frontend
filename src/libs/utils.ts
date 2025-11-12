@@ -26,3 +26,26 @@ export async function fileToDataUrl(file: File): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+
+/**
+ * 이미지 URL을 File 객체로 변환하는 유틸 함수
+ * @param imageUrl 변환할 이미지의 URL
+ * @param fileName 생성할 파일 이름 (기본값: "image.jpg")
+ * @returns Promise<File>
+ */
+export async function urlToFile(imageUrl: string, fileName = "image.jpg"): Promise<File> {
+  try {
+    // URL에서 이미지 데이터 가져오기
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+
+    // MIME 타입 추출 (ex. "image/png")
+    const mimeType = blob.type || "image/jpeg";
+
+    // File 객체로 변환
+    return new File([blob], fileName, { type: mimeType });
+  } catch (error) {
+    console.error("이미지 URL을 File로 변환하는 중 오류:", error);
+    throw new Error("이미지를 불러올 수 없습니다.");
+  }
+}
