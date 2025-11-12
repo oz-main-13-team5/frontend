@@ -13,9 +13,20 @@ interface ImageSearchBarModalProps {}
 export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  //TODO: 비로그인 시 접근 제한
-  const { user } = useAuthStore((state) => state);
+  const { user, isAuthed } = useAuthStore((state) => state);
   const { triggerToast } = useToast();
+
+  const handleImageIconClick = () => {
+    if (isAuthed) {
+      setIsModalOpen(true);
+    } else {
+      triggerToast(
+        "error",
+        "로그인 후 사용할 수 있습니다.",
+        "이미지 검색 기능은 로그인 후 사용할 수 있습니다."
+      );
+    }
+  };
 
   const { mutate } = usePillImageSearch({
     onSuccess: () => {
@@ -41,12 +52,7 @@ export default function ImageSearchBarModal({}: ImageSearchBarModalProps) {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setIsModalOpen(true);
-        }}
-        className="cursor-pointer"
-      >
+      <button onClick={handleImageIconClick} className="cursor-pointer">
         <ImageIcon className="text-green-600 transition-colors hover:text-green-700" />
       </button>
 
