@@ -1,4 +1,7 @@
-import { IMAGE_SEARCH_MAX_COUNT } from "@/constants/api-constants";
+import {
+  IMAGE_SEARCH_MAX_COUNT,
+  IMAGE_SEARCH_REFETCH_INTERVAL_MS,
+} from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import { api } from "@/libs/axios";
 import type { ImageSearchApiResponse } from "@/types/api-response-types/image-search-types";
@@ -21,7 +24,7 @@ export default function useImageSearchList() {
     refetchInterval: (query) => {
       const records = query.state.data?.records;
       const hasPending = records?.some((record) => record.status === "pending");
-      return hasPending ? 2000 : false;
+      return hasPending ? IMAGE_SEARCH_REFETCH_INTERVAL_MS : false;
     },
 
     // 필요 시 백그라운드에서도 일정 주기로 API 호출(폴링) 유지
