@@ -7,6 +7,7 @@ import Login from "@/pages/Login";
 import { Route, Routes } from "react-router";
 import Mypage from "@/pages/MyPage";
 import PublicRoute from "@/components/route-guard/PublicRoute";
+import ProtectedRoute from "@/components/route-guard/ProtectedRoute";
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
 
-        <Route path="/my-page" element={<Mypage />} />
-        <Route path="/my-page/edit" element={<MyPageEdit />} />
+        <Route element={<ProtectedRoute />}>
+          {" "}
+          <Route path="/my-page" element={<Mypage />} />
+          <Route path="/my-page/edit" element={<MyPageEdit />} />
+        </Route>
       </Route>
     </Routes>
   );
