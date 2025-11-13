@@ -62,7 +62,7 @@ export default function SignUp() {
       setCodeSent(true);
       console.log("인증코드 전송", getValues("email"));
     },
-    onError: (error) => {
+    onError: (error: AxiosError<SignUpApiErrorResponse>) => {
       const msg = getApiError(error) || "인증번호 전송 실패";
       setError("email", { message: msg });
     },
@@ -76,7 +76,7 @@ export default function SignUp() {
         console.log("인증 성공", getValues("email"));
       }
     },
-    onError: (error) => {
+    onError: (error: AxiosError<SignUpApiErrorResponse>) => {
       const msg = getApiError(error) ?? "인증코드가 일치하지 않습니다.";
       console.log("인증코드 오류", error);
       setError("verificationCode", { message: msg });
@@ -89,9 +89,8 @@ export default function SignUp() {
       console.log("회원가입 성공");
       navigate("/login", { replace: true });
     },
-    onError: (error) => {
-      const axiosError = error as AxiosError<SignUpApiErrorResponse>;
-      const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
+    onError: (error: AxiosError<SignUpApiErrorResponse>) => {
+      const status = error.response?.status ?? error.response?.data?.code;
       const msg = getApiError(error) ?? "회원가입 중 오류가 발생했습니다.";
 
       if (status === 400) {
@@ -112,7 +111,7 @@ export default function SignUp() {
   };
 
   // 인증코드 확인
-  const handleVerifyCode = async () => {
+  const handleVerifyCode = () => {
     if (!isEmailReady || !isCodeValid) return;
     verifyCode.mutate({
       email: getValues("email"),
@@ -121,7 +120,7 @@ export default function SignUp() {
   };
 
   // 회원가입 요청
-  const onSubmit = async (data: SignupSchema) => {
+  const onSubmit = (data: SignupSchema) => {
     if (!codeVerified) {
       setError("verificationCode", {
         message: "이메일 인증을 먼저 진행해주세요.",
