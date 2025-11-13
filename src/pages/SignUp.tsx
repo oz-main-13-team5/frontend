@@ -12,9 +12,8 @@ import KakaoButton from "@/components/social-login-button/KakaoButton";
 import GoogleButton from "@/components/social-login-button/GoogleButton";
 import Loading from "@/components/common/Loading";
 
-const getApiError = (error: unknown) => {
-  const axiosError = error as AxiosError<SignUpApiErrorResponse>;
-  return axiosError?.response?.data?.error ?? null;
+const getApiError = (error: AxiosError<SignUpApiErrorResponse>) => {
+  return error.response?.data?.error ?? null;
 };
 
 export default function SignUp() {
