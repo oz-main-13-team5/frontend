@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import Loading from "@/components/common/Loading";
 import { usePasswordEdit } from "@/hooks/api/my-page";
 import { cn } from "@/libs/utils";
 import { passwordEditSchema, type PasswordEditSchema } from "@/schema/my-page-edit-schema";
@@ -75,8 +76,8 @@ export default function PasswordEditForm({ className }: PasswordEditFormProps) {
         errorMessage={errors.confirmPassword?.message}
         {...register("confirmPassword")}
       />
-      <Button type="submit" className="p-4" disabled={isPending}>
-        {isPending ? "비밀번호를 수정 중입니다." : "비밀번호 수정하기"}
+      <Button type="submit" className="flex items-center justify-center p-4" disabled={isPending}>
+        {isPending ? <Loading /> : "비밀번호 수정하기"}
       </Button>
       <span className="text-sm text-red-500">{error}</span>
     </form>
