@@ -22,7 +22,6 @@ function App() {
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          {" "}
           <Route path="/my-page" element={<Mypage />} />
           <Route path="/my-page/edit" element={<MyPageEdit />} />
         </Route>
