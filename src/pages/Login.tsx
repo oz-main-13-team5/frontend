@@ -39,6 +39,7 @@ export default function Login() {
         user: data.user,
         accessToken: data.tokens.access_token,
       });
+      sessionStorage.setItem("justLoggedIn", "true");
       navigate("/", { replace: true });
     },
     onError: (error) => {
