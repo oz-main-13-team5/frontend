@@ -170,7 +170,12 @@ export default function CameraModal({}: CameraModalProps) {
                 <Button onClick={handleRetake} variant="primaryOutline">
                   다시 촬영
                 </Button>
-                <Button onClick={handleSubmit} variant="primary" disabled={isPending}>
+                <Button
+                  onClick={handleSubmit}
+                  className="flex items-center justify-center"
+                  variant="primary"
+                  disabled={isPending}
+                >
                   {isPending ? <Loading /> : "이미지 검색"}
                 </Button>
               </div>
