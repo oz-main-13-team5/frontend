@@ -111,8 +111,8 @@ export default function Mypage() {
                       {imageSearchList.length === 0 && (
                         <p className="text-center text-neutral-500">이미지 검색 내역이 없습니다.</p>
                       )}
-                      {imageSearchList.map((record, index) => (
-                        <ImageSearchPillListItem key={`${imageData}-${index}`} record={record} />
+                      {imageSearchList.map((record) => (
+                        <ImageSearchPillListItem key={record.created_at} record={record} />
                       ))}
                     </div>
                   ),

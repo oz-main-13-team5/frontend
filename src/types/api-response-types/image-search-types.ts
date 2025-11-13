@@ -9,6 +9,7 @@ export interface ImageSearchApiRecord {
   filename: string;
   url: string;
   status: ImageSearchStatus;
+  created_at: string;
   item_seq: string | "";
 }
 
