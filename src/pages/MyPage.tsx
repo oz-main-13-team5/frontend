@@ -2,21 +2,29 @@ import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
 import Tab from "@/components/common/Tab";
+import ImageSearchPillListItem from "@/components/ImageSearchPillListItem";
 import Modal from "@/components/Modal";
 import PillListItem from "@/components/PillListItem";
 import { DELETE_ACCOUNT_CONFIRM_TEXT } from "@/constants/api-constants";
 import { useDeleteAccount } from "@/hooks/api/auth";
+import { useImageSearchList } from "@/hooks/api/my-page";
 import useBookmarkList from "@/hooks/api/my-page/useBookmarkList";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import type { ImageSearchApiRecord } from "@/types/api-response-types/image-search-types";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 export default function Mypage() {
+  // 북마크 목록
   const { data, isPending: isBookmarkListPending } = useBookmarkList();
   const bookmarkedPills = data?.pills ?? [];
+
+  // 이미지 검색 목록
+  const { data: imageData } = useImageSearchList();
+  const imageSearchList = imageData?.records ?? [];
+
   const { user, clearAuth } = useAuthStore();
   const navigate = useNavigate();
-
   const [activeTab, setActiveTab] = useState<"bookmark" | "image-search">("bookmark");
 
   const activeTitleTab = {
@@ -101,8 +109,12 @@ export default function Mypage() {
                   label: "이미지 검색",
                   content: (
                     <div className="grid w-full gap-5">
-                      <p>이미지 검색</p>
-                      {/* 이미지 검색 리스트 */}
+                      {imageSearchList.length === 0 && (
+                        <p className="text-center text-neutral-500">이미지 검색 내역이 없습니다.</p>
+                      )}
+                      {imageSearchList.map((record: ImageSearchApiRecord) => (
+                        <ImageSearchPillListItem key={record.created_at} record={record} />
+                      ))}
                     </div>
                   ),
                   activeClassName: "rounded-2xl",
