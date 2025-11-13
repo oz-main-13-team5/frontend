@@ -1,3 +1,4 @@
+import { IMAGE_SEARCH_MAX_COUNT } from "@/constants/api-constants";
 import { MSW_BASE_URL } from "@/constants/url-constants";
 import { api } from "@/libs/axios";
 import type { ImageSearchApiResponse } from "@/types/api-response-types/image-search-types";
@@ -8,7 +9,11 @@ export default function useImageSearchList() {
     queryKey: ["mypage", "image-search-list"],
     queryFn: async () => {
       const res = await api.get(`${MSW_BASE_URL}/my_requests`);
-      return res.data;
+      const data = res.data;
+
+      // 리스트 10개만 노출 (명세 참고)
+      data.records = data.records.slice(0, IMAGE_SEARCH_MAX_COUNT);
+      return data;
     },
 
     // 이미지 분석 상태가 pending인 항목이 있을 경우에만 2초 주기로 자동 refetch
@@ -16,7 +21,6 @@ export default function useImageSearchList() {
     refetchInterval: (query) => {
       const records = query.state.data?.records;
       const hasPending = records?.some((record) => record.status === "pending");
-
       return hasPending ? 2000 : false;
     },
 

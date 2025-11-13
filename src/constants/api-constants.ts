@@ -20,3 +20,6 @@ export const ACCESS_TOKEN_EXPIRE_SECONDS = 900;
 
 // 회원탈퇴 시 입력 텍스트
 export const DELETE_ACCOUNT_CONFIRM_TEXT = "회원탈퇴";
+
+// 마이페이지 - 이미지 검색 목록 최대 표시 개수
+export const IMAGE_SEARCH_MAX_COUNT = 10;
