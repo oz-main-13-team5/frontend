@@ -18,10 +18,10 @@ const root = createRoot(document.getElementById("root")!);
 
 enableMocking().then(() => {
   root.render(
-    //<StrictMode>
-    <Providers>
-      <App />
-    </Providers>
-    //</StrictMode>
+    <StrictMode>
+      <Providers>
+        <App />
+      </Providers>
+    </StrictMode>
   );
 });
