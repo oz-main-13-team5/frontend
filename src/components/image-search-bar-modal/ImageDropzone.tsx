@@ -1,4 +1,5 @@
 import Button from "@/components/common/Button";
+import Loading from "@/components/common/Loading";
 import { cn, fileToDataUrl } from "@/libs/utils";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -8,9 +9,14 @@ const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 interface ImageDropzoneProps {
   onSubmit: () => void;
   setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
+  isPending?: boolean;
 }
 
-export default function ImageDropzone({ onSubmit, setImageFile }: ImageDropzoneProps) {
+export default function ImageDropzone({
+  onSubmit,
+  setImageFile,
+  isPending = false,
+}: ImageDropzoneProps) {
   const [previewUrl, setPreviewUrl] = useState("");
   const [error, setError] = useState("");
 
@@ -64,8 +70,10 @@ export default function ImageDropzone({ onSubmit, setImageFile }: ImageDropzoneP
               if (!previewUrl) return;
               onSubmit();
             }}
+            className="flex items-center justify-center"
+            disabled={isPending}
           >
-            검색
+            {isPending ? <Loading /> : " 검색"}
           </Button>
         </div>
       </div>
