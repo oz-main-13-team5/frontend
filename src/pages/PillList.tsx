@@ -12,6 +12,7 @@ import usePillSearchStore from "@/hooks/stores/usePillSearchStore";
 import type { pillSearchOptionFrontend } from "@/types/types";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import useToast from "@/hooks/useToast";
+import Loading from "@/components/common/Loading";
 
 const SELECT_OPTIONS: Option[] = [
   {
@@ -106,8 +107,7 @@ export default function PillList() {
           {/* 얼리 리턴을 위한 즉시 실행 함수 */}
           {(() => {
             if (isPending) {
-              //TODO: 로딩 컴포넌트
-              return <span>로딩중</span>;
+              return <Loading />;
             }
 
             if (isError || !data) {
@@ -139,7 +139,7 @@ export default function PillList() {
           })()}
         </section>
         <div ref={observerRef} />
-        {isFetchingNextPage && <span>로딩 중</span>}
+        {isFetchingNextPage && <Loading />}
         {hasNextPage || <span>모든 약 정보를 가져왔습니다.</span>}
       </div>
     </div>
