@@ -12,9 +12,8 @@ interface CameraModalProps {}
 export default function CameraModal({}: CameraModalProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  //TODO: 비로그인 시 접근 제한
-  const { user } = useAuthStore((state) => state);
-
+  const { user, isAuthed } = useAuthStore((state) => state);
+  const { triggerToast } = useToast();
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
@@ -23,6 +22,16 @@ export default function CameraModal({}: CameraModalProps) {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleCameraClick = async () => {
+    if (!isAuthed) {
+      triggerToast(
+        "error",
+        "로그인 후 사용할 수 있습니다.",
+        "이미지 검색 기능은 로그인 후 사용할 수 있습니다."
+      );
+
+      return;
+    }
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "environment" },
@@ -117,8 +126,6 @@ export default function CameraModal({}: CameraModalProps) {
     setImageFile(null);
     handleCameraClick();
   };
-
-  const { triggerToast } = useToast();
 
   const { mutate } = usePillImageSearch({
     onSuccess: () => {
