@@ -1,3 +1,4 @@
+import { JUST_LOGGED_IN } from "@/constants/key-constants";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import useToast from "@/hooks/useToast";
 import { Navigate, Outlet } from "react-router";
@@ -7,10 +8,10 @@ export default function PublicRoute() {
   const { triggerToast } = useToast();
 
   if (isAuthed) {
-    const justLoggedIn = sessionStorage.getItem("justLoggedIn");
+    const justLoggedIn = sessionStorage.getItem(JUST_LOGGED_IN);
 
     if (justLoggedIn) {
-      sessionStorage.removeItem("justLoggedIn");
+      sessionStorage.removeItem(JUST_LOGGED_IN);
 
       return <Outlet />;
     } else {
