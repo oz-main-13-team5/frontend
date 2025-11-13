@@ -7,13 +7,21 @@ export default function ProtectedRoute() {
   const { triggerToast } = useToast();
 
   if (!isAuthed) {
-    triggerToast(
-      "error",
-      "비로그인 상태 접근 제한",
-      "해당 페이지는 비로그인 상태에서 접근 할 수 없습니다."
-    );
+    const justLoggedOut = sessionStorage.getItem("justLoggedOut");
 
-    return <Navigate to="/login" replace />;
+    if (justLoggedOut) {
+      sessionStorage.removeItem("justLoggedOut");
+    } else {
+      triggerToast(
+        "error",
+        "비로그인 상태 접근 제한",
+        "해당 페이지는 비로그인 상태에서 접근 할 수 없습니다."
+      );
+
+      return <Navigate to="/login" replace />;
+    }
+
+    return <Outlet />;
   }
 
   return (
