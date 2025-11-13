@@ -1,14 +1,11 @@
 import Badge from "@/components/common/Badge";
 import Bookmark from "@/components/common/Bookmark";
-import { MSW_BASE_URL } from "@/constants/url-constants";
-import { api } from "@/libs/axios";
+import useImageSearchPillDetail from "@/hooks/api/my-page/useImageSearchPillDetail";
 import { cn } from "@/libs/utils";
 import type {
   ImageSearchApiRecord,
   ImageSearchStatus,
 } from "@/types/api-response-types/image-search-types";
-import type { Pill } from "@/types/api-response-types/pill-response-types";
-import { useQuery } from "@tanstack/react-query";
 import { ChevronRightIcon } from "lucide-react";
 import { Link } from "react-router";
 
@@ -26,13 +23,6 @@ const statusVariant: Record<ImageSearchStatus, "secondary" | "primary" | "danger
   completed_failed: "danger",
 };
 
-// /my_requests 응답의 item_seq를 이용해 의약품 상세 정보 요청
-// - 검색 결과 completed 상태일 때만 호출
-async function fetchPill(itemSeq: string) {
-  const { data } = await api.get<Pill>(`${MSW_BASE_URL}/pills/${itemSeq}`);
-  return data;
-}
-
 type ImageSearchPillListItemProps = {
   record: ImageSearchApiRecord;
   className?: string;
@@ -48,12 +38,7 @@ export default function ImageSearchPillListItem({
 
   // completed + item_seq 있을 때만 약 조회
   const itemSeq = isCompleted ? record.item_seq : undefined;
-
-  const { data: pill } = useQuery<Pill>({
-    queryKey: ["pill", itemSeq],
-    queryFn: () => fetchPill(itemSeq as string),
-    enabled: !!itemSeq,
-  });
+  const { data: pill } = useImageSearchPillDetail(itemSeq);
 
   function getStatusText() {
     if (isPending) return "이미지 분석 중입니다.";
