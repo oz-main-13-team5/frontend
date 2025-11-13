@@ -4,6 +4,7 @@ import PillSearchInput from "@/components/PillSearchInput";
 import PillListItem from "@/components/PillListItem";
 import { useEffect, useState } from "react";
 import { api } from "@/libs/axios";
+import Loading from "@/components/common/Loading";
 
 export default function Home() {
   const [pillList, setPillList] = useState<Pill[]>([]);
@@ -45,7 +46,10 @@ export default function Home() {
 
           {/* 로딩 상태 */}
           {loading && (
-            <div className="py-8 text-center text-neutral-500">약 목록을 불러오는 중입니다...</div>
+            <div className="flex gap-2 py-8">
+              <Loading />
+              <span className="text-center text-neutral-500">약 목록을 불러오는 중입니다...</span>
+            </div>
           )}
 
           {/* 에러 상태 */}

@@ -1,4 +1,5 @@
 import Button from "@/components/common/Button";
+import Loading from "@/components/common/Loading";
 import Modal from "@/components/Modal";
 import usePillImageSearch from "@/hooks/api/usePillImageSearch";
 import useAuthStore from "@/hooks/stores/useAuthStore";
@@ -18,7 +19,6 @@ export default function CameraModal({}: CameraModalProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState("");
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  //TODO: 이미지 파일 서버로 전송
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleCameraClick = async () => {
@@ -127,7 +127,7 @@ export default function CameraModal({}: CameraModalProps) {
     handleCameraClick();
   };
 
-  const { mutate } = usePillImageSearch({
+  const { mutate, isPending } = usePillImageSearch({
     onSuccess: () => {
       triggerToast("success", "업로드 성공!", "업로드 내역은 마이페이지에서 확인해주세요.");
       handleClose();
@@ -170,9 +170,13 @@ export default function CameraModal({}: CameraModalProps) {
                 <Button onClick={handleRetake} variant="primaryOutline">
                   다시 촬영
                 </Button>
-                {/* TODO:  */}
-                <Button onClick={handleSubmit} variant="primary">
-                  이미지 검색
+                <Button
+                  onClick={handleSubmit}
+                  className="flex items-center justify-center"
+                  variant="primary"
+                  disabled={isPending}
+                >
+                  {isPending ? <Loading /> : "이미지 검색"}
                 </Button>
               </div>
             </div>

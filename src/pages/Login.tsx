@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import Loading from "@/components/common/Loading";
 import GoogleButton from "@/components/social-login-button/GoogleButton";
 import KakaoButton from "@/components/social-login-button/KakaoButton";
 import { useLoginMutation } from "@/hooks/api/auth";
@@ -103,7 +104,7 @@ export default function Login() {
           className="h-14 w-full"
           disabled={isSubmitting || login.isPending}
         >
-          {isSubmitting || login.isPending ? "로그인 중" : "로그인"}
+          {isSubmitting || login.isPending ? <Loading /> : "로그인"}
         </Button>
 
         <div className="grid gap-1">

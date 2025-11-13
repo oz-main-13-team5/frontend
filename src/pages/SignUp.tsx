@@ -10,6 +10,7 @@ import type { AxiosError } from "axios";
 import { useSendCodeMutation, useSignupMutation, useVerifyCodeMutation } from "@/hooks/api/auth";
 import KakaoButton from "@/components/social-login-button/KakaoButton";
 import GoogleButton from "@/components/social-login-button/GoogleButton";
+import Loading from "@/components/common/Loading";
 
 const getApiError = (error: unknown) => {
   const axiosError = error as AxiosError<SignUpApiErrorResponse>;
@@ -212,10 +213,10 @@ export default function SignUp() {
           type="submit"
           variant={"primary"}
           size={"lg"}
-          className="h-14 w-full"
+          className="flex h-14 w-full items-center justify-center"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "처리 중" : "회원가입"}
+          {isSubmitting ? <Loading /> : "회원가입"}
         </Button>
 
         <div className="grid gap-1">

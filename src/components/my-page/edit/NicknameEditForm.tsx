@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import Loading from "@/components/common/Loading";
 import { useNicknameEdit } from "@/hooks/api/my-page";
 import { cn } from "@/libs/utils";
 import { nicknameEditSchema, type NicknameEditSchema } from "@/schema/my-page-edit-schema";
@@ -58,8 +59,8 @@ export default function NicknameEditForm({ className }: NicknameEditFormProps) {
         errorMessage={errors.nickname?.message}
         {...register("nickname")}
       />
-      <Button type="submit" className="p-4" disabled={isPending}>
-        {isPending ? "닉네임을 수정 중입니다." : "닉네임 수정하기"}
+      <Button type="submit" className="flex items-center justify-center p-4" disabled={isPending}>
+        {isPending ? <Loading /> : "닉네임 수정하기"}
       </Button>
       <span className="text-sm text-red-500">{error}</span>
     </form>

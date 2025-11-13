@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
+import Loading from "@/components/common/Loading";
 import Tab from "@/components/common/Tab";
 import Modal from "@/components/Modal";
 import PillListItem from "@/components/PillListItem";
@@ -11,7 +12,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 export default function Mypage() {
-  const { data } = useBookmarkList();
+  const { data, isPending: isBookmarkListPending } = useBookmarkList();
   const bookmarkedPills = data?.pills ?? [];
   const { user, clearAuth } = useAuthStore();
   const navigate = useNavigate();
@@ -82,12 +83,15 @@ export default function Mypage() {
                   label: "북마크",
                   content: (
                     <div className="grid w-full gap-5">
-                      {bookmarkedPills.length === 0 && (
+                      {isBookmarkListPending ? (
+                        <Loading />
+                      ) : bookmarkedPills.length === 0 ? (
                         <p className="text-center text-neutral-500">북마크된 약이 없습니다.</p>
+                      ) : (
+                        bookmarkedPills.map((pill) => (
+                          <PillListItem key={pill.item_seq} pill={pill} />
+                        ))
                       )}
-                      {bookmarkedPills.map((pill) => (
-                        <PillListItem key={pill.item_seq} pill={pill} />
-                      ))}
                     </div>
                   ),
                   activeClassName: "rounded-2xl",
