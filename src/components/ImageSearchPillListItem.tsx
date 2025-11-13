@@ -33,7 +33,7 @@ export default function ImageSearchPillListItem({
   className,
 }: ImageSearchPillListItemProps) {
   const isPending = record.status === "pending";
-  const isCompleted = record.status === "completed" && record.item_seq !== "";
+  const isCompleted = record.status === "completed";
   const isFailed = record.status === "completed_failed";
 
   // completed + item_seq 있을 때만 약 조회

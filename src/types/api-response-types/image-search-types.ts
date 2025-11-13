@@ -5,13 +5,21 @@ export type ImageSearchStatus = "pending" | "completed" | "completed_failed";
 // - pending: 처리 중 → item_seq는 비어 있음
 // - completed: 처리 완료 → item_seq는 매핑표에 존재하는 경우 약 고유번호
 // - completed_failed: 처리 실패 → item_seq는 비어 있음
-export interface ImageSearchApiRecord {
+export interface ImageSearchApiRecordBase {
   filename: string;
   url: string;
-  status: ImageSearchStatus;
   created_at: string;
-  item_seq: string | "";
 }
+
+export type ImageSearchApiRecord =
+  | (ImageSearchApiRecordBase & {
+      status: "pending" | "completed_failed";
+      item_seq: "";
+    })
+  | (ImageSearchApiRecordBase & {
+      status: "completed";
+      item_seq: string;
+    });
 
 // 이미지 검색 목록 API 응답
 // - records: 최근 업로드된 이미지 검색 내역 최대 10개 (명세 참고)

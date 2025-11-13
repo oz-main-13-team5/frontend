@@ -10,6 +10,7 @@ import { useDeleteAccount } from "@/hooks/api/auth";
 import { useImageSearchList } from "@/hooks/api/my-page";
 import useBookmarkList from "@/hooks/api/my-page/useBookmarkList";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import type { ImageSearchApiRecord } from "@/types/api-response-types/image-search-types";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 
@@ -111,7 +112,7 @@ export default function Mypage() {
                       {imageSearchList.length === 0 && (
                         <p className="text-center text-neutral-500">이미지 검색 내역이 없습니다.</p>
                       )}
-                      {imageSearchList.map((record) => (
+                      {imageSearchList.map((record: ImageSearchApiRecord) => (
                         <ImageSearchPillListItem key={record.created_at} record={record} />
                       ))}
                     </div>
