@@ -6,6 +6,7 @@ import SignUp from "@/pages/SignUp";
 import Login from "@/pages/Login";
 import { Route, Routes } from "react-router";
 import Mypage from "@/pages/MyPage";
+import PublicRoute from "@/components/route-guard/PublicRoute";
 
 function App() {
   return (
@@ -13,8 +14,12 @@ function App() {
       <Route element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="/pill" element={<PillList />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route element={<PublicRoute />}>
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+
         <Route path="/my-page" element={<Mypage />} />
         <Route path="/my-page/edit" element={<MyPageEdit />} />
       </Route>
