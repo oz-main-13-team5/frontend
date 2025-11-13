@@ -11,15 +11,17 @@ export default function PublicRoute() {
 
     if (justLoggedIn) {
       sessionStorage.removeItem("justLoggedIn");
+
+      return <Outlet />;
     } else {
       triggerToast(
         "error",
         "로그인 상태 접근 제한",
         "해당 페이지는 로그인 상태에서 접근 할 수 없습니다."
       );
-    }
 
-    return <Navigate to="/" replace />;
+      return <Navigate to="/" replace />;
+    }
   }
 
   return (
