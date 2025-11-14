@@ -1,5 +1,4 @@
 import Bookmark from "@/components/common/Bookmark";
-import Image from "@/components/common/Image";
 import { cn } from "@/libs/utils";
 import type { Pill } from "@/types/api-response-types/pill-response-types";
 import { ChevronRightIcon } from "lucide-react";
@@ -26,7 +25,7 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
         className
       )}
     >
-      <Image
+      <img
         alt={`${name}-image`}
         src={imageUrl}
         className="h-20 w-20 object-contain object-center sm:h-24 sm:w-36"
