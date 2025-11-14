@@ -1,5 +1,5 @@
 import useObserver from "@/hooks/useObserver";
-import { useState, type ComponentProps } from "react";
+import { useEffect, useState, type ComponentProps } from "react";
 import smallImage from "@/assets/images/small_image.jpg";
 import { cn } from "@/libs/utils";
 
@@ -10,15 +10,25 @@ interface ImageProps extends Omit<ComponentProps<"img">, "ref"> {
 }
 
 export default function Image({ isLazyLoading = true, src, className, ...props }: ImageProps) {
-  const [isLoaded, setIsLoaded] = useState(!isLazyLoading);
+  const [isIntersected, setIsIntersected] = useState(!isLazyLoading);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleIntersection = () => {
-    setIsLoaded(true);
+    setIsIntersected(true);
   };
 
   const imgRef = useObserver<HTMLImageElement>(handleIntersection, {
     rootMargin: `${ROOT_MARGIN_PX}px 0px`,
   });
+
+  // 실제 이미지 pre-load
+  useEffect(() => {
+    if (!isIntersected) return;
+
+    const img = new window.Image();
+    img.src = src!;
+    img.onload = () => setIsLoaded(true);
+  }, [isIntersected, src]);
 
   return (
     <img
@@ -26,9 +36,10 @@ export default function Image({ isLazyLoading = true, src, className, ...props }
       ref={imgRef}
       className={cn(
         "transition-all duration-700 ease-in-out",
-        isLoaded ? "opacity-100 blur-none" : "opacity-0 blur-lg",
+        isIntersected ? "opacity-100 blur-none" : "opacity-0 blur-lg",
         className
       )}
+      onLoad={() => setIsLoaded(true)}
       {...props}
     />
   );
