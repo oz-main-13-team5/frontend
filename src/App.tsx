@@ -12,6 +12,7 @@ const PillList = lazy(() => import("@/pages/PillList"));
 const SignUp = lazy(() => import("@/pages/SignUp"));
 const Login = lazy(() => import("@/pages/Login"));
 const Mypage = lazy(() => import("@/pages/MyPage"));
+const PillDetailPage = lazy(() => import("@/pages/PillDetailPage"));
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="/pill" element={<PillList />} />
+          <Route path="/pill/:itemSeq" element={<PillDetailPage />} />
 
           <Route element={<PublicRoute />}>
             <Route path="/sign-up" element={<SignUp />} />
