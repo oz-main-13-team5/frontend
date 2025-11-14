@@ -1,6 +1,8 @@
 import useObserver from "@/hooks/useObserver";
 import { useState, type ComponentProps } from "react";
 
+const ROOT_MARGIN_PX = 300;
+
 interface ImageProps extends Omit<ComponentProps<"img">, "ref"> {
   isLazyLoading?: boolean;
 }
@@ -13,7 +15,7 @@ export default function Image({ isLazyLoading = true, src, ...props }: ImageProp
   };
 
   const imgRef = useObserver<HTMLImageElement>(handleIntersection, {
-    rootMargin: "200px 0px",
+    rootMargin: `${ROOT_MARGIN_PX}px 0px`,
   });
 
   return <img {...props} src={isLoaded ? src : "#"} ref={imgRef} />;
