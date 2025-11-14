@@ -5,11 +5,16 @@ import { cn } from "@/libs/utils";
 
 const ROOT_MARGIN_PX = 300;
 
-interface ImageProps extends Omit<ComponentProps<"img">, "ref"> {
+interface LazyLoadingImageProps extends Omit<ComponentProps<"img">, "ref"> {
   isLazyLoading?: boolean;
 }
 
-export default function Image({ isLazyLoading = true, src, className, ...props }: ImageProps) {
+export default function LazyLoadingImage({
+  isLazyLoading = true,
+  src,
+  className,
+  ...props
+}: LazyLoadingImageProps) {
   const [isIntersected, setIsIntersected] = useState(!isLazyLoading);
   const [isLoaded, setIsLoaded] = useState(false);
 
