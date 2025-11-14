@@ -3,6 +3,7 @@ import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
 import GoogleButton from "@/components/social-login-button/GoogleButton";
 import KakaoButton from "@/components/social-login-button/KakaoButton";
+import { JUST_LOGGED_IN } from "@/constants/key-constants";
 import { useLoginMutation } from "@/hooks/api/auth";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import { loginSchema, type LoginSchema } from "@/schema/auth-schema";
@@ -39,6 +40,7 @@ export default function Login() {
         user: data.user,
         accessToken: data.tokens.access_token,
       });
+      sessionStorage.setItem(JUST_LOGGED_IN, "true");
       navigate("/", { replace: true });
     },
     onError: (error) => {

@@ -5,6 +5,7 @@ import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useNavigate } from "react-router";
 import { MSW_BASE_URL } from "@/constants/url-constants";
+import { JUST_LOGGED_OUT } from "@/constants/key-constants";
 
 export default function useLogoutMutation(
   options?: UseMutationOptions<LogoutResponse, AxiosError>
@@ -18,6 +19,7 @@ export default function useLogoutMutation(
       api.post<LogoutResponse>(`${MSW_BASE_URL}/user/logout`).then((res) => res.data),
     onSettled: () => {
       clearAuth();
+      sessionStorage.setItem(JUST_LOGGED_OUT, "true");
       navigate("/", { replace: true });
     },
     ...options,
