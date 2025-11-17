@@ -13,6 +13,7 @@ import type { pillSearchOptionFrontend } from "@/types/types";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import useToast from "@/hooks/useToast";
 import Loading from "@/components/common/Loading";
+import { AxiosError } from "axios";
 
 const SELECT_OPTIONS: Option[] = [
   {
@@ -28,6 +29,8 @@ const SELECT_OPTIONS: Option[] = [
     text: "효능",
   },
 ];
+
+const MAX_API_FAILURE_COUNT = 3;
 
 export default function PillList() {
   const { queryParamKey, queryParamValue, setQueryParamKey } = usePillSearchStore();
@@ -56,8 +59,16 @@ export default function PillList() {
     return { queryParamKey, queryParamValue };
   }, [queryParamKey, queryParamValue]);
 
-  const { data, isPending, isError, isFetchingNextPage, hasNextPage, fetchNextPage } =
-    useInfinitePillList(pillSearchParam);
+  const { data, isPending, isError, isFetchingNextPage, hasNextPage, fetchNextPage, error } =
+    useInfinitePillList(pillSearchParam, {
+      retry: (failureCount, error) => {
+        if (error instanceof AxiosError && error.status === 404) {
+          return false;
+        }
+
+        return failureCount <= MAX_API_FAILURE_COUNT;
+      },
+    });
 
   const handleObserverIntersect = () => {
     if (hasNextPage) {
@@ -111,7 +122,10 @@ export default function PillList() {
             }
 
             if (isError || !data) {
-              //TODO: 에러 코드별 분기 처리
+              if (error instanceof AxiosError && error.status === 404) {
+                return <span>해당 검색 결과 내역이 없습니다.</span>;
+              }
+
               return (
                 <span>데이터를 가져오는데 문제가 발생했습니다. 잠시 후 다시 시도해주세요.</span>
               );
