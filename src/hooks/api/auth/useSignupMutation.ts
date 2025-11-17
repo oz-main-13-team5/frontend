@@ -19,7 +19,7 @@ export default function useSignupMutation(
           SignUpResponse,
           AxiosResponse<SignUpResponse>,
           SignUpRequest
-        >("/users/signup", payload, { baseURL: API_BASE_URL })
+        >("/user/signup", payload, { baseURL: API_BASE_URL })
         .then((res) => res.data),
     ...options,
   });

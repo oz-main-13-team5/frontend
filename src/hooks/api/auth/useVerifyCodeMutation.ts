@@ -24,7 +24,7 @@ export default function useVerifyCodeMutation(
             SignUpVerifyResponse,
             AxiosResponse<SignUpVerifyResponse>,
             SignUpVerifyRequest
-          >("/auth/email_verify/", payload, { baseURL: API_BASE_URL })
+          >("/auth/email_verify", payload, { baseURL: API_BASE_URL })
           .then((res) => res.data),
       ...options,
     }

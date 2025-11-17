@@ -23,7 +23,7 @@ export default function useSendCodeMutation(
           SignUpSendResponse,
           AxiosResponse<SignUpSendResponse>,
           SignUpSendRequest
-        >("/users/signup/send/", payload, { baseURL: API_BASE_URL })
+        >("/auth/email_send", payload, { baseURL: API_BASE_URL })
         .then((res) => res.data),
     ...options,
   });
