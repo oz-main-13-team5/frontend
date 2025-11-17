@@ -6,10 +6,10 @@ import type {
   LoginApiErrorResponse,
   LoginResponse,
 } from "@/types/api-response-types/auth-response-types";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 
 // 로그인 요청 처리 TanStack Query 훅
-// - /users/login 엔드포인트로 로그인 요청을 보내고,
+// - /auth/login 엔드포인트로 로그인 요청을 보내고,
 // - 성공 시 서버에서 받은 user / accessToken을 Zustand 스토어에 저장
 
 export default function useLoginMutation(
@@ -22,8 +22,9 @@ export default function useLoginMutation(
     mutationKey: ["auth", "login"],
     mutationFn: async (payload) => {
       const res = await api.post<LoginResponse, AxiosResponse<LoginResponse>, LoginRequest>(
-        `${MSW_BASE_URL}/users/login`,
-        payload
+        "/auth/login",
+        payload,
+        { baseURL: API_BASE_URL }
       );
 
       return res.data;

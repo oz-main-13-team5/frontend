@@ -26,7 +26,7 @@ const verificationCodes = new Map<string, string>();
 
 // 인증코드 전송 API
 const postSignUpSend = http.post<never, SignUpSendRequest>(
-  `${MSW_BASE_URL}/users/signup/send/`,
+  `${MSW_BASE_URL}/auth/email_send`,
   async ({ request }) => {
     const body = await request.json();
     const { email } = body;
@@ -46,7 +46,7 @@ const postSignUpSend = http.post<never, SignUpSendRequest>(
 
 // 인증코드 확인 API
 const postSignUpVerify = http.post<never, SignUpVerifyRequest>(
-  `${MSW_BASE_URL}/users/signup/verify/`,
+  `${MSW_BASE_URL}/auth/email_verify`,
   async ({ request }) => {
     const body = await request.json();
     const { email, auth_code } = body;
@@ -108,7 +108,7 @@ const postSignUp = http.post<never, SignUpRequest>(
 
 // 로그인 API
 const postLogin = http.post<never, LoginRequest>(
-  `${MSW_BASE_URL}/users/login`,
+  `${MSW_BASE_URL}/auth/login`,
   async ({ request }) => {
     const body = (await request.json()) as LoginRequest;
     const { email, password } = body;
@@ -143,7 +143,7 @@ const postLogin = http.post<never, LoginRequest>(
 );
 
 // 토큰 갱신 API
-const postRefresh = http.post(`${MSW_BASE_URL}/user/token/refresh`, async () => {
+const postRefresh = http.post(`${MSW_BASE_URL}/auth/token/refresh`, async () => {
   return HttpResponse.json({
     tokens: {
       token_type: "Bearer",
@@ -157,12 +157,12 @@ const postRefresh = http.post(`${MSW_BASE_URL}/user/token/refresh`, async () => 
 });
 
 // 로그아웃 API
-const postLogout = http.post(`${MSW_BASE_URL}/user/logout`, async () => {
+const postLogout = http.post(`${MSW_BASE_URL}/auth/logout`, async () => {
   return HttpResponse.json({ message: "로그아웃하셨습니다" });
 });
 
 // 회원 탈퇴 API
-const deleteAccount = http.delete(`${MSW_BASE_URL}/users/signout`, async () => {
+const deleteAccount = http.delete(`${MSW_BASE_URL}/user/signout`, async () => {
   return new HttpResponse(null, { status: 204 });
 });
 
