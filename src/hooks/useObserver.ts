@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 
-export default function useObserver(
+export default function useObserver<T extends HTMLElement = HTMLDivElement>(
   onIntersection: () => void,
   observerOptions?: IntersectionObserverInit
 ) {
-  const observerRef = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<T | null>(null);
 
   const handleIntersection: IntersectionObserverCallback = useCallback(
     (entries) => {
