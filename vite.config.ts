@@ -8,10 +8,14 @@ import fs from "fs";
 export default defineConfig(({ mode }) => {
   const isDev = mode === "development";
 
+  const forceHttp = process.env.FORCE_HTTP === "true";
+
   const keyPath = path.resolve(__dirname, "localhost-key.pem");
   const certPath = path.resolve(__dirname, "localhost.pem");
 
   const hasHttpsCerts = fs.existsSync(keyPath) && fs.existsSync(certPath);
+
+  const useHttps = !forceHttp && hasHttpsCerts;
 
   return {
     plugins: [react(), tailwindcss()],
@@ -24,7 +28,7 @@ export default defineConfig(({ mode }) => {
       ? {
           host: "localhost",
           port: 5173,
-          ...(hasHttpsCerts
+          ...(useHttps
             ? {
                 https: {
                   key: fs.readFileSync(keyPath),
