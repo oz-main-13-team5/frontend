@@ -1,5 +1,5 @@
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import type { AxiosError, AxiosResponse } from "axios";
 import { api } from "@/libs/axios";
 import type { SignUpVerifyRequest } from "@/types/api-request-types/auth-request-types";
@@ -24,7 +24,7 @@ export default function useVerifyCodeMutation(
             SignUpVerifyResponse,
             AxiosResponse<SignUpVerifyResponse>,
             SignUpVerifyRequest
-          >(`${MSW_BASE_URL}/users/signup/verify/`, payload)
+          >("/auth/email_verify", payload, { baseURL: API_BASE_URL })
           .then((res) => res.data),
       ...options,
     }

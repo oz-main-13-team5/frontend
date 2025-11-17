@@ -1,5 +1,5 @@
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import type { AxiosError, AxiosResponse } from "axios";
 import { api } from "@/libs/axios";
 import type { SignUpSendRequest } from "@/types/api-request-types/auth-request-types";
@@ -23,7 +23,7 @@ export default function useSendCodeMutation(
           SignUpSendResponse,
           AxiosResponse<SignUpSendResponse>,
           SignUpSendRequest
-        >(`${MSW_BASE_URL}/users/signup/send/`, payload)
+        >("/auth/email_send", payload, { baseURL: API_BASE_URL })
         .then((res) => res.data),
     ...options,
   });

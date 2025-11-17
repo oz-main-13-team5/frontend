@@ -1,4 +1,4 @@
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import axios, { AxiosError } from "axios";
 
@@ -38,9 +38,12 @@ api.interceptors.response.use(
       try {
         // refresh 요청 (rToken은 쿠키로 자동 전송)
         const { data } = await axios.post(
-          `${MSW_BASE_URL}/user/token/refresh`,
+          "/user/token/refresh",
           {},
-          { withCredentials: true }
+          {
+            baseURL: API_BASE_URL,
+            withCredentials: true,
+          }
         );
         console.log("새 accessToken 발급 성공");
 

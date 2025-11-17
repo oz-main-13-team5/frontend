@@ -49,7 +49,7 @@ export default function SignUp() {
 
   // 입력 유효성 검사
   const isEmailReady = !!email && !errors.email;
-  const isCodeValid = /^\d{6}$/.test(verificationCode || "");
+  const isCodeValid = /^[A-Za-z0-9]{6}$/.test(verificationCode || "");
 
   // 인증하기 버튼 라벨 / 색상 상태 스위칭
   const btnVerifyLabel = codeVerified ? "인증완료" : codeSent ? "인증하기" : "코드전송";
@@ -157,8 +157,6 @@ export default function SignUp() {
           <Input
             label="인증코드"
             type="text"
-            pattern="[0-9]*"
-            inputMode="numeric"
             maxLength={6}
             placeholder="인증코드를 입력하세요."
             autoComplete="one-time-code"

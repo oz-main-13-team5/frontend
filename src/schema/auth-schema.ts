@@ -26,7 +26,7 @@ export const nicknameSchema = z
 export const verificationCodeSchema = z
   .string()
   .length(6, "인증코드는 6자리여야 합니다.")
-  .regex(/^\d+$/, "숫자만 입력해주세요.");
+  .regex(/^[A-Za-z0-9]{6}$/, "인증코드는 영문/숫자 6자리여야 합니다.");
 
 // 회원가입 스키마
 export const signupSchema = z
