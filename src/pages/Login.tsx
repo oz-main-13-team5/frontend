@@ -69,14 +69,6 @@ export default function Login() {
     login.mutate(data);
   };
 
-  const handleGoogleLogin = () => {
-    // TODO: 구글 로그인 로직
-  };
-
-  const handleKakaoLogin = () => {
-    // TODO: 카카오 로그인 로직
-  };
-
   return (
     <div className="mx-auto flex w-full max-w-md flex-col justify-center gap-6 p-3 py-10 sm:py-20">
       <div className="grid gap-2">
@@ -125,8 +117,8 @@ export default function Login() {
         </div>
 
         <div className="flex gap-3">
-          <GoogleButton onClick={handleGoogleLogin} />
-          <KakaoButton onClick={handleKakaoLogin} />
+          <GoogleButton />
+          <KakaoButton />
         </div>
       </form>
     </div>
