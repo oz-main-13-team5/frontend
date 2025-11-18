@@ -11,6 +11,7 @@ api.interceptors.request.use((config) => {
   console.log("요청 인터셉터 실행");
 
   const token = useAuthStore.getState().accessToken;
+  // const token = "aaa"; // ← 테스트용
 
   // headers가 undefined일 수 있으므로 안전하게 기본값 설정
   config.headers = config.headers ?? {};
@@ -30,15 +31,17 @@ api.interceptors.response.use(
   // 실패 응답
   async (error: AxiosError) => {
     const { response, config } = error;
+    console.log("응답 인터셉터 진입", response?.status, config?.url);
 
     // accessToken 만료 감시 및 중복 재시도 방지
     if (response?.status === 401 && config && !(config as any)._retry) {
+      console.log("401 감지, refresh 시도");
       (config as any)._retry = true;
 
       try {
         // refresh 요청 (rToken은 쿠키로 자동 전송)
         const { data } = await axios.post(
-          "/user/token/refresh",
+          "/auth/token/refresh",
           {},
           {
             baseURL: API_BASE_URL,
