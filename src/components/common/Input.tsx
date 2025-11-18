@@ -1,5 +1,6 @@
 import { cn } from "@/libs/utils";
-import type { ComponentProps } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import { useState, type ComponentProps } from "react";
 
 interface InputProps extends ComponentProps<"input"> {
   inputClassName?: string;
@@ -24,21 +25,38 @@ export default function Input({
   label,
   errorMessage,
   errorMessageClassName,
+  type,
   ...props
 }: InputProps) {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === "password";
+  const inputType = isPassword ? (showPassword ? "text" : "password") : type;
+
   return (
     <div className={cn("flex flex-col gap-1 text-neutral-900", className)}>
       <label htmlFor={label} className={cn("text-base", labelClassName)}>
         {label}
       </label>
-      <input
-        id={label}
-        className={cn(
-          "w-full rounded-lg border border-neutral-400 p-2 placeholder:text-base placeholder:text-neutral-400 focus:border-green-600 focus:outline-none",
-          inputClassName
+      <div className="relative">
+        <input
+          id={label}
+          type={inputType}
+          className={cn(
+            "w-full rounded-lg border border-neutral-400 p-2 placeholder:text-base placeholder:text-neutral-400 focus:border-green-600 focus:outline-none",
+            inputClassName
+          )}
+          {...props}
+        />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-neutral-500 hover:text-green-600"
+          >
+            {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+          </button>
         )}
-        {...props}
-      />
+      </div>
       <span className={cn("text-sm text-red-500", errorMessageClassName)}>{errorMessage}</span>
     </div>
   );
