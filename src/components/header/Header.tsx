@@ -5,6 +5,7 @@ import useAuthStore from "@/hooks/stores/useAuthStore";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import logoImage from "@/assets/images/logo/logo.png";
 
 export default function Header() {
   const { isAuthed } = useAuthStore();
@@ -24,7 +25,7 @@ export default function Header() {
         <div className="flex w-full max-w-[1440px] items-center justify-between p-3">
           <h1>
             <Link to="/" className="text-lg text-neutral-50 sm:text-2xl sm:font-medium">
-              <img src="/logo/logo.png" alt="이건뭐약 로고" className="h-10 w-auto sm:h-14" />
+              <img src={logoImage} alt="이건뭐약 로고" className="h-10 w-auto sm:h-14" />
             </Link>
           </h1>
 
