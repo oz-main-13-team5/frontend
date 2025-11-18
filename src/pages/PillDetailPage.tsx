@@ -6,6 +6,8 @@ import type { PillDetail } from "@/types/api-response-types/pill-response-types"
 import Bookmark from "@/components/common/Bookmark";
 import Loading from "@/components/common/Loading";
 import PillDetailTab from "@/components/pill-detail-tab/PillDetailTab";
+import PillDetailTabItem from "@/components/pill-detail-tab/PillDetailTabItem";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function PillDetailPage() {
   const { itemSeq } = useParams<{ itemSeq: string }>();
@@ -31,6 +33,8 @@ export default function PillDetailPage() {
     fetchPillDetail();
   }, [itemSeq]);
 
+  const isMobile = useMediaQuery("(max-width: 640px)");
+
   if (loading) return <Loading />;
   if (error) return <p className="py-8 text-center text-red-500">{error}</p>;
   if (!pill) return <p className="py-8 text-center">약 정보를 찾을 수 없습니다.</p>;
@@ -41,6 +45,11 @@ export default function PillDetailPage() {
     item_seq: id,
     entp_name: company,
     is_marked: isMarked,
+    efcy_qesitm: efficacy,
+    use_method_qesitm: usage,
+    atpn_warn_qesitm: caution,
+    se_qesitm: sideEffects,
+    deposit_method_qesitm: storage,
   } = pill;
 
   return (
@@ -65,9 +74,17 @@ export default function PillDetailPage() {
 
       {/* 상세 정보 탭 */}
       <div className="mt-8 pb-16">
-        <div className="sticky top-12 z-10 bg-white pb-2 sm:top-20">
+        {isMobile ? (
+          <div className="space-y-6 text-sm sm:text-base">
+            <PillDetailTabItem type="efficacy" description={efficacy} />
+            <PillDetailTabItem type="usage" description={usage} />
+            <PillDetailTabItem type="caution" description={caution} />
+            <PillDetailTabItem type="sideEffects" description={sideEffects} />
+            <PillDetailTabItem type="storage" description={storage} />
+          </div>
+        ) : (
           <PillDetailTab pillDetail={pill} />
-        </div>
+        )}
       </div>
     </div>
   );
