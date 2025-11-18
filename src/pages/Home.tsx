@@ -37,9 +37,9 @@ export default function Home() {
           {/* 검색 바 */}
           <PillSearchInput className="w-full" />
 
-          {/* 배너 (회색 영역) */}
-          <div className="flex h-48 w-full items-center justify-center rounded-lg bg-neutral-200 text-lg text-neutral-500 sm:h-64">
-            배너 이미지 영역
+          {/* 배너 */}
+          <div className="flex w-full items-center justify-center overflow-hidden rounded-lg bg-neutral-200 text-lg text-neutral-500">
+            <img src="/banner/banner.png" alt="배너" className="h-auto w-full" />
           </div>
 
           <h1 className="text-4xl font-semibold text-neutral-900">대표 의약품</h1>
