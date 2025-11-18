@@ -3,7 +3,7 @@ import { cn } from "@/libs/utils";
 import type { Pill } from "@/types/api-response-types/pill-response-types";
 import { ChevronRightIcon } from "lucide-react";
 import { Link } from "react-router";
-import defautPillImage from "@/assets/images/small_image.jpg";
+import defautPillImage from "@/assets/images/default-image.png";
 
 interface PillListItemProps {
   pill: Pill;
@@ -29,11 +29,10 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
       <img
         alt={`${name}-image`}
         src={imageUrl || defautPillImage}
-        className="h-20 w-20 object-contain object-center sm:h-24 sm:w-36"
+        className="h-20 w-20 rounded-lg object-cover object-center sm:size-30"
       />
       <div className="flex flex-1 flex-col items-start justify-center gap-2 sm:gap-3">
         <div className="flex w-full items-center justify-between">
-          {/* TODO: 실제 링크 연결 */}
           <Link
             to={`/pill/${id}`}
             aria-label={`${name} 상세페이지`}
