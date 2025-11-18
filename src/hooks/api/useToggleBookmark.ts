@@ -20,7 +20,7 @@ export default function useToggleBookmark(
       const { id, isDelete } = toggleParams;
 
       if (isDelete) {
-        const res = await api.delete(`${MSW_BASE_URL}/bookmark`, {
+        const res = await api.delete(`${MSW_BASE_URL}/bookmarks`, {
           data: {
             item_seq: id,
           },
@@ -28,7 +28,7 @@ export default function useToggleBookmark(
 
         return res.data;
       } else {
-        const res = await api.post(`${MSW_BASE_URL}/bookmark`, {
+        const res = await api.post(`${MSW_BASE_URL}/bookmarks`, {
           item_seq: id,
         });
 
