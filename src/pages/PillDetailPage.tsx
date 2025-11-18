@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "@/libs/axios";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import type { PillDetail } from "@/types/api-response-types/pill-response-types";
 import Bookmark from "@/components/common/Bookmark";
 import Loading from "@/components/common/Loading";
@@ -21,7 +21,7 @@ export default function PillDetailPage() {
       try {
         setLoading(true);
 
-        const res = await api.get(`${MSW_BASE_URL}/pills/${itemSeq}`);
+        const res = await api.get(`${API_BASE_URL}/pills/${itemSeq}`);
         setPill(res.data);
       } catch (err) {
         console.error("❌ 약 상세 불러오기 실패:", err);
