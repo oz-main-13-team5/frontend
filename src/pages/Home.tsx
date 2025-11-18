@@ -1,4 +1,4 @@
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import type { Pill } from "@/types/api-response-types/pill-response-types";
 import PillSearchInput from "@/components/PillSearchInput";
 import PillListItem from "@/components/PillListItem";
@@ -16,7 +16,7 @@ export default function Home() {
     const fetchPills = async () => {
       try {
         setLoading(true);
-        const res = await api.get(`${MSW_BASE_URL}/pills/`, {
+        const res = await api.get(`${API_BASE_URL}/pills/`, {
           params: { page: 1 },
         });
         setPillList(res.data.pills);
