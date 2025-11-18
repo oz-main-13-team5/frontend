@@ -1,4 +1,4 @@
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import { api } from "@/libs/axios";
 import type { NicknameEditSchema } from "@/schema/my-page-edit-schema";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ export default function useNicknameEdit(
   return useMutation({
     mutationKey: ["my-page", "edit", "nickname"],
     mutationFn: async (payload) => {
-      await api.patch(`${MSW_BASE_URL}/me/nickname`, {
+      await api.patch(`${API_BASE_URL}/me/nickname`, {
         nickname: payload.nickname,
       });
     },
