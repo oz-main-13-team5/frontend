@@ -19,12 +19,13 @@ export default function PillDetailTab({ pillDetail }: PillDetailTabProps) {
 
   return (
     <Tab
+      className="mb-4"
       items={[
         {
           key: "전체",
           label: "전체 보기",
           content: (
-            <div className="mt-4 space-y-6 text-sm sm:text-base">
+            <div className="space-y-6 text-sm sm:text-base">
               <PillDetailTabItem type="efficacy" description={efficacy} />
               <PillDetailTabItem type="usage" description={usage} />
               <PillDetailTabItem type="caution" description={caution} />
