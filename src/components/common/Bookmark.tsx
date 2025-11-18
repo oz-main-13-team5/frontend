@@ -22,7 +22,7 @@ export default function Bookmark({
   const { isAuthed } = useAuthStore((state) => state);
   const { triggerToast } = useToast();
 
-  const { mutate } = useToggleBookmark(
+  const { mutate, isPending } = useToggleBookmark(
     { isDelete: isBookmarked, id: pillId },
     {
       onSettled: (data) => {
@@ -57,6 +57,7 @@ export default function Bookmark({
           "flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14",
           className
         )}
+        disabled={isPending}
         {...props}
       >
         <BookmarkIcon className="text-green-600" fill={isBookmarked ? "#16a34a" : "#fafafa"} />
