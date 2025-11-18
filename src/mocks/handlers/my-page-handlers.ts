@@ -4,7 +4,7 @@ import { http, HttpResponse } from "msw";
 
 const BOOKMARK_LIMIT = 20;
 
-const patchNickname = http.patch(`${MSW_BASE_URL}/me/nickname`, async ({ request }) => {
+const patchNickname = http.patch(`${MSW_BASE_URL}/users/me`, async ({ request }) => {
   const body = (await request.clone().json()) as { nickname: string };
 
   if (!body.nickname) {
