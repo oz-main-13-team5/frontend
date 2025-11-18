@@ -8,6 +8,7 @@ import Loading from "@/components/common/Loading";
 import PillDetailTab from "@/components/pill-detail-tab/PillDetailTab";
 import PillDetailTabItem from "@/components/pill-detail-tab/PillDetailTabItem";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import defaultImage from "@/assets/images/default-image.png";
 
 export default function PillDetailPage() {
   const { itemSeq } = useParams<{ itemSeq: string }>();
@@ -55,24 +56,38 @@ export default function PillDetailPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 sm:py-8">
       {/* 상단 약 기본 정보 */}
-      <div className="flex flex-col gap-6 sm:flex-row">
-        <img
-          src={imageUrl || "/no_image.png"}
-          alt={name}
-          className="mx-auto h-32 w-32 rounded-md border object-contain sm:mx-0 sm:h-40 sm:w-40"
-        />
-        <div className="flex flex-col justify-center gap-1 text-center sm:text-left">
-          <h1 className="text-2xl font-semibold sm:text-3xl">{name}</h1>
-          <p className="text-sm text-gray-600">업체명: {company}</p>
-          <p className="text-sm text-gray-600">제품코드: {id}</p>
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-semibold sm:text-3xl">기본정보</h1>
+          <Bookmark pillId={id} initialState={isMarked} />
+        </div>
 
-          <div className="flex justify-center sm:justify-start">
-            <Bookmark pillId={id} initialState={isMarked} className="mt-2" />
+        <div className="flex flex-col items-start justify-center gap-6 sm:flex-row sm:justify-start">
+          <img
+            src={imageUrl || defaultImage}
+            alt={name}
+            className="mx-auto h-32 w-32 rounded-md border object-contain sm:mx-0 sm:h-40 sm:w-40"
+          />
+
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-neutral-600">품목기준코드</span>
+              <span className="text-neutral-900">{id}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-neutral-600">업체명</span>
+              <span className="text-neutral-900">{company}</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <span className="text-neutral-600">제품명</span>
+              <span className="text-neutral-900">{name}</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* 상세 정보 탭 */}
       <div className="mt-8 pb-16">
         {isMobile ? (
           <div className="space-y-6 text-sm sm:text-base">
