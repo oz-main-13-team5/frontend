@@ -2,7 +2,7 @@ import {
   IMAGE_SEARCH_MAX_COUNT,
   IMAGE_SEARCH_REFETCH_INTERVAL_MS,
 } from "@/constants/api-constants";
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import { api } from "@/libs/axios";
 import type { ImageSearchApiResponse } from "@/types/api-response-types/image-search-types";
 import { useQuery } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ export default function useImageSearchList() {
   return useQuery<ImageSearchApiResponse>({
     queryKey: ["mypage", "image-search-list"],
     queryFn: async () => {
-      const res = await api.get(`${MSW_BASE_URL}/my_requests`);
+      const res = await api.get("/pills/search-histories/", { baseURL: API_BASE_URL });
       const data = res.data;
 
       // 리스트 10개만 노출 (명세 참고)
