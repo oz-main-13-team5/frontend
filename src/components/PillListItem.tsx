@@ -45,7 +45,7 @@ export default function PillListItem({ className, pill }: PillListItemProps) {
           </Link>
           <Bookmark pillId={id} initialState={isMarked} />
         </div>
-        <span className="text-lg text-neutral-600">{description}</span>
+        <p className="line-clamp-1 text-lg text-ellipsis text-neutral-600">{description}</p>
       </div>
     </div>
   );
