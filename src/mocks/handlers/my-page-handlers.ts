@@ -14,15 +14,21 @@ const patchNickname = http.patch(`${MSW_BASE_URL}/users/me`, async ({ request })
   return new HttpResponse(null, { status: 200 });
 });
 
-const patchPassword = http.patch(`${MSW_BASE_URL}/me/password`, async ({ request }) => {
-  const body = (await request.clone().json()) as { current_password: string; new_password: string };
+const patchPassword = http.patch(
+  `${MSW_BASE_URL}/users/me/change-password`,
+  async ({ request }) => {
+    const body = (await request.clone().json()) as {
+      current_password: string;
+      new_password: string;
+    };
 
-  if (!(body.current_password && body.new_password)) {
-    return new HttpResponse(null, { status: 400 });
+    if (!(body.current_password && body.new_password)) {
+      return new HttpResponse(null, { status: 400 });
+    }
+
+    return new HttpResponse(null, { status: 200 });
   }
-
-  return new HttpResponse(null, { status: 200 });
-});
+);
 
 // 북마크 조회
 const getBookmarks = http.get(`${MSW_BASE_URL}/bookmark`, () => {
