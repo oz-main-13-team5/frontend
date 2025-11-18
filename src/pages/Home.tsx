@@ -5,6 +5,7 @@ import PillListItem from "@/components/PillListItem";
 import { useEffect, useState } from "react";
 import { api } from "@/libs/axios";
 import Loading from "@/components/common/Loading";
+import bannerImage from "@/assets/images/banner/banner.png";
 
 export default function Home() {
   const [pillList, setPillList] = useState<Pill[]>([]);
@@ -39,7 +40,7 @@ export default function Home() {
 
           {/* 배너 */}
           <div className="flex w-full items-center justify-center overflow-hidden rounded-lg bg-neutral-200 text-lg text-neutral-500">
-            <img src="/banner/banner.png" alt="배너" className="h-auto w-full" />
+            <img src={bannerImage} alt="배너" className="h-auto w-full" />
           </div>
 
           <h1 className="text-4xl font-semibold text-neutral-900">대표 의약품</h1>
