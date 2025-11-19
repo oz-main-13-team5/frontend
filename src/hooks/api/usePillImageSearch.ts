@@ -18,12 +18,10 @@ export default function usePillImageSearch(
     mutationFn: async ({ image, filename }) => {
       const formData = new FormData();
 
-      formData.append("image_base64", image);
+      formData.append("file", image);
       formData.append("filename", filename);
 
-      await api.post(`${API_BASE_URL}/pills/image`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await api.post(`${API_BASE_URL}/pills/image/`, formData);
     },
     ...options,
   });
