@@ -1,6 +1,6 @@
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
+import { api } from "@/libs/axios";
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
-import axios from "axios";
 
 interface PillImageSearchParams {
   image: File;
@@ -18,12 +18,10 @@ export default function usePillImageSearch(
     mutationFn: async ({ image, filename }) => {
       const formData = new FormData();
 
-      formData.append("image_base64", image);
+      formData.append("file", image);
       formData.append("filename", filename);
 
-      await axios.post(`${MSW_BASE_URL}/pills/image`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await api.post(`${API_BASE_URL}/pills/image/`, formData);
     },
     ...options,
   });
