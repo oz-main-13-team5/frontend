@@ -20,12 +20,7 @@ export default function useToggleBookmark(
       const { id, isDelete } = toggleParams;
 
       if (isDelete) {
-        const res = await api.delete(`${API_BASE_URL}/bookmarks/`, {
-          data: {
-            item_seq: id,
-          },
-        });
-
+        const res = await api.delete(`${API_BASE_URL}/bookmarks/${encodeURIComponent(id)}`);
         return res.data;
       } else {
         const res = await api.post(`${API_BASE_URL}/bookmarks/`, {
