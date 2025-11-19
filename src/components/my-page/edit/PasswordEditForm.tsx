@@ -2,6 +2,7 @@ import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
 import { usePasswordEdit } from "@/hooks/api/my-page";
+import useToast from "@/hooks/useToast";
 import { cn } from "@/libs/utils";
 import { passwordEditSchema, type PasswordEditSchema } from "@/schema/my-page-edit-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,8 +28,11 @@ export default function PasswordEditForm({ className }: PasswordEditFormProps) {
 
   const navigate = useNavigate();
 
+  const { triggerToast } = useToast();
+
   const { mutate, isPending } = usePasswordEdit({
     onSuccess: () => {
+      triggerToast("success", "비밀번호 변경 완료", "성공적으로 비밀번호를 변경했습니다.");
       navigate("/my-page");
     },
     onError: (error) => {

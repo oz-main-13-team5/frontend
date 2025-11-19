@@ -3,6 +3,7 @@ import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
 import { useNicknameEdit } from "@/hooks/api/my-page";
 import useAuthStore from "@/hooks/stores/useAuthStore";
+import useToast from "@/hooks/useToast";
 import { cn } from "@/libs/utils";
 import { nicknameEditSchema, type NicknameEditSchema } from "@/schema/my-page-edit-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,9 +32,12 @@ export default function NicknameEditForm({ className }: NicknameEditFormProps) {
 
   const navigate = useNavigate();
 
+  const { triggerToast } = useToast();
+
   const { mutate, isPending } = useNicknameEdit({
     onSuccess: () => {
       setUserName(getValues("nickname"));
+      triggerToast("success", "닉네임 변경 완료", "성공적으로 닉네임을 변경했습니다.");
       navigate("/my-page");
     },
     onError: (error) => {
