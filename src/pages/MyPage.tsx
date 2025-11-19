@@ -116,7 +116,10 @@ export default function Mypage() {
                         <p className="text-center text-neutral-500">이미지 검색 내역이 없습니다.</p>
                       )}
                       {imageSearchList.map((record: ImageSearchApiRecord) => (
-                        <ImageSearchPillListItem key={record.created_at} record={record} />
+                        <ImageSearchPillListItem
+                          key={`${record.filename}-${record.status}`}
+                          record={record}
+                        />
                       ))}
                     </div>
                   ),
