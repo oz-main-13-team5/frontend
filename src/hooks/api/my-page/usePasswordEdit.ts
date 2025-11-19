@@ -12,7 +12,7 @@ export default function usePasswordEdit(
   return useMutation({
     mutationKey: ["my-page", "edit", "password"],
     mutationFn: async (payload) => {
-      await api.patch(`${API_BASE_URL}/users/me/change-password`, {
+      await api.patch(`${API_BASE_URL}/mypage/password/`, {
         current_password: payload.currentPassword,
         new_password: payload.newPassword,
       });

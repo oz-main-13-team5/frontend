@@ -12,7 +12,7 @@ export default function useNicknameEdit(
   return useMutation({
     mutationKey: ["my-page", "edit", "nickname"],
     mutationFn: async (payload) => {
-      await api.patch(`${API_BASE_URL}/users/me`, {
+      await api.patch(`${API_BASE_URL}/mypage/nickname/`, {
         nickname: payload.nickname,
       });
     },
