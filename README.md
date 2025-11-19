@@ -10,7 +10,7 @@
 
 ## 서비스 소개
 
-이건뭐약은 사용자가 약 사진 업로드 시, 의약품의 이름·성분·효능·주의사항 등을 빠르게 조회할 수 있는 서비스입니다.
+이건뭐약은 이미지 분석을 통한 의약품 정보 제공 서비스입니다.
 
 - 이미지/텍스트 기반 약 검색
 - 북마크 기능
@@ -63,6 +63,15 @@
 ![MSW](https://img.shields.io/badge/MSW-FF6A33?style=for-the-badge&logo=mockserviceworker&logoColor=white)
 
 ### BE
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=PostgreSQL&logoColor=white)
+<br>
+
+![AWS RDS](https://img.shields.io/badge/AWS%20RDS-527FFF?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 <br>
 
@@ -117,14 +126,3 @@
 | **init**     | 프로젝트 초기 생성                                   |
 | **rename**   | 파일 혹은 폴더명 수정 또는 이동                      |
 | **remove**   | 파일을 삭제하는 작업만 수행한 경우                   |
-
-<br>
-
-## 환경변수 세팅
-
-- 아래와 같이 .env 파일을 설정해주세요.
-
-```
-# api 주소
-VITE_API_BASE_URL=
-```
