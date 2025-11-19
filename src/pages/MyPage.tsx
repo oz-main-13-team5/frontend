@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router";
 export default function Mypage() {
   // 북마크 목록
   const { data, isPending: isBookmarkListPending } = useBookmarkList();
-  const bookmarkedPills = data?.pills ?? [];
+  const bookmarkedPills = data ?? [];
 
   // 이미지 검색 목록
   const { data: imageData } = useImageSearchList();
