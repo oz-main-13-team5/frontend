@@ -2,6 +2,7 @@ import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Loading from "@/components/common/Loading";
 import { useNicknameEdit } from "@/hooks/api/my-page";
+import useAuthStore from "@/hooks/stores/useAuthStore";
 import { cn } from "@/libs/utils";
 import { nicknameEditSchema, type NicknameEditSchema } from "@/schema/my-page-edit-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,9 +20,12 @@ export default function NicknameEditForm({ className }: NicknameEditFormProps) {
     handleSubmit,
     register,
     formState: { errors },
+    getValues,
   } = useForm<NicknameEditSchema>({
     resolver: zodResolver(nicknameEditSchema),
   });
+
+  const setUserName = useAuthStore((state) => state.setUserName);
 
   const [error, setError] = useState("");
 
@@ -29,6 +33,7 @@ export default function NicknameEditForm({ className }: NicknameEditFormProps) {
 
   const { mutate, isPending } = useNicknameEdit({
     onSuccess: () => {
+      setUserName(getValues("nickname"));
       navigate("/my-page");
     },
     onError: (error) => {
