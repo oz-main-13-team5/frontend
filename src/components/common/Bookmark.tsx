@@ -1,4 +1,3 @@
-import Modal from "@/components/Modal";
 import useToggleBookmark from "@/hooks/api/useToggleBookmark";
 import useAuthStore from "@/hooks/stores/useAuthStore";
 import useToast from "@/hooks/useToast";
@@ -18,18 +17,17 @@ export default function Bookmark({
   ...props
 }: BookmarkProps) {
   const [isBookmarked, setIsBookmarked] = useState(initialState);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { isAuthed } = useAuthStore((state) => state);
   const { triggerToast } = useToast();
 
-  const { mutate } = useToggleBookmark(
+  const { mutate, isPending } = useToggleBookmark(
     { isDelete: isBookmarked, id: pillId },
     {
       onSettled: (data) => {
         //실패하면 낙천적 UI 정정
         if (data && !data?.success) {
           setIsBookmarked((prev) => !prev);
-          setIsModalOpen(true);
+          triggerToast("error", "북마크 최대 개수 초과", "북마크는 최대 20개까지 가능합니다.");
         }
       },
     }
@@ -50,26 +48,16 @@ export default function Bookmark({
   };
 
   return (
-    <>
-      <button
-        onClick={handleButtonClick}
-        className={cn(
-          "flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14",
-          className
-        )}
-        {...props}
-      >
-        <BookmarkIcon className="text-green-600" fill={isBookmarked ? "#16a34a" : "#fafafa"} />
-      </button>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-        }}
-        title="북마크 최대 개수 초과"
-        description="북마크는 최대 20개까지만 가능합니다."
-      />
-    </>
+    <button
+      onClick={handleButtonClick}
+      className={cn(
+        "flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14",
+        className
+      )}
+      disabled={isPending}
+      {...props}
+    >
+      <BookmarkIcon className="text-green-600" fill={isBookmarked ? "#16a34a" : "#fafafa"} />
+    </button>
   );
 }

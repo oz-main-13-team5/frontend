@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 
 const BOOKMARK_LIMIT = 20;
 
-const postBookmark = http.post(`${MSW_BASE_URL}/bookmark`, async ({ request }) => {
+const postBookmark = http.post(`${MSW_BASE_URL}/bookmarks`, async ({ request }) => {
   const body = (await request.clone().json()) as { item_seq: string };
 
   if (!body.item_seq) {
@@ -45,7 +45,7 @@ const postBookmark = http.post(`${MSW_BASE_URL}/bookmark`, async ({ request }) =
   return HttpResponse.json(response);
 });
 
-const deleteBookmark = http.delete(`${MSW_BASE_URL}/bookmark`, async ({ request }) => {
+const deleteBookmark = http.delete(`${MSW_BASE_URL}/bookmarks`, async ({ request }) => {
   const body = (await request.clone().json()) as { item_seq: string };
 
   if (!body.item_seq) {
