@@ -51,7 +51,7 @@ api.interceptors.response.use(
         console.log("새 accessToken 발급 성공");
 
         // 새 accessToken 전역 상태에 저장
-        const newAccessToken = data?.tokens?.access_token ?? data?.access_token;
+        const newAccessToken = data?.tokens?.access_token ?? data?.access;
         if (newAccessToken) {
           const state = useAuthStore.getState();
           useAuthStore.setState({ ...state, accessToken: newAccessToken });
