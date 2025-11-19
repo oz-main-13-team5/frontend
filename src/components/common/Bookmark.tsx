@@ -48,18 +48,16 @@ export default function Bookmark({
   };
 
   return (
-    <>
-      <button
-        onClick={handleButtonClick}
-        className={cn(
-          "flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14",
-          className
-        )}
-        disabled={isPending}
-        {...props}
-      >
-        <BookmarkIcon className="text-green-600" fill={isBookmarked ? "#16a34a" : "#fafafa"} />
-      </button>
-    </>
+    <button
+      onClick={handleButtonClick}
+      className={cn(
+        "flex size-10 items-center justify-center rounded-lg border border-green-600 sm:size-14",
+        className
+      )}
+      disabled={isPending}
+      {...props}
+    >
+      <BookmarkIcon className="text-green-600" fill={isBookmarked ? "#16a34a" : "#fafafa"} />
+    </button>
   );
 }
