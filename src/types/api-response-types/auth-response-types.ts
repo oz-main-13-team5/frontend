@@ -17,7 +17,7 @@ export interface Token {
 }
 export interface ApiError {
   error: string;
-  code: number;
+  code: string | number;
 }
 
 // 회원가입 응답

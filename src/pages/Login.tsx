@@ -13,9 +13,8 @@ import type { AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 
-const getApiError = (error: unknown) => {
-  const axiosError = error as AxiosError<LoginApiErrorResponse>;
-  return axiosError?.response?.data?.error ?? null;
+const getApiError = (error: AxiosError<LoginApiErrorResponse>) => {
+  return error.response?.data?.error ?? null;
 };
 
 export default function Login() {
@@ -43,11 +42,18 @@ export default function Login() {
       sessionStorage.setItem(JUST_LOGGED_IN, "true");
       navigate("/", { replace: true });
     },
-    onError: (error) => {
-      const axiosError = error as AxiosError<LoginApiErrorResponse>;
-      const status = axiosError?.response?.status ?? axiosError?.response?.data?.code;
+    onError: (error: AxiosError<LoginApiErrorResponse>) => {
+      const status = error?.response?.status;
+      const code = error?.response?.data?.code;
       const msg = getApiError(error) ?? "로그인 중 오류가 발생했습니다.";
 
+      // 이미 탈퇴한 계정 처리
+      if (code === "user_inactive") {
+        setError("email", { message: "이미 탈퇴한 계정입니다." });
+        return;
+      }
+
+      // 기본 에러 처리
       if (status === 400 || status === 401) {
         setError("email", { message: "이메일 또는 비밀번호를 확인해주세요." });
       } else if (status === 500) {
