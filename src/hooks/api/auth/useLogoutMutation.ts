@@ -4,19 +4,21 @@ import type { LogoutResponse } from "@/types/api-response-types/auth-response-ty
 import { useMutation, type UseMutationOptions } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { useNavigate } from "react-router";
-import { MSW_BASE_URL } from "@/constants/url-constants";
 import { JUST_LOGGED_OUT } from "@/constants/key-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 
 export default function useLogoutMutation(
-  options?: UseMutationOptions<LogoutResponse, AxiosError>
+  options?: UseMutationOptions<LogoutResponse, AxiosError, void>
 ) {
   const navigate = useNavigate();
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
-  return useMutation({
+  return useMutation<LogoutResponse, AxiosError, void>({
     mutationKey: ["auth", "logout"],
     mutationFn: () =>
-      api.post<LogoutResponse>(`${MSW_BASE_URL}/user/logout`).then((res) => res.data),
+      api
+        .post<LogoutResponse>("/auth/logout", null, { baseURL: API_BASE_URL })
+        .then((res) => res.data),
     onSettled: () => {
       clearAuth();
       sessionStorage.setItem(JUST_LOGGED_OUT, "true");
