@@ -1,3 +1,5 @@
+import type { Pill } from "@/types/api-response-types/pill-response-types";
+
 export interface BoomarkResponse {
   success: boolean;
   message: string;
@@ -5,12 +7,6 @@ export interface BoomarkResponse {
 }
 
 // 마이페이지 북마크 리스트
-export interface BookmarkItem {
-  id: number;
-  item_seq: string;
-  item_name: string;
-  entp_name: string;
-  item_image_url: string;
-}
+export type BookmarkItem = Omit<Pill, "is_marked" | "efcy_qesitm">;
 
 export type BookmarkListResponse = BookmarkItem[];
