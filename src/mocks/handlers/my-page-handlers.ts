@@ -28,7 +28,7 @@ const patchPassword = http.patch(`${MSW_BASE_URL}/mypage/password`, async ({ req
 });
 
 // 북마크 조회
-const getBookmarks = http.get(`${MSW_BASE_URL}/bookmark`, () => {
+const getBookmarks = http.get(`${MSW_BASE_URL}/bookmarks`, () => {
   const bookmarked = mockPills.filter((pill) => pill.is_marked);
 
   const response = {
