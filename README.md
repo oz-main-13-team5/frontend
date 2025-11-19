@@ -8,7 +8,7 @@
 
 <br>
 
-## 서비스 소개
+## 💡 서비스 소개
 
 이건뭐약은 이미지 분석을 통한 의약품 정보 제공 서비스입니다.
 
@@ -20,7 +20,15 @@
 
 <br>
 
-## 배포링크
+## 🎬 화면 데모
+
+| 메인 화면 (Desktop)                       | 메인 화면 (Mobile · 640px)                   |
+| ----------------------------------------- | -------------------------------------------- |
+| <img src="./docs/main.gif" width="500" /> | <img src="./docs/main_sm.gif" width="200" /> |
+
+<br>
+
+## 🖇️ 배포 링크
 
 - [Frontend](https://frontend-mu-ruby.vercel.app/)
 - [Backend](https://search-pill.p-e.kr/)
@@ -29,11 +37,9 @@
 
 ## 📋 Documents
 
-### 발표
+- [이건뭐약 발표 PPT](https://docs.google.com/presentation/d/1BKcQu7VAuFIlppJSzQg8yMZ0Rw7T2qOT/edit?slide=id.p1#slide=id.p1)
 
-- [이건뭐약 PPT](https://docs.google.com/presentation/d/1BKcQu7VAuFIlppJSzQg8yMZ0Rw7T2qOT/edit?slide=id.p1#slide=id.p1)
-
-### 개발
+<br>
 
 - [사용자 요구사항 정의서](https://www.notion.so/296caf5650aa808ab4b3e0750a2a55cc?source=copy_link)
 - [Figma 와이어프레임/디자인시스템](https://www.figma.com/design/y1mrdq5f3bYzMjdKwTn2ZE/Main-Project_%EC%9D%B4%EA%B1%B4%EB%AD%90%EC%95%BD_5%ED%8C%80?node-id=5-92&t=f4jOgtHbtvHmJF1T-1)
