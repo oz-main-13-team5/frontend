@@ -97,7 +97,7 @@ export default function Mypage() {
                         <p className="text-center text-neutral-500">북마크된 약이 없습니다.</p>
                       ) : (
                         bookmarkedPills.map((pill) => (
-                          <PillListItem key={pill.item_seq} pill={pill} />
+                          <PillListItem key={pill.item_seq} pill={{ ...pill, is_marked: true }} />
                         ))
                       )}
                     </div>
