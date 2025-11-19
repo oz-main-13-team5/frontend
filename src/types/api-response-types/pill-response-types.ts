@@ -8,10 +8,10 @@ export interface PillList {
 export interface Pill {
   item_seq: string;
   item_name: string;
-  efcy_qesitm: string;
+  efcy_qesitm?: string;
   entp_name: string;
   item_image_url: string;
-  is_marked: boolean;
+  is_marked?: boolean;
 }
 
 export interface PillDetail extends Pill {
