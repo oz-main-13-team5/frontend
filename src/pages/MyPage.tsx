@@ -17,7 +17,7 @@ import { Link, useNavigate } from "react-router";
 export default function Mypage() {
   // 북마크 목록
   const { data, isPending: isBookmarkListPending } = useBookmarkList();
-  const bookmarkedPills = data?.pills ?? [];
+  const bookmarkedPills = data ?? [];
 
   // 이미지 검색 목록
   const { data: imageData } = useImageSearchList();
@@ -97,7 +97,10 @@ export default function Mypage() {
                         <p className="text-center text-neutral-500">북마크된 약이 없습니다.</p>
                       ) : (
                         bookmarkedPills.map((pill) => (
-                          <PillListItem key={pill.item_seq} pill={pill} />
+                          <PillListItem
+                            key={pill.item_seq}
+                            pill={{ ...pill, is_marked: true, efcy_qesitm: "" }}
+                          />
                         ))
                       )}
                     </div>
@@ -113,7 +116,10 @@ export default function Mypage() {
                         <p className="text-center text-neutral-500">이미지 검색 내역이 없습니다.</p>
                       )}
                       {imageSearchList.map((record: ImageSearchApiRecord) => (
-                        <ImageSearchPillListItem key={record.created_at} record={record} />
+                        <ImageSearchPillListItem
+                          key={`${record.filename}-${record.status}`}
+                          record={record}
+                        />
                       ))}
                     </div>
                   ),

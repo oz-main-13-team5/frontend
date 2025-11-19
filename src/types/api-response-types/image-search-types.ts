@@ -8,7 +8,6 @@ export type ImageSearchStatus = "pending" | "completed" | "completed_failed";
 export interface ImageSearchApiRecordBase {
   filename: string;
   url: string;
-  created_at: string;
 }
 
 export type ImageSearchApiRecord =

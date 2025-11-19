@@ -1,12 +1,12 @@
-import { MSW_BASE_URL } from "@/constants/url-constants";
+import { API_BASE_URL } from "@/constants/url-constants";
 import { api } from "@/libs/axios";
 import type { PillDetail } from "@/types/api-response-types/pill-response-types";
 import { useQuery } from "@tanstack/react-query";
 
-// /my_requests 응답의 item_seq를 이용해 의약품 상세 정보 요청
+// /pills/search-histories/ 응답의 item_seq를 이용해 의약품 상세 정보 요청
 // - 검색 결과 completed 상태일 때만 호출
 async function fetchPillDetail(itemSeq: string) {
-  const { data } = await api.get<PillDetail>(`${MSW_BASE_URL}/pills/${itemSeq}`);
+  const { data } = await api.get<PillDetail>(`/pills/${itemSeq}`, { baseURL: API_BASE_URL });
   return data;
 }
 

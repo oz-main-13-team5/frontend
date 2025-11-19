@@ -7,8 +7,6 @@ export interface BoomarkResponse {
 }
 
 // 마이페이지 북마크 리스트
-export interface BookmarkListResponse {
-  limit: number;
-  total: number;
-  pills: Pill[];
-}
+export type BookmarkItem = Omit<Pill, "is_marked" | "efcy_qesitm">;
+
+export type BookmarkListResponse = BookmarkItem[];
