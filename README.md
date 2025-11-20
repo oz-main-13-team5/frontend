@@ -24,15 +24,15 @@
 
 | 메인 화면                                 | 회원가입                                    | 로그인                                     |
 | ----------------------------------------- | ------------------------------------------- | ------------------------------------------ |
-| <img src="./docs/main.gif" width="400" /> | <img src="./docs/signup.gif" width="400" /> | <img src="./docs/login.gif" width="400" /> |
+| <img src="./docs/main.gif" width="240" /> | <img src="./docs/signup.gif" width="240" /> | <img src="./docs/login.gif" width="240" /> |
 
 | 의약품 검색                                   | 의약품 이미지 검색                                | 회원탈퇴                                     |
 | --------------------------------------------- | ------------------------------------------------- | -------------------------------------------- |
-| <img src="./docs/pilllist.gif" width="400" /> | <img src="./docs/image-search.gif" width="400" /> | <img src="./docs/signout.gif" width="400" /> |
+| <img src="./docs/pilllist.gif" width="240" /> | <img src="./docs/image-search.gif" width="240" /> | <img src="./docs/signout.gif" width="240" /> |
 
 | 마이페이지                                  | 마이페이지 닉네임 수정                                    | 마이페이지 비밀번호 수정                                  |
 | ------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
-| <img src="./docs/mypage.gif" width="400" /> | <img src="./docs/mypage_edit_nickname.gif" width="400" /> | <img src="./docs/mypage_edit_password.gif" width="400" /> |
+| <img src="./docs/mypage.gif" width="240" /> | <img src="./docs/mypage_edit_nickname.gif" width="240" /> | <img src="./docs/mypage_edit_password.gif" width="240" /> |
 
 <br>
 
